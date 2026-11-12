@@ -351,7 +351,9 @@ const ICON = {
 };
 
 /* ---------- toasty ---------- */
-function toast(msg, { kind = 'info', action = null, ms = 3800 } = {}) {
+function toast(msg, { kind = 'info', action = null, ms = 3800, logged = false } = {}) {
+  // komunikaty o błędach trafiają też do dziennika błędów (Ustawienia), żeby był ślad po dymku
+  if (kind === 'error' && !logged && typeof ErrLog !== 'undefined') ErrLog.add(msg, { kind: 'message', silent: true });
   const box = document.getElementById('toasts');
   if (!box) return;
   const el = document.createElement('div');

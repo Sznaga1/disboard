@@ -173,7 +173,7 @@ async function main() {
     B.close();
 
     console.log('Ekrany');
-    const routes = ['#/', '#/lista', '#/lista/watching', '#/szukaj', '#/anime/100001', '#/premiery', '#/ngnl', '#/skaner', '#/statystyki', '#/statystyki/nerd', '#/historia', '#/historia/100001', '#/ustawienia'];
+    const routes = ['#/', '#/lista', '#/lista/watching', '#/szukaj', '#/anime/100001', '#/premiery', '#/ngnl', '#/skaner', '#/statystyki', '#/statystyki/nerd', '#/statystyki/rok', '#/historia', '#/historia/100001', '#/ustawienia'];
     for (const r of routes) {
       const before = A.logs.length;
       await A.ev(`(location.hash = ${JSON.stringify(r)}, new Promise((res) => setTimeout(res, 700)))`);
@@ -188,6 +188,37 @@ async function main() {
     await A.reload(); await A.ready();
     const size = await A.ev(`SDB.get('main').then((r) => r.json.length)`);
     check(`2600 pozycji, ${(size / 1e6).toFixed(1)} mln znaków (limit localStorage ~5)`, (await A.ev('Object.keys(S.entries).length')) === 2600 && size > 5e6);
+
+    console.log('Szybkie „+1” na liście (2600 pozycji)');
+    // „Oglądam” w danych testowych ma wszystkie odcinki; kilku pozycjom cofamy postęp, żeby miały „+1”
+    await A.ev(`(() => { for (let i = 5; i <= 200; i += 5) { const s = S.entries[100000 + i].sessions[0]; s.progress = 10; s.finishedAt = null; s.done = false; } S.settings.listSorts = {}; S.settings.listView = 'grid'; save(); location.hash = '#/lista'; return new Promise((r) => setTimeout(r, 1500)); })()`);
+    const inc = await A.ev(`(async () => {
+      const cards = [...document.querySelectorAll('#l-out .ecard')];
+      const other = cards[3];
+      other.dataset.probe = 'stary-wezel';
+      const btns = [...document.querySelectorAll('#l-out .ecard [data-inc]')];
+      const b = btns[Math.floor(btns.length / 2)];
+      const id = Number(b.dataset.inc);
+      const before = Lib.cur(S.entries[id]).progress;
+      const t = performance.now();
+      b.click();
+      await Promise.resolve(); await Promise.resolve();
+      document.body.offsetHeight;
+      const ms = performance.now() - t;
+      const first = document.querySelector('#l-out .ecard');
+      return { ms: Math.round(ms), kept: !!document.querySelector('[data-probe="stary-wezel"]'), top: Number(first.dataset.id) === id, prog: Lib.cur(S.entries[id]).progress - before,
+        same: [...document.querySelectorAll('#l-out .ecard')].length === cards.length, num: first.querySelector('.ecard-prog-row .num').textContent };
+    })()`);
+    check(`„+1” bez przebudowy całej listy (${inc.ms} ms)`, inc.kept && inc.prog === 1 && inc.ms < 80, JSON.stringify(inc));
+    check('kliknięta karta na górze (sortowanie „ostatnio zmieniane”), liczba kart bez zmian', inc.top && inc.same, JSON.stringify(inc));
+    const full = await A.ev(`(async () => { const t = performance.now(); document.getElementById('l-grid').click(); await Promise.resolve(); document.body.offsetHeight; return Math.round(performance.now() - t); })()`);
+    check(`zmiana widoku nadal rysuje całą listę (${full} ms)`, !(await A.ev(`!!document.querySelector('[data-probe]')`)));
+
+    console.log('Twój rok w anime');
+    await A.ev(`(location.hash = '#/statystyki/rok', new Promise((r) => setTimeout(r, 2500)))`);
+    const yr = await A.ev(`(async () => { const img = document.querySelector('#y-card img'); const b = img ? await (await fetch(img.src)).blob() : null; return { hero: (document.querySelector('.yr-hero') || {}).innerText || '', img: !!img, type: b && b.type, size: b ? b.size : 0, save: !(document.getElementById('y-save') || {}).disabled }; })()`);
+    check('podsumowanie roku z godzinami', /Twój rok \d{4} w anime/i.test(yr.hero) && /godzin/.test(yr.hero), JSON.stringify(yr.hero.slice(0, 120)));
+    check(`karta PNG gotowa do zapisania (${Math.round(yr.size / 1024)} kB)`, yr.img && yr.type === 'image/png' && yr.size > 20000 && yr.save, JSON.stringify(yr));
 
     console.log('Kopia sprzed przeniesienia');
     await A.ev(`restoreBackup('przed-migracja').then(() => new Promise((r) => setTimeout(r, 500)))`);
@@ -231,6 +262,23 @@ async function main() {
 
     const errs = A.logs.filter((l) => l.startsWith('EXC') || l.startsWith('error'));
     check('brak błędów w konsoli', !errs.length, errs.slice(0, 3).join(' | '));
+    check('dziennik błędów pusty po całym teście', (await A.ev('ErrLog.list().length')) === 0, JSON.stringify(await A.ev('ErrLog.list().slice(0, 3)')));
+
+    console.log('Dziennik błędów');
+    await A.ev(`(location.hash = '#/lista', setTimeout(() => { throw new TypeError('testowy błąd'); }), Promise.reject(new Error('testowa obietnica')), new Promise((r) => setTimeout(r, 600)))`);
+    const el = await A.ev(`ErrLog.list().map((e) => e.kind + ':' + e.msg).join(' | ')`);
+    check('złapany błąd i nieobsłużona obietnica', el.includes('error:TypeError: testowy błąd') && el.includes('promise:testowa obietnica'), el);
+    check('dymek „Coś poszło nie tak” (jeden na serię)', (await A.ev(`[...document.querySelectorAll('.toast')].filter((t) => t.innerText.includes('Coś poszło nie tak')).length`)) === 1);
+    await A.ev(`(toast('Nie udało się czegoś zrobić', { kind: 'error' }), true)`);
+    check('dymek błędu zapisany jako komunikat', (await A.ev(`ErrLog.list()[0].kind + ':' + ErrLog.list()[0].msg`)) === 'message:Nie udało się czegoś zrobić');
+    await A.ev(`([...document.querySelectorAll('.toast button')].find((b) => b.textContent === 'Pokaż').click(), new Promise((r) => setTimeout(r, 1200)))`);
+    check('„Pokaż” prowadzi do dziennika w Ustawieniach', (await A.ev(`location.hash`)) === '#/ustawienia?bledy' && (await A.ev(`document.querySelectorAll('#el-host li').length`)) === 3);
+    await A.ev(`(document.getElementById('el-copy').click(), new Promise((r) => setTimeout(r, 500)))`);
+    const rep = await A.ev(`document.getElementById('el-raw').value`);
+    check('raport: przeglądarka, zapis, błędy ze stosem', rep.includes('Disboard — raport błędów') && rep.includes('Zapis: IndexedDB') && rep.includes('TypeError: testowy błąd') && rep.includes('testowa obietnica') && rep.includes('Przeglądarka: '), rep.slice(0, 300));
+    check('raport bez adresu e-mail i notatek z listy', !/@/.test(rep.replace(/at .*/g, '')) && !rep.includes('do-folderu'));
+    await A.ev(`(document.getElementById('el-clear').click(), new Promise((r) => setTimeout(r, 300)))`);
+    check('wyczyść dziennik', (await A.ev('ErrLog.list().length')) === 0 && (await A.ev(`document.getElementById('el-host').innerText`)).includes('żadnych błędów'));
     A.close();
 
     console.log('Brave (zapis do folderu domyślnie wyłączony)');

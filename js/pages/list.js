@@ -144,8 +144,19 @@ Pages.list = (ctx) => {
     return rows.map((r) => ({ e: r.e, badge: def.badge && r.v != null ? def.badge(r.v, r.e) : '' }));
   }
 
+  const rowsView = () => S.settings.listView === 'rows';
+  const itemHtml = (x) => (rowsView() ? UI.entryRow(x.e, { badge: x.badge }) : UI.entryCard(x.e, { badge: x.badge }));
+  function summaryHtml(list) {
+    const mins = list.reduce((a, x) => a + Lib.entryMinutes(x.e), 0);
+    const noVal = LIST_SORTS[sort.k].badge ? list.filter((x) => !x.badge).length : 0;
+    return `<p class="list-sum">${nUnit(list.length, 'title')} · ${NF.format(list.reduce((a, x) => a + Lib.totalEps(x.e), 0))} obejrzanych odcinków · ${esc(fmtDuration(mins))}${noVal ? ` · <span title="Te pozycje są na końcu listy">${NF.format(noVal)} bez wartości „${esc(LIST_SORTS[sort.k].l)}”</span>` : ''}</p>`;
+  }
+  // co jest teraz narysowane: widok i kolejność pozycji (do szybkiej poprawki po „+1”)
+  let shown = null;
+
   const render = () => {
     if (!ctx.alive()) return; // opóźniony filtr po przejściu na inną stronę
+    shown = null;
     const list = sorted(entriesAll().filter(matches));
     updCounts();
     const out = $('#l-out');
@@ -154,18 +165,65 @@ Pages.list = (ctx) => {
       return;
     }
     if (!list.length) { out.innerHTML = UI.empty('Nic nie pasuje do filtrów', 'Zmień zakładkę, gatunek albo wyczyść pole wyszukiwania.'); return; }
-    const mins = list.reduce((a, x) => a + Lib.entryMinutes(x.e), 0);
-    const noVal = LIST_SORTS[sort.k].badge ? list.filter((x) => !x.badge).length : 0;
-    const summary = `<p class="list-sum">${nUnit(list.length, 'title')} · ${NF.format(list.reduce((a, x) => a + Lib.totalEps(x.e), 0))} obejrzanych odcinków · ${esc(fmtDuration(mins))}${noVal ? ` · <span title="Te pozycje są na końcu listy">${NF.format(noVal)} bez wartości „${esc(LIST_SORTS[sort.k].l)}”</span>` : ''}</p>`;
-    out.innerHTML = summary + (S.settings.listView === 'rows'
-      ? `<div class="erows" role="table"><div class="erow head" role="row"><span></span><span role="columnheader">Tytuł</span><span role="columnheader">Status</span><span role="columnheader">Postęp</span><span role="columnheader">Ocena</span><span role="columnheader">Czas</span></div>${list.map((x) => UI.entryRow(x.e, { badge: x.badge })).join('')}</div>`
-      : `<div class="grid-entries wide">${list.map((x) => UI.entryCard(x.e, { badge: x.badge })).join('')}</div>`);
+    out.innerHTML = summaryHtml(list) + (rowsView()
+      ? `<div class="erows" role="table"><div class="erow head" role="row"><span></span><span role="columnheader">Tytuł</span><span role="columnheader">Status</span><span role="columnheader">Postęp</span><span role="columnheader">Ocena</span><span role="columnheader">Czas</span></div>${list.map(itemHtml).join('')}</div>`
+      : `<div class="grid-entries wide">${list.map(itemHtml).join('')}</div>`);
+    shown = { rows: rowsView() };
   };
+
+  /* Zmiana jednej pozycji (np. „+1”): przerysowujemy tylko jej kartę, a pozostałe
+     karty zostają w DOM i najwyżej zmieniają miejsce. Przy 2500 tytułach to kilka
+     milisekund zamiast przebudowy całej listy. Gdy coś się nie zgadza (pusta lista,
+     inny widok), zwraca false i lista rysuje się od nowa. */
+  function patch(id) {
+    const out = $('#l-out');
+    const box = shown && shown.rows === rowsView() && out && $(shown.rows ? '.erows' : '.grid-entries', out);
+    if (!box) return false;
+    const list = sorted(entriesAll().filter(matches));
+    if (!list.length) return false;
+    const nodes = new Map();
+    for (const el of box.children) if (el.dataset.id) nodes.set(Number(el.dataset.id), el);
+    // fokus (np. na „+1” w tej karcie) przechodzi na ten sam przycisk w nowej karcie
+    const old = nodes.get(id);
+    const a = document.activeElement;
+    const focusSel = old && a && old.contains(a) && a.matches('[data-inc]') ? `[data-inc]${a.dataset.d ? '[data-d]' : ':not([data-d])'}` : null;
+    if (old) { old.remove(); nodes.delete(id); }
+    const keep = new Set(list.map((x) => x.e.id));
+    for (const [k, el] of nodes) if (!keep.has(k)) { el.remove(); nodes.delete(k); }
+    let fresh = null;
+    const tpl = document.createElement('template');
+    for (const x of list) {
+      if (nodes.has(x.e.id)) continue;
+      tpl.innerHTML = itemHtml(x);
+      const el = tpl.content.firstElementChild;
+      nodes.set(x.e.id, el);
+      if (x.e.id === id) fresh = el;
+    }
+    // ułożenie w nowej kolejności; niezmienione karty stoją już na miejscu, więc ruch to zwykle jedna karta
+    let ref = box.firstElementChild;
+    while (ref && !ref.dataset.id) ref = ref.nextElementSibling; // nagłówek tabeli w widoku wierszy
+    for (const x of list) {
+      const el = nodes.get(x.e.id);
+      if (el === ref) ref = ref.nextElementSibling;
+      else box.insertBefore(el, ref);
+    }
+    const sum = $('.list-sum', out);
+    if (sum) sum.outerHTML = summaryHtml(list);
+    updCounts();
+    if (focusSel && fresh) { const f = $(focusSel, fresh); if (f && !f.disabled) f.focus({ preventScroll: true }); }
+    return true;
+  }
+
   render();
-  ctx.onLibrary(() => withFocusKept(() => {
+  let filterHtml = null;
+  ctx.onLibrary((d) => withFocusKept(() => {
     // nowy tag albo tytuł: odśwież listę filtrów (liczby przy gatunkach)
     const sel = $('#l-tag');
-    if (sel && document.activeElement !== sel) { sel.innerHTML = filterOptions(); if (sel.value !== filter) filter = sel.value; }
+    if (sel && document.activeElement !== sel) {
+      const html = filterOptions();
+      if (html !== filterHtml) { sel.innerHTML = html; filterHtml = html; if (sel.value !== filter) filter = sel.value; }
+    }
+    if (d && d.id && !d.kind && !d.refresh && patch(d.id)) return;
     render();
   }));
 

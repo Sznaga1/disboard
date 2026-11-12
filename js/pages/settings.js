@@ -232,6 +232,12 @@ Pages.settings = (ctx) => {
         <textarea id="diag-raw" class="diag-raw" rows="6" readonly hidden aria-label="Wynik testu do skopiowania"></textarea>
       </section>
 
+      <section class="card" id="errlog">
+        <h2 class="card-h">Dziennik błędów</h2>
+        <p class="card-sub">Gdy coś się wysypie, aplikacja zapisuje tu szczegóły (ostatnie 50, tylko w tej przeglądarce, osobno od listy). Skopiuj raport i wklej go w rozmowie z Claude: bez niego wiadomo tylko, że „nie działa”.</p>
+        <div id="el-host"></div>
+      </section>
+
       <section class="card about">
         <h2 class="card-h">O aplikacji</h2>
         <p>Dane o anime pochodzą z <a href="https://anilist.co" target="_blank" rel="noopener">AniList</a>. Newsy, promo i producenci pochodzą z <a href="https://myanimelist.net" target="_blank" rel="noopener">MyAnimeList</a> przez <a href="https://jikan.moe" target="_blank" rel="noopener">Jikan</a>. Aplikacja nie ma własnego serwera: Twoja lista nigdzie nie wychodzi poza tę przeglądarkę.</p>
@@ -242,7 +248,38 @@ Pages.settings = (ctx) => {
     bind();
     renderFolder();
     renderCloud();
+    renderErrLog();
+    // dymek „Coś poszło nie tak” → „Pokaż” prowadzi prosto do dziennika
+    if (ctx.query.has('bledy')) { const c = $('#errlog'); if (c) c.scrollIntoView({ block: 'start' }); }
   };
+
+  /* ---------- dziennik błędów ---------- */
+  const renderErrLog = () => {
+    const host = $('#el-host');
+    if (!host) return;
+    const items = ErrLog.list();
+    if (!items.length) { host.innerHTML = '<p class="card-sub muted">Na razie żadnych błędów.</p>'; return; }
+    host.innerHTML = `<ul class="diag errlog">${items.slice(0, 20).map((e) => `<li class="${e.kind === 'message' ? 'warn' : 'bad'}"><b>${esc(e.msg)}</b><span>${esc(fmtDateTime(e.t))} · ${esc(ErrLog.KIND_PL[e.kind] || e.kind)}${e.n > 1 ? ` · ${e.n}×, ostatnio ${esc(relTime(e.last))}` : ''} · ekran ${esc(e.at || '?')}${e.where ? ` · ${esc(e.where)}` : ''}</span></li>`).join('')}</ul>
+      ${items.length > 20 ? `<p class="src-note">I jeszcze ${items.length - 20} starszych, są w raporcie.</p>` : ''}
+      <div class="btn-row"><button class="btn" type="button" id="el-copy">Kopiuj raport</button><button class="btn ghost" type="button" id="el-clear">Wyczyść dziennik</button></div>
+      <textarea id="el-raw" class="diag-raw" rows="8" readonly hidden aria-label="Raport błędów do skopiowania"></textarea>`;
+    $('#el-copy', host).addEventListener('click', async () => {
+      const raw = $('#el-raw', host);
+      raw.value = ErrLog.report({
+        Zapis: `${storageInfo()} · pozycji: ${Object.keys(S.entries).length} · zdarzeń: ${S.history.length}`,
+        Konto: Cloud.status().user ? `zalogowane (${Cloud.status().phase})` : `niezalogowane (${Cloud.status().phase})`,
+        Offline: 'serviceWorker' in navigator && navigator.serviceWorker.controller ? 'tak' : 'nie',
+      });
+      try { await navigator.clipboard.writeText(raw.value); toast('Skopiowano raport. Wklej go w rozmowie z Claude.', { kind: 'ok' }); }
+      catch { raw.hidden = false; raw.focus(); raw.select(); toast('Zaznaczyłem raport. Skopiuj go skrótem Ctrl+C.', { kind: 'warn' }); }
+    });
+    $('#el-clear', host).addEventListener('click', () => {
+      const keep = ErrLog.list();
+      ErrLog.clear();
+      toast('Wyczyszczono dziennik błędów.', { kind: 'ok', action: { label: 'Cofnij', fn: () => { ErrLog.restore(keep); } } });
+    });
+  };
+  ctx.on('errlog', renderErrLog);
 
   /* ---------- konto Google i synchronizacja ---------- */
   const renderCloud = () => {

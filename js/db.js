@@ -309,7 +309,7 @@ async function absorbLegacy(raw) {
 }
 
 const stateReady = loadState()
-  .catch((e) => { console.error('Wczytywanie listy nie powiodło się', e); loadFromLegacy(readLegacy()); })
+  .catch((e) => { console.error('Wczytywanie listy nie powiodło się', e); ErrLog.add(e, { kind: 'load', where: 'wczytywanie listy z IndexedDB', silent: true }); loadFromLegacy(readLegacy()); })
   .then(() => { loaded = true; });
 const storageInfo = () => (backend === 'idb' ? 'IndexedDB' : 'localStorage');
 // lista była już w bazie, ale teraz baza nie odpowiada: pokazujemy starszą kopię z localStorage
@@ -503,6 +503,7 @@ const SAVE_FAIL = 'Nie udało się zapisać zmian w przeglądarce. Zrób eksport
 function saveFailed(e) {
   storageOk = false;
   console.error(e);
+  ErrLog.add(e, { kind: 'save', where: 'zapis listy', silent: true }); // dymek o zapisie pokazuje się niżej
   toast(SAVE_FAIL, { kind: 'error', ms: 8000 });
 }
 

@@ -152,6 +152,12 @@ Strona anime ma sekcję *Postacie i obsada*: postacie z japońskimi aktorami gł
 
 Obsadę, twórców, studia, tagi i rankingi aplikacja pobiera z AniList w tle przy pierwszym wejściu, po kilka tytułów na zapytanie, i trzyma je 30 dni. Przy długiej liście zajmuje to chwilę, a pasek na górze pokazuje postęp.
 
+## Twój rok w anime
+
+*Statystyki → Twój rok* podsumowuje jeden rok (przełącznik lat na górze): godziny i odcinki z porównaniem do poprzedniego roku, tytuły (w tym nowe), ukończenia i rewatche, najdłuższą serię dni z rzędu, rekordowy miesiąc i dzień, ulubiony dzień tygodnia, najwyżej ocenione ukończone anime, top anime, gatunki i studia. Na dole jest karta 1080×1350 do zapisania jako obrazek PNG albo skopiowania. Od grudnia do połowy stycznia na stronie głównej pojawia się zaproszenie, a do 15 stycznia domyślnie pokazuje się jeszcze poprzedni rok.
+
+Czas liczy się z odcinków z datą w danym roku, tak jak wykres „Czas oglądania rocznie”. Serie dni, rekordowy dzień i dzień tygodnia biorą tylko odcinki oznaczane na bieżąco, jak w „Dla nerda”. Studia pochodzą z tych samych danych AniList co w „Dla nerda”. Kod: `js/year.js`.
+
 ## Wygląd i bajery
 
 W *Ustawienia i kopie → Wygląd i bajery* wybierasz jeden z sześciu ciemnych motywów:
@@ -203,6 +209,7 @@ Dane odświeżają się same. Emitowane i zapowiedziane tytuły z listy aktualiz
 
 ## Ograniczenia
 
+- **Gdy coś się wysypie.** Pojawia się dymek „Coś poszło nie tak” z przyciskiem *Pokaż*. W *Ustawienia i kopie → Dziennik błędów* widać ostatnie 50 błędów (także komunikaty o błędach z dymków), a *Kopiuj raport* kopiuje je razem z wersją przeglądarki i sposobem zapisu, do wklejenia w rozmowie z Claude. Raport nie zawiera e-maila ani notatek z listy. Dziennik leży osobno w localStorage tej przeglądarki: nie trafia do kopii ani do synchronizacji. Kod: `js/errlog.js`.
 - **Gdy AniList ma awarię.** Na górze pojawia się baner z opisem błędu, a aplikacja pokazuje zapisane dane. Najpierw próbuje lżejszej wersji zapytania, a wyszukiwarka przełącza się na wyniki z MyAnimeList. W *Ustawienia i kopie → Test połączenia* sprawdzisz, które zapytania przechodzą, i skopiujesz wynik.
 - **Limit AniList.** API działa obecnie w trybie ograniczonym do 30 zapytań na minutę. Aplikacja grupuje zapytania, trzyma wyniki w pamięci podręcznej i sama ponawia po przekroczeniu limitu. Przy bardzo szybkim klikaniu możesz zobaczyć komunikat o chwilowym ograniczeniu.
 - **Powiadomienia** działają, gdy aplikacja jest otwarta, także na karcie w tle. Powiadomienia przy zamkniętej aplikacji wymagają serwera push, a tego ten projekt celowo nie ma.
@@ -222,6 +229,7 @@ css/app.css              wygląd (ciemny motyw)
 css/themes.css           motywy: Ex Machina, Flügel, Werebeast, Zero, OLED
 css/fx.css               bajery (efekty za przełącznikiem) i karta „Wygląd” w ustawieniach
 js/util.js               formatowanie PL (odmiana, czas, daty), ikony
+js/errlog.js             dziennik błędów i raport do skopiowania
 js/db.js                 zapis listy (IndexedDB), kopie zapasowe, pamięć podręczna
 js/api.js                AniList, Jikan, feed; limity i tryb offline
 js/library.js            tracker: statusy, odcinki, rewatche, czas, powiadomienia
@@ -230,6 +238,7 @@ js/io.js                 import i eksport JSON, CSV, XML (MAL)
 js/charts.js             wykresy statystyk (w tym kalendarz oglądania)
 js/extras.js             dane do statystyk dla nerda (obsada, studia, rankingi)
 js/nerd.js               statystyki dla nerda
+js/year.js               „Twój rok w anime” i karta PNG
 js/person.js             strona aktora głosowego albo twórcy
 js/ngnl-timeline.js      oś czasu No Game No Life (dane ze źródłami)
 js/watch-order.js        kolejność oglądania serii z relacji AniList
@@ -253,7 +262,7 @@ data/ngnl-feed.json      feed (na start pusty; wypełnia go workflow)
 Bez instalowania czegokolwiek, wystarczy Node 22+:
 
 ```
-node --test "tests/*.test.mjs"     # logika: czas, rewatche, zakresy odcinków, łączenie kart, eksport/import, zegar NGNL
+node --test "tests/*.test.mjs"     # logika: czas, rewatche, zakresy odcinków, łączenie kart, eksport/import, zegar NGNL, rok w anime, dziennik błędów
 node tools/test-browser.mjs        # prawdziwa przeglądarka (Chrome albo Edge, bez okna, na czystym profilu)
 ```
 

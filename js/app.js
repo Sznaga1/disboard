@@ -279,6 +279,7 @@ function route() {
       Pages[name](ctx);
     } catch (err) {
       console.error(err);
+      ErrLog.add(err, { kind: 'view', where: `rysowanie ekranu „${name}”` });
       el.innerHTML = UI.errorBox(err);
     }
     if (changed) window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
@@ -336,6 +337,11 @@ document.addEventListener('click', (ev) => {
     if (e && d > 0) {
       const dur = Lib.epDur(e);
       inc.classList.add('pop');
+      // lista podmienia kartę zaraz po kliknięciu: wtedy animacja trafia na przycisk w nowej karcie
+      queueMicrotask(() => {
+        const a = document.activeElement;
+        if (!inc.isConnected && a && a.matches(`[data-inc="${id}"]:not([data-d])`)) a.classList.add('pop');
+      });
       if (dur) toast(`${titleOf(e.media)}: odc. ${Lib.lastEp(e)} · +${dur} min${Backfill.on() ? ' · bez daty' : ''}`, { kind: 'ok', ms: 2200 });
     }
     return;

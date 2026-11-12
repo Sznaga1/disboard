@@ -8,16 +8,17 @@
    STATYSTYKI
    ========================================================================== */
 function statsTabs(tab) {
-  const T = [['podsumowanie', 'summary', 'Podsumowanie'], ['nerd', 'nerd', 'Dla nerda']];
+  const T = [['podsumowanie', 'summary', 'Podsumowanie'], ['nerd', 'nerd', 'Dla nerda'], ['rok', 'year', 'Twój rok']];
   return `<nav class="tabs" aria-label="Widok statystyk">${T.map(([slug, k, l]) => `<a class="tab${k === tab ? ' on' : ''}" href="#/statystyki/${slug}"${k === tab ? ' aria-current="page"' : ''}>${l}</a>`).join('')}</nav>`;
 }
 
 Pages.stats = (ctx) => {
   // zakładka z adresu, a bez niej ostatnio oglądana
   const p = ctx.params.tab;
-  const tab = p === 'nerd' ? 'nerd' : p === 'podsumowanie' ? 'summary' : (S.settings.statsTab === 'nerd' ? 'nerd' : 'summary');
+  const tab = p === 'nerd' ? 'nerd' : p === 'rok' ? 'year' : p === 'podsumowanie' ? 'summary' : (['nerd', 'year'].includes(S.settings.statsTab) ? S.settings.statsTab : 'summary');
   if (S.settings.statsTab !== tab) { S.settings.statsTab = tab; save(); }
   if (tab === 'nerd') { Nerd.page(ctx, statsTabs('nerd')); return; }
+  if (tab === 'year') { YearRecap.page(ctx, statsTabs('year')); return; }
   ctx.title('Statystyki');
   let range = 12;
   const render = () => {

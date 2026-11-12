@@ -732,6 +732,24 @@ td.num, th.num { text-align: right; }
 .stat-units dd { margin: 0; font-size: var(--fs-lg); font-weight: 600; }
 .stat-units small { font-size: var(--fs-xs); color: var(--muted); }
 .stats-grid { display: grid; gap: 14px; margin-bottom: 20px; }
+
+/* ---------- Twój rok w anime ---------- */
+.yr-bar { display: flex; justify-content: flex-start; margin: -4px 0 16px; overflow-x: auto; }
+.yr-hero { background: radial-gradient(90% 140% at 0% 0%, color-mix(in srgb, var(--sora) 22%, var(--surface)) 0%, var(--surface) 62%); }
+.yr-hero .stat-big b { font-family: var(--f-display); font-weight: 400; color: var(--crown); }
+.yr-sub { margin-top: 6px; color: var(--text-2); font-size: var(--fs-sm); }
+.yr-up { color: var(--ok); font-weight: 700; }
+.yr-down { color: var(--muted); font-weight: 700; }
+.yr .ntiles { margin-bottom: 20px; }
+.yr-card { margin: 12px 0; max-width: 360px; }
+.yr-card img { display: block; width: 100%; height: auto; border-radius: var(--r-sm); border: 1px solid var(--line-2); }
+.yr-skel { aspect-ratio: 4 / 5; border-radius: var(--r-sm); }
+.yr-teaser { display: flex; align-items: center; gap: 16px; margin: 0 0 22px; padding: 14px 18px; border-radius: var(--r); border: 1px solid color-mix(in srgb, var(--crown) 40%, var(--line)); background: radial-gradient(120% 160% at 0% 0%, color-mix(in srgb, var(--crown) 16%, var(--surface)) 0%, var(--surface) 70%); color: var(--text); }
+.yr-teaser:hover { color: var(--text); border-color: var(--crown); }
+.yr-teaser-y { font: 400 1.6rem/1 var(--f-display); color: var(--crown); }
+.yr-teaser > span:nth-child(2) { display: grid; gap: 2px; flex: 1; min-width: 0; }
+.yr-teaser small { color: var(--muted); font-size: var(--fs-xs); }
+.yr-teaser .ic { flex: none; color: var(--crown); }
 @media (min-width: 900px) { .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .span2 { grid-column: 1 / -1; } }
 
 .viz-cols { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px; height: calc(var(--h) + 26px); }
@@ -828,6 +846,9 @@ body.backfill-on .bf-card { border-color: color-mix(in srgb, var(--crown) 50%, v
 .diag li { position: relative; display: grid; gap: 2px; padding: 8px 12px 8px 30px; border-radius: var(--r-sm); background: var(--surface-2); font-size: var(--fs-sm); }
 .diag li::before { content: ''; position: absolute; left: 12px; top: 14px; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); }
 .diag li.bad::before { background: var(--bad); }
+.diag li.warn::before { background: var(--warn); }
+.errlog { margin-bottom: 12px; max-height: 420px; overflow-y: auto; }
+.errlog li b { font-weight: 600; overflow-wrap: anywhere; }
 .diag li span { color: var(--muted); font-size: var(--fs-xs); overflow-wrap: anywhere; }
 .diag-verdict { margin-top: 12px; font-size: var(--fs-sm); color: var(--text); max-width: 70ch; }
 .diag-raw { margin-top: 10px; font: 400 var(--fs-xs)/1.5 var(--f-data); }

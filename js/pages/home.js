@@ -15,6 +15,7 @@ Pages.home = (ctx) => {
       <div id="h-watching"></div>
       <div id="h-next"></div>
     </div>
+    <div id="h-year"></div>
     <div id="h-stats"></div>
     <div id="h-radar"></div>
     <div id="h-upcoming"></div>
@@ -74,6 +75,9 @@ Pages.home = (ctx) => {
     $('#h-stats').innerHTML = UI.section('Twoje oglądanie', `<div class="tiles">${tiles.map(([l, v, s, hero]) => `
       <div class="tile${hero ? ' hero' : ''}"><span class="tile-l">${esc(l)}</span><b class="tile-v num">${esc(v)}</b><span class="tile-s">${esc(s)}</span></div>`).join('')}</div>`,
     { more: '#/statystyki', moreLabel: 'Statystyki' });
+    // w grudniu i do połowy stycznia: zaproszenie do „Twój rok w anime”
+    const yr = $('#h-year');
+    if (yr) yr.innerHTML = YearRecap.teaserHtml();
   };
 
   const nextS = shiftSeason(seasonOf(new Date()), 1);
