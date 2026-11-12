@@ -775,6 +775,8 @@ td.num, th.num { text-align: right; }
 .import-status { margin-top: 10px; font-size: var(--fs-sm); }
 .import-status.ok { color: var(--ok); }
 .import-status.bad { color: var(--bad); }
+.fb-steps { padding-left: 22px; display: grid; gap: 4px; }
+.fb-steps code { font-size: .95em; padding: 1px 6px; border-radius: 4px; background: var(--surface-2); color: var(--text); word-break: break-all; }
 .backups { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 4px; }
 .backups li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; align-items: center; padding: 6px 10px; border-radius: var(--r-sm); background: var(--surface-2); font-size: var(--fs-sm); }
 .confirm { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px; margin-bottom: 12px; border-radius: var(--r-sm); background: color-mix(in srgb, var(--bad) 10%, var(--surface-2)); font-size: var(--fs-sm); }

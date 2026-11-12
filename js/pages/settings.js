@@ -168,6 +168,8 @@ Pages.settings = (ctx) => {
           <label class="radio"><input type="radio" name="i-mode" value="merge" checked> dodaj brakujące pozycje</label>
           <label class="radio"><input type="radio" name="i-mode" value="replace"> zastąp całą bibliotekę</label></div>
         <div id="i-status" class="import-status" role="status"></div>
+        <h3 class="sub-h">Automatyczna kopia do folderu na dysku</h3>
+        <div id="fb-host"></div>
         <h3 class="sub-h">Automatyczne kopie w przeglądarce</h3>
         <p class="card-sub">Raz na godzinę, do 7 dni wstecz. Chronią przed pomyłką, nie przed wyczyszczeniem danych przeglądarki.</p>
         ${backups.length ? `<ul class="backups">${backups.map((b) => `<li><span>${esc(fmtDateTime(b.t))}${b.label ? ` · ${esc(b.label)}` : ""}</span><span>${nUnit(b.count, 'title')}</span><button class="btn ghost sm" type="button" data-restore="${esc(b.key)}">Przywróć</button></li>`).join('')}</ul>` : '<p class="muted">Jeszcze brak kopii.</p>'}
@@ -234,6 +236,7 @@ Pages.settings = (ctx) => {
     </div>`;
     FX.bindSettings(ctx.el);
     bind();
+    renderFolder();
   };
 
   const status = (html, kind = '') => { const el = $('#i-status'); if (el) { el.className = `import-status ${kind}`; el.innerHTML = html; } };
@@ -390,6 +393,75 @@ Pages.settings = (ctx) => {
       catch { raw.hidden = false; raw.focus(); raw.select(); toast('Zaznaczyłem wynik. Skopiuj go skrótem Ctrl+C.', { kind: 'warn' }); }
     });
   };
+  /* ---------- kopia do folderu na dysku ---------- */
+  const renderFolder = async () => {
+    const host = $('#fb-host');
+    if (!host) return;
+    const st = await FolderBackup.status();
+    if (!ctx.alive() || !host.isConnected) return;
+    if (!st.supported && !st.on) {
+      // Brave ma tę funkcję, ale domyślnie wyłączoną; strona nie może jej włączyć sama
+      if (navigator.brave) {
+        const flag = 'brave://flags/#file-system-access-api';
+        host.innerHTML = `<p class="card-sub">Brave domyślnie blokuje zapis do folderów. Włączysz go raz, w ustawieniach Brave:</p>
+          <ol class="card-sub fb-steps">
+            <li>Skopiuj adres <code>${flag}</code> i wklej go w nowej karcie.</li>
+            <li>Przy „File System Access API” ustaw <b>Enabled</b>.</li>
+            <li>Kliknij <b>Relaunch</b> na dole strony (Brave uruchomi się ponownie, karty wrócą).</li>
+            <li>Wróć tutaj: pojawi się przycisk „Wybierz folder…”.</li>
+          </ol>
+          <div class="btn-row"><button class="btn" type="button" id="fb-flag">Kopiuj adres ustawienia</button></div>`;
+        $('#fb-flag', host).addEventListener('click', async () => {
+          try { await navigator.clipboard.writeText(flag); toast('Skopiowano. Wklej adres w nowej karcie Brave.', { kind: 'ok' }); }
+          catch { toast(`Skopiuj ręcznie: ${flag}`, { kind: 'warn', ms: 10000 }); }
+        });
+        return;
+      }
+      host.innerHTML = '<p class="card-sub">Ta przeglądarka nie potrafi zapisywać do folderu (działa w Chrome i Edge na komputerze, a w Brave po włączeniu jednej opcji). Rób regularnie pełną kopię JSON.</p>';
+      return;
+    }
+    if (!st.on) {
+      host.innerHTML = `<p class="card-sub">Aplikacja sama zapisze kopię listy do folderu na dysku: po zmianach (najpóźniej po 2 minutach) i co godzinę, jeden plik na dzień, 30 ostatnich. Przetrwa nawet wyczyszczenie danych przeglądarki.<br>
+        W oknie wyboru wskaż folder, w którym ma powstać „${esc(FolderBackup.DIR_NAME)}”, np. <b>D:\\App\\disboard</b>.</p>
+        <div class="btn-row"><button class="btn" type="button" id="fb-choose">${ICON.download}Wybierz folder…</button></div>`;
+    } else {
+      const where = st.dirName === st.rootName ? st.dirName : `${st.rootName}\\${st.dirName}`;
+      const state = st.permission !== 'granted'
+        ? '<b>czeka na Twoją zgodę</b> (po restarcie przeglądarki może zapytać ponownie)'
+        : st.lastAt ? `ostatnia kopia: <b>${esc(fmtDateTime(st.lastAt))}</b> (${esc(st.lastFile)})` : 'jeszcze bez kopii';
+      host.innerHTML = `<p class="card-sub">Folder: <b>${esc(where)}</b> · ${state}. Trzymam ${st.keep} ostatnich dni, starsze pliki usuwam sama. Przywracasz je przez Import → Kopia Disboard (JSON).${st.lastError ? `<br>Ostatni błąd: ${esc(st.lastError)}` : ''}</p>
+        <div class="btn-row">
+          <button class="btn" type="button" id="fb-now">${ICON.download}${st.permission !== 'granted' ? 'Zezwól i zapisz kopię' : 'Zrób kopię teraz'}</button>
+          <button class="btn ghost" type="button" id="fb-choose">Zmień folder…</button>
+          <button class="btn ghost" type="button" id="fb-off">Wyłącz</button>
+        </div>`;
+    }
+    const choose = $('#fb-choose', host);
+    if (choose) choose.addEventListener('click', async () => {
+      try {
+        const r = await FolderBackup.choose();
+        if (r && r.file) { toast(`Kopia do folderu włączona. Zapisano ${r.file}.`, { kind: 'ok', ms: 6000 }); FolderBackup.init(); }
+      } catch (err) { toast(err.message, { kind: 'error', ms: 10000 }); }
+      renderFolder();
+    });
+    const now = $('#fb-now', host);
+    if (now) now.addEventListener('click', async () => {
+      try {
+        const r = await FolderBackup.backupNow();
+        if (r.needsPermission) toast('Bez zgody przeglądarki nie zapiszę kopii do folderu.', { kind: 'warn' });
+        else toast(r.unchanged ? `Kopia jest aktualna (${r.file}).` : `Zapisano ${r.file}.`, { kind: 'ok' });
+      } catch (err) { toast(`Nie udało się zapisać kopii: ${err.message}`, { kind: 'error', ms: 8000 }); }
+      renderFolder();
+    });
+    const off = $('#fb-off', host);
+    if (off) off.addEventListener('click', async () => {
+      await FolderBackup.disconnect();
+      toast('Kopia do folderu wyłączona. Pliki w folderze zostały.', { kind: 'ok' });
+      renderFolder();
+    });
+  };
+  ctx.on('folder-backup', renderFolder);
+
   render();
   ctx.on('settings', () => {
     const c = $('#bf-toggle'); if (c) c.checked = !!S.settings.backfill;

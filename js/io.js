@@ -9,9 +9,11 @@
 const IO = (() => {
   const stamp = () => dayKey(Date.now());
 
+  // pełna kopia listy: ten sam format dla eksportu i kopii do folderu (import przyjmuje oba)
+  const backupJSON = () => JSON.stringify({ app: 'disboard', format: 1, exportedAt: new Date().toISOString(), state: S }, null, 1);
+
   function exportJSON() {
-    const payload = { app: 'disboard', format: 1, exportedAt: new Date().toISOString(), state: S };
-    downloadFile(`disboard-kopia-${stamp()}.json`, JSON.stringify(payload, null, 1), 'application/json');
+    downloadFile(`disboard-kopia-${stamp()}.json`, backupJSON(), 'application/json');
     S.meta.lastExportAt = Date.now();
     save();
   }
@@ -293,5 +295,5 @@ ${body}
     return { added, skipped: recs.length - todo.length, missing };
   }
 
-  return { exportJSON, exportCSV, exportMAL, importJSON, importMAL, importCSV, parseCSV };
+  return { backupJSON, exportJSON, exportCSV, exportMAL, importJSON, importMAL, importCSV, parseCSV };
 })();

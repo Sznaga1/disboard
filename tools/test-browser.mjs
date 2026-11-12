@@ -69,7 +69,7 @@ function startServer() {
 }
 
 /* ---------- DevTools Protocol: jedna karta ---------- */
-async function newPage(port, { noIndexedDB = false } = {}) {
+async function newPage(port, { noIndexedDB = false, inject = null } = {}) {
   const t = await (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: 'PUT' })).json();
   const ws = new WebSocket(t.webSocketDebuggerUrl);
   await new Promise((r) => ws.addEventListener('open', r, { once: true }));
@@ -86,6 +86,7 @@ async function newPage(port, { noIndexedDB = false } = {}) {
   await send('Page.enable'); await send('Runtime.enable'); await send('Network.enable');
   await send('Network.setBlockedURLs', { urls: ['*anilist.co*', '*jikan.moe*', '*trace.moe*', '*mymemory*', '*googleapis*', '*gstatic*', '*myanimelist*', '*youtube*', '*ani.zip*'] });
   if (noIndexedDB) await send('Page.addScriptToEvaluateOnNewDocument', { source: `Object.defineProperty(window, 'indexedDB', { get() { throw new Error('brak IndexedDB (test)'); } });` });
+  if (inject) await send('Page.addScriptToEvaluateOnNewDocument', { source: inject });
   const ev = async (expr) => {
     const r = await send('Runtime.evaluate', { expression: expr, awaitPromise: true, returnByValue: true });
     if (r.result.exceptionDetails) throw new Error('eval: ' + (r.result.exceptionDetails.exception?.description || r.result.exceptionDetails.text));
@@ -198,9 +199,49 @@ async function main() {
     const keys = await A.ev(`IDB.keys('cache')`);
     check('stare usunięte; nowe, fillery i tłumaczenia zostały', !keys.includes('gql:stare') && ['gql:nowe', 'epflags:v1', 'tr:ja-en:x'].every((k) => keys.includes(k)), JSON.stringify(keys));
 
+    console.log('Kopia do folderu na dysku');
+    // okna wyboru folderu nie da się kliknąć bez ekranu, więc podajemy folder z prywatnej
+    // pamięci przeglądarki (OPFS): ma te same funkcje zapisu co folder na dysku
+    check('przeglądarka obsługuje wybór folderu', await A.ev(`typeof showDirectoryPicker === 'function'`));
+    const files = (dir) => `(async () => { const o = await navigator.storage.getDirectory(); let d = o; for (const p of ${JSON.stringify(dir)}) d = await d.getDirectoryHandle(p); const out = []; for await (const [n] of d.entries()) out.push(n); return out.sort(); })()`;
+    const refused = await A.ev(`(async () => { const o = await navigator.storage.getDirectory(); const repo = await o.getDirectoryHandle('repo', { create: true }); for (const f of ['index.html', 'sw.js']) await (await repo.getFileHandle(f, { create: true })).createWritable().then((w) => w.close()); try { await FolderBackup.connect(repo); return 'przyjęty'; } catch (e) { return e.message; } })()`);
+    check('folder z kodem aplikacji odrzucony', /kodem aplikacji/.test(refused), refused);
+    check('…i nic w nim nie powstało', !(await A.ev(files(['repo']))).includes('Disboard - kopie listy'));
+    const first = await A.ev(`(async () => { const o = await navigator.storage.getDirectory(); const root = await o.getDirectoryHandle('disboard', { create: true }); await (await root.getFileHandle('inny-plik.txt', { create: true })).createWritable().then((w) => w.close()); return FolderBackup.connect(root); })()`);
+    const today = await A.ev(`'disboard-' + dayKey(Date.now()) + '.json'`);
+    check('pierwsza kopia zapisana od razu', first && first.file === today, JSON.stringify(first));
+    check('w folderze: kopia i CO-TO-JEST.txt', JSON.stringify(await A.ev(files(['disboard', 'Disboard - kopie listy'])) ) === JSON.stringify(['CO-TO-JEST.txt', today]));
+    check('inne pliki w wybranym folderze nietknięte', (await A.ev(files(['disboard']))).includes('inny-plik.txt'));
+    const readBackup = `(async () => { const o = await navigator.storage.getDirectory(); const d = await (await o.getDirectoryHandle('disboard')).getDirectoryHandle('Disboard - kopie listy'); return JSON.parse(await (await (await d.getFileHandle('disboard-' + dayKey(Date.now()) + '.json')).getFile()).text()); })()`;
+    const b1 = await A.ev(`${readBackup}.then((j) => ({ app: j.app, n: Object.keys(j.state.entries).length }))`);
+    check('plik to pełna kopia Disboard (600 pozycji)', b1.app === 'disboard' && b1.n === 600, JSON.stringify(b1));
+    check('bez zmian w liście: brak ponownego zapisu', (await A.ev(`FolderBackup.backupNow({ auto: true })`)).unchanged === true);
+    await A.ev(`(S.entries[100001].notes = 'do-folderu', S.entries[100001].updatedAt = Date.now(), FolderBackup.backupNow({ auto: true }))`);
+    check('po zmianie kopia zaktualizowana', (await A.ev(`${readBackup}.then((j) => j.state.entries[100001].notes)`)) === 'do-folderu');
+    await A.ev(`(async () => { const o = await navigator.storage.getDirectory(); const d = await (await o.getDirectoryHandle('disboard')).getDirectoryHandle('Disboard - kopie listy'); for (let i = 1; i <= 35; i++) { const n = 'disboard-2020-01-' + String(i).padStart(2, '0') + '.json'; await (await d.getFileHandle(n, { create: true })).createWritable().then((w) => w.close()); } await (await d.getFileHandle('moje-notatki.txt', { create: true })).createWritable().then((w) => w.close()); return FolderBackup.backupNow({ force: true }); })()`);
+    const after = await A.ev(files(['disboard', 'Disboard - kopie listy']));
+    check('zostaje 30 ostatnich kopii, najnowsza też', after.filter((n) => /^disboard-\d{4}-\d\d-\d\d\.json$/.test(n)).length === 30 && after.includes(today), JSON.stringify(after.slice(0, 3)));
+    check('obce pliki w folderze kopii nietknięte', after.includes('moje-notatki.txt') && after.includes('CO-TO-JEST.txt'));
+    await A.reload(); await A.ready();
+    const st = await A.ev(`FolderBackup.status()`);
+    check('ustawienie przetrwało przeładowanie', st.on && st.rootName === 'disboard' && st.lastFile === today, JSON.stringify(st));
+    await A.ev(`(location.hash = '#/ustawienia', new Promise((r) => setTimeout(r, 900)))`);
+    check('panel w Ustawieniach pokazuje folder', (await A.ev(`(document.getElementById('fb-host') || {}).innerText || ''`)).includes('disboard\\Disboard - kopie listy'));
+    await A.ev(`FolderBackup.disconnect()`);
+
     const errs = A.logs.filter((l) => l.startsWith('EXC') || l.startsWith('error'));
     check('brak błędów w konsoli', !errs.length, errs.slice(0, 3).join(' | '));
     A.close();
+
+    console.log('Brave (zapis do folderu domyślnie wyłączony)');
+    // Brave ma navigator.brave i, dopóki nie włączysz opcji w brave://flags, nie ma showDirectoryPicker
+    const Br = await P({ inject: `delete window.showDirectoryPicker; Object.defineProperty(navigator, 'brave', { value: { isBrave: () => Promise.resolve(true) } });` });
+    await Br.go(BASE + '/#/ustawienia'); await Br.ready(); await sleep(900);
+    const brText = await Br.ev(`(document.getElementById('fb-host') || {}).innerText || ''`);
+    check('panel prowadzi do brave://flags', brText.includes('brave://flags/#file-system-access-api') && brText.includes('Enabled') && brText.includes('Relaunch'), JSON.stringify(brText.slice(0, 120)));
+    check('jest przycisk kopiowania adresu', await Br.ev(`!!document.getElementById('fb-flag')`));
+    check('brak błędów (Brave)', !Br.logs.some((l) => l.startsWith('EXC')), Br.logs.filter((l) => l.startsWith('EXC')).join(' | '));
+    Br.close();
 
     console.log('Tryb awaryjny bez IndexedDB');
     const F = await P({ noIndexedDB: true });

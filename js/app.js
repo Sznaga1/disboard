@@ -444,10 +444,15 @@ function start() {
 
   setTimeout(() => pruneApiCache().catch(() => {}), 15000);
   if (Object.keys(S.entries).length) requestPersistence();
-  const lastExp = S.meta.lastExportAt || S.meta.createdAt;
-  if (Object.keys(S.entries).length >= 5 && Date.now() - lastExp > 14 * 86400e3) {
-    setTimeout(() => toast('Minęły 2 tygodnie od ostatniej kopii listy.', { kind: 'warn', action: { label: 'Zrób eksport', fn: () => IO.exportJSON() } }), 6000);
-  }
+  // kopia do folderu na dysku; liczy się jak eksport, więc przy niej przypomnienie znika
+  FolderBackup.init().then(() => {
+    const lastExp = Math.max(S.meta.lastExportAt || S.meta.createdAt || 0, FolderBackup.lastAt());
+    if (Object.keys(S.entries).length >= 5 && Date.now() - lastExp > 14 * 86400e3) {
+      const label = FolderBackup.supported() ? 'Ustaw kopię do folderu' : 'Zrób eksport';
+      const fn = FolderBackup.supported() ? () => { location.hash = '#/ustawienia'; } : () => IO.exportJSON();
+      setTimeout(() => toast('Minęły 2 tygodnie od ostatniej kopii listy.', { kind: 'warn', action: { label, fn } }), 6000);
+    }
+  });
   if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol) && location.hostname !== 'localhost') {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   }
