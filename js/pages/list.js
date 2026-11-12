@@ -45,6 +45,8 @@ const LIST_TAB_DEFAULT = { all: 'updated', watching: 'watched', planning: 'added
 
 // telefon: czy panel „Filtry” (gatunek, sortowanie, widok) jest rozwinięty; pamiętany do przeładowania
 let listAdvOpen = false;
+// ostatnio wylosowany tytuł — kolejne losowanie go pomija, jeśli jest z czego wybierać
+let listLastRandom = null;
 
 function listSortState(tab) {
   const saved = (S.settings.listSorts || {})[tab];
@@ -104,6 +106,7 @@ Pages.list = (ctx) => {
     ${tabsNav()}
     <div class="toolbar list-tools">
       <label class="field grow"><span class="sr">Filtruj listę</span>${ICON.search}<input id="l-q" type="search" placeholder="Filtruj po tytule, także japońskim" autocomplete="off"></label>
+      <button type="button" class="dir-btn l-rand" id="l-rand" title="Nie wiesz, co obejrzeć? Losuje tytuł z tej zakładki (w „Wszystkie” i „Ulubione” spośród oglądanych), z uwzględnieniem filtrów">${ICON.dice}<span>Losuj</span></button>
       <button type="button" class="dir-btn l-more" id="l-more" aria-expanded="${listAdvOpen}" aria-controls="l-adv">${ICON.filter}<span>Filtry</span><b class="l-badge" hidden></b></button>
       <div class="l-adv${listAdvOpen ? ' open' : ''}" id="l-adv">
         <label class="field"><span class="sr">Gatunek, format albo tag</span><select id="l-tag">${filterOptions()}</select></label>
@@ -249,6 +252,18 @@ Pages.list = (ctx) => {
     listAdvOpen = !listAdvOpen;
     $('#l-adv').classList.toggle('open', listAdvOpen);
     $('#l-more').setAttribute('aria-expanded', String(listAdvOpen));
+  });
+  // „Losuj”: losowy tytuł z tego, co widać (zakładka, gatunek, wyszukiwanie);
+  // w „Wszystkie” i „Ulubione” najpierw spośród oglądanych
+  $('#l-rand').addEventListener('click', () => {
+    const shownNow = entriesAll().filter(matches);
+    const watching = shownNow.filter((e) => e.status === 'watching');
+    let pool = (tab === 'all' || tab === 'fav') && watching.length ? watching : shownNow;
+    if (pool.length > 1) pool = pool.filter((e) => e.id !== listLastRandom);
+    if (!pool.length) { toast('Nie ma czego losować: zmień zakładkę albo filtry.'); return; }
+    const pick = pool[Math.floor(Math.random() * pool.length)];
+    listLastRandom = pick.id;
+    location.hash = `#/anime/${pick.id}`;
   });
   $('#l-tag').addEventListener('change', (ev) => { filter = ev.target.value; updBadge(); render(); });
   $('#l-sort').addEventListener('change', (ev) => { sort = { k: ev.target.value, dir: LIST_SORTS[ev.target.value].dir }; saveSort(); });
