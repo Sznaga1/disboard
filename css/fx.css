@@ -13,7 +13,7 @@
   border-radius: var(--r-sm); background: var(--surface-2); border: 1px solid var(--line); color: var(--text);
   cursor: pointer; transition: border-color .15s, transform .15s var(--ease);
 }
-.fxe-theme:hover { border-color: var(--line-2); transform: translateY(-2px); }
+@media (hover: hover) { .fxe-theme:hover { border-color: var(--line-2); transform: translateY(-2px); } }
 .fxe-theme.on { border-color: var(--sora); box-shadow: 0 0 0 1px var(--sora); }
 .fxe-pv { display: grid; gap: 7px; padding: 9px; border-radius: 7px; background: var(--p0); margin-bottom: 5px; }
 .fxe-pv-card { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 7px; align-items: center; padding: 6px; border-radius: 6px; background: var(--p1); }
@@ -82,8 +82,11 @@ html.fx-vt-theme::view-transition-old(root), html.fx-vt-theme::view-transition-n
 .fx-tint[data-tint] ::selection { background: color-mix(in srgb, var(--tint) 45%, transparent); color: var(--text); }
 
 /* ---------- poświata okładek ---------- */
-.fx-glow :is(.acard-media, .ecard-cover, .erow-cover):hover .cover {
-  box-shadow: 0 12px 36px -6px color-mix(in srgb, var(--cc) 85%, transparent), 0 0 0 1px color-mix(in srgb, var(--cc) 60%, transparent);
+/* tylko z myszą: na telefonie poświata zostawałaby „przyklejona” po stuknięciu */
+@media (hover: hover) {
+  .fx-glow :is(.acard-media, .ecard-cover, .erow-cover):hover .cover {
+    box-shadow: 0 12px 36px -6px color-mix(in srgb, var(--cc) 85%, transparent), 0 0 0 1px color-mix(in srgb, var(--cc) 60%, transparent);
+  }
 }
 
 /* ---------- zorza i ziarno ---------- */
@@ -204,8 +207,8 @@ html.fx-vt-theme::view-transition-old(root), html.fx-vt-theme::view-transition-n
 .fx-logo .brand-mark :is(.bm-a, .bm-b, .bm-p) { transform-box: view-box; transform-origin: 16px 16px; }
 .fx-logo .brand-mark :is(.bm-a, .bm-b) { transition: transform .65s cubic-bezier(.3, 1.4, .4, 1); }
 .fx-logo .brand-mark .bm-p { transition: transform .3s var(--ease); }
-.fx-logo .brand:hover .brand-mark :is(.bm-a, .bm-b) { transform: rotate(180deg); }
-.fx-logo .brand:hover .brand-mark .bm-p { transform: scale(1.18); }
+@media (hover: hover) { .fx-logo .brand:hover .brand-mark :is(.bm-a, .bm-b) { transform: rotate(180deg); } }
+@media (hover: hover) { .fx-logo .brand:hover .brand-mark .bm-p { transform: scale(1.18); } }
 .fx-logo .brand-mark.fxe-flip :is(.bm-a, .bm-b) { animation: fxe-logo .7s cubic-bezier(.3, 1.3, .4, 1); }
 @keyframes fxe-logo { from { transform: rotate(-180deg); } }
 
