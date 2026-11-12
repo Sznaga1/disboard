@@ -396,8 +396,36 @@ function renderNet() {
   } else bn.hidden = true;
 }
 
+/* ---------- konto Google w górnym pasku ---------- */
+function renderAcct() {
+  const b = $('#acct');
+  if (!b) return;
+  const s = Cloud.status();
+  // z pliku na dysku logowanie nie działa; wyjaśnia to karta w Ustawieniach
+  if (s.phase === 'off' || s.phase === 'unsupported') { b.hidden = true; return; }
+  b.hidden = false;
+  if (s.user) {
+    const dot = s.phase === 'error' ? 'bad' : s.phase === 'syncing' ? 'busy' : 'ok';
+    const what = s.phase === 'error' ? `błąd synchronizacji: ${s.error}` : s.phase === 'syncing' ? 'synchronizuję…' : 'lista zsynchronizowana';
+    b.innerHTML = `${s.user.photo ? `<img src="${esc(s.user.photo)}" alt="" referrerpolicy="no-referrer">` : ICON.user}<span class="acct-dot ${dot}" aria-hidden="true"></span>`;
+    b.title = `${s.user.name || s.user.email} · ${what}`;
+    b.setAttribute('aria-label', `Konto: ${s.user.email}, ${what}`);
+    b.classList.add('in');
+  } else {
+    b.innerHTML = `${ICON.user}<span class="acct-t">Zaloguj</span>`;
+    b.title = 'Zaloguj przez Google: ta sama lista na każdym urządzeniu';
+    b.setAttribute('aria-label', 'Zaloguj przez Google');
+    b.classList.remove('in');
+  }
+}
+
 /* ---------- start ---------- */
 function start() {
+  on('cloud', renderAcct);
+  $('#acct').addEventListener('click', () => {
+    if (Cloud.status().user) { location.hash = '#/ustawienia'; return; }
+    Cloud.signIn().catch((e) => toast(e.message, { kind: 'error', ms: 10000 }));
+  });
   window.addEventListener('hashchange', route);
   $('#bell').addEventListener('click', openDrawer);
   $('#drawer-close').addEventListener('click', closeSheets);
@@ -444,6 +472,8 @@ function start() {
 
   setTimeout(() => pruneApiCache().catch(() => {}), 15000);
   if (Object.keys(S.entries).length) requestPersistence();
+  Cloud.init();
+  renderAcct();
   // kopia do folderu na dysku; liczy się jak eksport, więc przy niej przypomnienie znika
   FolderBackup.init().then(() => {
     const lastExp = Math.max(S.meta.lastExportAt || S.meta.createdAt || 0, FolderBackup.lastAt());

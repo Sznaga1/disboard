@@ -8,7 +8,7 @@ const CACHE = 'disboard-shell';
 const SHELL = [
   './', 'index.html', 'manifest.webmanifest',
   'css/app.css', 'css/themes.css', 'css/fx.css',
-  'js/util.js', 'js/db.js', 'js/api.js', 'js/library.js', 'js/extras.js', 'js/episodes.js', 'js/ngnl.js', 'js/io.js', 'js/folder-backup.js',
+  'js/util.js', 'js/db.js', 'js/api.js', 'js/library.js', 'js/extras.js', 'js/episodes.js', 'js/ngnl.js', 'js/io.js', 'js/folder-backup.js', 'js/cloud.js',
   'js/translate.js', 'js/charts.js', 'js/ui.js',
   'js/pages/common.js', 'js/pages/home.js', 'js/pages/list.js', 'js/pages/search.js', 'js/pages/anime.js',
   'js/pages/upcoming.js', 'js/pages/ngnl.js', 'js/pages/stats.js', 'js/pages/settings.js', 'js/pages/lightbox.js',

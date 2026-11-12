@@ -8,7 +8,7 @@ import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const SCRIPTS = ['js/util.js', 'js/db.js', 'js/library.js', 'js/io.js'];
+const SCRIPTS = ['js/util.js', 'js/db.js', 'js/library.js', 'js/io.js', 'js/cloud.js'];
 
 function memoryStorage(init = {}) {
   const m = new Map(Object.entries(init));

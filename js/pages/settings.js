@@ -113,6 +113,10 @@ Pages.settings = (ctx) => {
     const w = S.settings.wait;
     const kinds = [['episode', 'Nowy odcinek oglądanego anime'], ['premiere', 'Premiera lub zmiana daty planowanego anime'], ['sequel', 'Kontynuacja obejrzanego anime (radar)'], ['news', 'Nowa informacja o No Game No Life'], ['merch', 'Nowy merch No Game No Life'], ['change', 'Inne zmiany (koniec emisji, liczba odcinków)']];
     ctx.el.innerHTML = `<div class="page settings">
+      <section class="card" id="konto">
+        <h2 class="card-h">Konto i synchronizacja</h2>
+        <div id="cl-host"></div>
+      </section>
       ${FX.settingsHtml()}
 
       <section class="card bf-card">
@@ -237,7 +241,61 @@ Pages.settings = (ctx) => {
     FX.bindSettings(ctx.el);
     bind();
     renderFolder();
+    renderCloud();
   };
+
+  /* ---------- konto Google i synchronizacja ---------- */
+  const renderCloud = () => {
+    const host = $('#cl-host');
+    if (!host) return;
+    const s = Cloud.status();
+    const err = s.error ? `<p class="card-sub cl-err">${esc(s.error)}</p>` : '';
+    if (s.phase === 'unsupported') {
+      host.innerHTML = `<p class="card-sub">Logowanie i ta sama lista na każdym komputerze i telefonie działają w wersji pod adresem
+          <a href="${esc(Cloud.SITE)}" target="_blank" rel="noopener">${esc(Cloud.SITE.replace('https://', ''))}</a>.
+          Ta wersja jest otwarta z pliku na dysku, więc lista zapisuje się tylko w tej przeglądarce.</p>
+        <ol class="card-sub fb-steps">
+          <li>Kliknij „Pobierz listę do przeniesienia”: zapisze się plik JSON z całą listą.</li>
+          <li>Otwórz wersję z logowaniem i w Ustawieniach zaimportuj ten plik (Import → Kopia Disboard JSON, „zastąp”).</li>
+          <li>Kliknij tam „Zaloguj przez Google”. Na innych urządzeniach wystarczy otworzyć link i się zalogować.</li>
+        </ol>
+        <div class="btn-row">
+          <button class="btn" type="button" id="cl-export">${ICON.download}Pobierz listę do przeniesienia</button>
+          <a class="btn ghost" href="${esc(Cloud.SITE)}" target="_blank" rel="noopener">${ICON.ext}Otwórz wersję z logowaniem</a>
+        </div>`;
+      $('#cl-export', host).addEventListener('click', () => { IO.exportJSON(); toast('Zapisano plik z listą. Zaimportuj go w wersji z logowaniem.', { kind: 'ok', ms: 7000 }); });
+      return;
+    }
+    if (!s.user) {
+      host.innerHTML = `<p class="card-sub">${s.phase === 'loading' ? 'Łączę z kontem…' : 'Zaloguj się kontem Google, a ta sama lista będzie na każdym komputerze i telefonie. Zmiany przechodzą między urządzeniami same, w kilka sekund. Bez internetu wszystko działa dalej i dogrywa się później.'}</p>
+        ${err}
+        <div class="btn-row"><button class="btn" type="button" id="cl-in" ${s.phase === 'loading' ? 'disabled' : ''}>${ICON.user}Zaloguj przez Google</button></div>
+        <p class="card-sub muted">Lista leży w Twoim projekcie Firebase (Google) i ma do niej dostęp tylko Twoje konto. Kopie lokalne i do folderu robią się dalej.</p>`;
+      const b = $('#cl-in', host);
+      if (b) b.addEventListener('click', () => Cloud.signIn().catch((e) => toast(e.message, { kind: 'error', ms: 10000 })));
+      return;
+    }
+    const line = s.phase === 'syncing' ? 'Synchronizuję…'
+      : s.phase === 'error' ? 'Synchronizacja wstrzymana.'
+      : !s.leader ? 'Zsynchronizowane (synchronizacją zajmuje się inna otwarta karta).'
+      : `Zsynchronizowane${s.lastSync ? ` · ${esc(fmtDateTime(s.lastSync))}` : ''}.`;
+    host.innerHTML = `<div class="cl-user">
+        ${s.user.photo ? `<img src="${esc(s.user.photo)}" alt="" referrerpolicy="no-referrer">` : ICON.user}
+        <div><b>${esc(s.user.name || s.user.email)}</b><span class="muted">${esc(s.user.email)}</span></div>
+      </div>
+      <p class="card-sub">${line} Ta sama lista jest na każdym urządzeniu, na którym się zalogujesz.</p>
+      ${err}
+      <div class="btn-row">
+        <button class="btn" type="button" id="cl-now">${ICON.refresh}Synchronizuj teraz</button>
+        <button class="btn ghost" type="button" id="cl-out">Wyloguj</button>
+      </div>`;
+    $('#cl-now', host).addEventListener('click', () => Cloud.syncNow().then(() => toast('Lista zsynchronizowana.', { kind: 'ok' })).catch((e) => toast(e.message, { kind: 'error' })));
+    $('#cl-out', host).addEventListener('click', async () => {
+      await Cloud.signOut();
+      toast('Wylogowano. Lista została na tym urządzeniu.', { kind: 'ok' });
+    });
+  };
+  ctx.on('cloud', renderCloud);
 
   const status = (html, kind = '') => { const el = $('#i-status'); if (el) { el.className = `import-status ${kind}`; el.innerHTML = html; } };
   const bind = () => {

@@ -32,9 +32,10 @@ Kliknij dwukrotnie `index.html`. Tracker, wyszukiwarka, premiery, statystyki i n
 
 ## Gdzie są moje dane i jak ich nie stracić
 
-- Lista, historia i rewatche zapisują się **w przeglądarce, w której ich używasz**. Nic nie trafia na żaden serwer.
+- Lista, historia i rewatche zapisują się **w przeglądarce, w której ich używasz**. Bez logowania nic nie trafia na żaden serwer.
+- **Logowanie przez Google = ta sama lista na każdym urządzeniu.** Pod adresem https://sznaga1.github.io/disboard/ kliknij „Zaloguj” w górnym pasku. Lista zostaje lokalnie (działa bez internetu), a jej lustro leży w projekcie Firebase, do którego dostęp ma tylko Twoje konto (reguły Firestore: `users/{uid}`). Zmiany przechodzą między urządzeniami w kilka sekund, a zmiany z dwóch urządzeń łączą się tytuł po tytule. Z pliku otwartego z dysku logowanie nie działa (Google wymaga adresu https); karta „Konto i synchronizacja” w Ustawieniach pokazuje, jak przenieść listę. Kod: `js/cloud.js`, testy: `tests/cloud.test.mjs`.
 - Lista leży w bazie IndexedDB przeglądarki, więc nie ma limitu ok. 5 MB z localStorage. Starsze wersje trzymały ją w localStorage: przy pierwszym uruchomieniu nowej wersji lista przenosi się sama, stara kopia zostaje nietknięta, a w *Ustawienia i kopie* pojawia się kopia „Sprzed przeniesienia do IndexedDB”. W sekcji „O aplikacji” widać, gdzie lista jest zapisana.
-- **Telefon i komputer mają osobne listy.** Przenosisz je eksportem JSON na jednym urządzeniu i importem na drugim (*Ustawienia i kopie*).
+- **Bez logowania telefon i komputer mają osobne listy.** Przenosisz je wtedy eksportem JSON na jednym urządzeniu i importem na drugim (*Ustawienia i kopie*).
 - **Kopia do folderu na dysku** (Chrome i Edge na komputerze): w *Ustawienia i kopie* kliknij „Wybierz folder…” i wskaż np. `D:\App\disboard`. Aplikacja utworzy w nim folder „Disboard - kopie listy” i sama zapisuje tam pełną kopię JSON po zmianach (najpóźniej po 2 minutach) i co godzinę. Zapisuje jeden plik na dzień i trzyma 30 ostatnich. Kopia przetrwa wyczyszczenie danych przeglądarki. Przywracasz ją przez Import → Kopia Disboard (JSON). Folderu z kodem aplikacji aplikacja nie przyjmie, żeby kopie nie trafiły do repozytorium.
 - Aplikacja sama robi kopię w przeglądarce raz na godzinę i trzyma ją 7 dni. To chroni przed pomyłką, ale nie przed wyczyszczeniem danych przeglądarki.
 - **Regularnie rób eksport JSON.** Po 2 tygodniach bez kopii aplikacja sama o tym przypomni. Plik JSON odtwarza wszystko: sesje, rewatche, daty i notatki.

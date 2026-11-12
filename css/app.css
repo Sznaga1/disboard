@@ -196,6 +196,25 @@ body.backfill-on .acard-add { background: var(--crown); border-color: var(--crow
 .icon-btn.accent { background: var(--sora); color: var(--sora-ink); }
 .icon-btn.accent:hover:not(:disabled) { background: var(--sora-hi); color: var(--sora-ink); }
 .bell { position: relative; }
+/* konto Google w górnym pasku */
+.acct {
+  position: relative; display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px 0 8px;
+  border-radius: 18px; border: 1px solid var(--line); background: transparent;
+  color: var(--text-2); font: 600 var(--fs-sm)/1 var(--f-body); cursor: pointer; transition: background .15s, color .15s;
+}
+.acct:hover { background: var(--surface-3); color: var(--text); }
+.acct svg { width: 18px; height: 18px; }
+.acct.in { width: 36px; padding: 0; justify-content: center; border-color: transparent; }
+.acct.in img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
+.acct-dot { position: absolute; right: 1px; bottom: 1px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--ink); background: var(--ok); }
+.acct-dot.busy { background: var(--warn); }
+.acct-dot.bad { background: var(--bad); }
+@media (max-width: 600px) { .acct-t { display: none; } .acct:not(.in) { width: 36px; padding: 0; justify-content: center; } }
+.cl-user { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.cl-user img, .cl-user svg { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex: none; }
+.cl-user div { display: grid; gap: 2px; min-width: 0; }
+.cl-user span { font-size: var(--fs-sm); overflow: hidden; text-overflow: ellipsis; }
+.cl-err { color: var(--bad); }
 .bell-count {
   position: absolute; top: 3px; right: 1px; min-width: 18px; height: 18px; padding: 0 5px;
   border-radius: 9px; background: var(--sora); color: var(--sora-ink);
