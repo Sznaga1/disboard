@@ -185,10 +185,15 @@ function relTime(ts) {
 }
 
 // Różnica kalendarzowa: pełne lata + reszta dni/godzin/minut/sekund
+// Różnica liczona „na zegarku”: obie chwile zamieniamy na czas lokalny zapisany
+// jak UTC, więc zmiana czasu letni/zimowy nie przesuwa godzin (od północy
+// w czerwcu, czyli w czasie letnim, do północy w listopadzie to równe dni, nie +1 h).
 function diffCalendar(fromTs, toTs) {
-  const from = new Date(fromTs), to = new Date(toTs);
-  let y = to.getFullYear() - from.getFullYear();
-  const anniv = (yy) => { const a = new Date(from); a.setFullYear(from.getFullYear() + yy); return a; };
+  const wall = (ts) => { const x = new Date(ts); return Date.UTC(x.getFullYear(), x.getMonth(), x.getDate(), x.getHours(), x.getMinutes(), x.getSeconds(), x.getMilliseconds()); };
+  const fromW = wall(fromTs), toW = wall(toTs);
+  const from = new Date(fromW), to = new Date(toW);
+  let y = to.getUTCFullYear() - from.getUTCFullYear();
+  const anniv = (yy) => { const a = new Date(fromW); a.setUTCFullYear(from.getUTCFullYear() + yy); return a; };
   let a = anniv(y);
   if (a > to) { y--; a = anniv(y); }
   const rest = Math.max(0, Math.floor((to - a) / 1000));
@@ -198,7 +203,7 @@ function diffCalendar(fromTs, toTs) {
     h: Math.floor((rest % 86400) / 3600),
     m: Math.floor((rest % 3600) / 60),
     s: rest % 60,
-    totalDays: Math.floor((to - from) / 86400000),
+    totalDays: Math.floor((toW - fromW) / 86400000),
   };
 }
 

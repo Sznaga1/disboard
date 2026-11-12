@@ -1,0 +1,220 @@
+/* Test w prawdziwej przeglądarce (Chrome albo Edge bez okna, na czystym profilu
+   tymczasowym). Sprawdza zapis listy w IndexedDB: przeniesienie z localStorage,
+   zapis przy zamykaniu karty, zmiany ze starszej wersji w innej karcie, dwie
+   karty naraz, listę ponad dawny limit, kopię sprzed przeniesienia, sprzątanie
+   cache i tryb awaryjny bez IndexedDB. Na koniec przechodzi po wszystkich
+   ekranach i sprawdza, że żaden nie rzuca błędem.
+
+   Uruchomienie:  node tools/test-browser.mjs
+   Inna przeglądarka:  CHROME="ścieżka/do/chrome" node tools/test-browser.mjs
+   Sieć do AniList/Jikan jest w teście zablokowana: niczego nie pobiera. */
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import http from 'node:http';
+import { spawn } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+let ok = 0, fail = 0;
+const check = (name, cond, extra = '') => {
+  if (cond) { ok++; console.log('  OK  ', name); } else { fail++; console.log('  FAIL', name, extra); }
+};
+
+/* ---------- przeglądarka ---------- */
+function findBrowser() {
+  const c = [
+    process.env.CHROME,
+    'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
+    'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
+    'C:/Program Files/Microsoft/Edge/Application/msedge.exe',
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser',
+  ].filter(Boolean);
+  const found = c.find((p) => fs.existsSync(p));
+  if (!found) throw new Error('Nie znalazłem Chrome ani Edge. Podaj ścieżkę w zmiennej CHROME.');
+  return found;
+}
+
+async function startBrowser() {
+  const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'disboard-test-'));
+  const proc = spawn(findBrowser(), ['--headless=new', '--remote-debugging-port=0', `--user-data-dir=${profile}`, '--no-first-run', '--no-default-browser-check', 'about:blank'], { stdio: 'ignore' });
+  const portFile = path.join(profile, 'DevToolsActivePort');
+  for (let i = 0; i < 100 && !fs.existsSync(portFile); i++) await sleep(100);
+  const port = Number(fs.readFileSync(portFile, 'utf8').split('\n')[0]);
+  const stop = async () => {
+    proc.kill();
+    await sleep(500);
+    try { fs.rmSync(profile, { recursive: true, force: true }); } catch { /* Windows bywa wolny ze zwalnianiem plików */ }
+  };
+  return { port, stop };
+}
+
+function startServer() {
+  const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.webmanifest': 'application/manifest+json' };
+  const srv = http.createServer((req, res) => {
+    let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
+    if (p.endsWith('/')) p += 'index.html';
+    const f = path.join(ROOT, p);
+    if (!f.startsWith(ROOT)) { res.writeHead(403); res.end(); return; }
+    fs.readFile(f, (err, data) => {
+      if (err) { res.writeHead(404); res.end(); return; }
+      res.writeHead(200, { 'content-type': types[path.extname(f)] || 'application/octet-stream', 'cache-control': 'no-store' });
+      res.end(data);
+    });
+  });
+  return new Promise((r) => srv.listen(0, '127.0.0.1', () => r({ base: `http://127.0.0.1:${srv.address().port}`, close: () => srv.close() })));
+}
+
+/* ---------- DevTools Protocol: jedna karta ---------- */
+async function newPage(port, { noIndexedDB = false } = {}) {
+  const t = await (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: 'PUT' })).json();
+  const ws = new WebSocket(t.webSocketDebuggerUrl);
+  await new Promise((r) => ws.addEventListener('open', r, { once: true }));
+  let id = 0;
+  const pend = new Map(), logs = [], loadWaiters = [];
+  ws.addEventListener('message', (m) => {
+    const d = JSON.parse(m.data);
+    if (d.id && pend.has(d.id)) { pend.get(d.id)(d); pend.delete(d.id); }
+    if (d.method === 'Runtime.exceptionThrown') logs.push('EXC ' + (d.params.exceptionDetails.exception?.description || d.params.exceptionDetails.text));
+    if (d.method === 'Runtime.consoleAPICalled' && ['error', 'info'].includes(d.params.type)) logs.push(d.params.type + ' ' + d.params.args.map((a) => a.value ?? a.description).join(' '));
+    if (d.method === 'Page.loadEventFired') loadWaiters.splice(0).forEach((f) => f());
+  });
+  const send = (method, params = {}) => new Promise((res) => { const i = ++id; pend.set(i, res); ws.send(JSON.stringify({ id: i, method, params })); });
+  await send('Page.enable'); await send('Runtime.enable'); await send('Network.enable');
+  await send('Network.setBlockedURLs', { urls: ['*anilist.co*', '*jikan.moe*', '*trace.moe*', '*mymemory*', '*googleapis*', '*gstatic*', '*myanimelist*', '*youtube*', '*ani.zip*'] });
+  if (noIndexedDB) await send('Page.addScriptToEvaluateOnNewDocument', { source: `Object.defineProperty(window, 'indexedDB', { get() { throw new Error('brak IndexedDB (test)'); } });` });
+  const ev = async (expr) => {
+    const r = await send('Runtime.evaluate', { expression: expr, awaitPromise: true, returnByValue: true });
+    if (r.result.exceptionDetails) throw new Error('eval: ' + (r.result.exceptionDetails.exception?.description || r.result.exceptionDetails.text));
+    return r.result.result.value;
+  };
+  const loaded = () => new Promise((r) => loadWaiters.push(r));
+  const go = async (url) => { const p = loaded(); await send('Page.navigate', { url }); await p; };
+  const reload = async () => { const p = loaded(); await send('Page.reload'); await p; };
+  const ready = () => ev('(async () => { await stateReady; return true; })()');
+  return { ev, go, reload, ready, logs, closePage: () => send('Page.close'), close: () => ws.close() };
+}
+
+/* ---------- dane testowe: lista jak ze starej wersji (localStorage) ---------- */
+const SEED = `(() => {
+  const now = Date.now(); const st = { v: 1, entries: {}, history: [], notifs: [], settings: { titleLang: 'romaji' }, meta: { createdAt: now - 1e9 } };
+  for (let i = 1; i <= 600; i++) {
+    const id = 100000 + i;
+    st.entries[id] = { id, idMal: i, status: i % 5 ? 'completed' : 'watching', score: 8, notes: '', favorite: false, tags: [], addedAt: now - 1e8, updatedAt: now - 1e8, mediaFetchedAt: now,
+      sessions: [{ n: 0, startedAt: now - 9e7, finishedAt: now - 8e7, progress: 24, done: true }],
+      media: { id, idMal: i, title: { romaji: 'Testowe anime numer ' + i + ' z dosyć długim tytułem', english: 'Test anime ' + i, native: 'テストアニメ' + i }, synonyms: ['TA' + i], coverImage: { large: 'https://s4.anilist.co/x/' + id + '.jpg', color: '#e4a15d' }, bannerImage: null, format: 'TV', status: 'FINISHED', episodes: 24, duration: 24, season: 'WINTER', seasonYear: 2020, genres: ['Action', 'Drama'], averageScore: 80, popularity: 1000, isAdult: false, siteUrl: 'https://anilist.co/anime/' + id, updatedAt: 1 } };
+    for (let ep = 1; ep <= 24; ep++) st.history.push({ id: 'h' + i + '_' + ep, t: now - 8e7 + ep, k: 'ep', m: id, s: 0, ep, bulk: true, ti: 'Testowe anime numer ' + i });
+  }
+  localStorage.setItem('disboard.library.v1', JSON.stringify(st));
+  return true;
+})()`;
+const LEGACY = `localStorage.getItem('disboard.library.v1')`;
+const note = (id) => `(S.entries[${id}] && S.entries[${id}].notes)`;
+const setNote = (id, v, wait = 0) => `(S.entries[${id}].notes = ${JSON.stringify(v)}, S.entries[${id}].updatedAt = Date.now(), save(), new Promise((r) => setTimeout(r, ${wait})))`;
+
+async function main() {
+  const server = await startServer();
+  const browser = await startBrowser();
+  const BASE = server.base;
+  const P = (o) => newPage(browser.port, o);
+  try {
+    const A = await P();
+
+    console.log('Przeniesienie listy z localStorage do IndexedDB');
+    await A.go(BASE + '/manifest.webmanifest');
+    await A.ev(SEED);
+    const seed = await A.ev(LEGACY);
+    await A.go(BASE + '/'); await A.ready();
+    check('zapis: IndexedDB', (await A.ev('storageInfo()')) === 'IndexedDB');
+    check('600 pozycji i 14400 zdarzeń', (await A.ev('Object.keys(S.entries).length + "/" + S.history.length')) === '600/14400');
+    check('localStorage nietknięty', (await A.ev(LEGACY)) === seed);
+    check('kopia „przed-migracja” = oryginał', await A.ev(`IDB.get('backups', 'przed-migracja').then((b) => !!b && b.json === ${LEGACY})`));
+
+    console.log('Zapis');
+    await A.ev(setNote(100001, 'zmiana-1', 600));
+    await A.reload(); await A.ready();
+    check('zmiana przetrwała przeładowanie', (await A.ev(note(100001))) === 'zmiana-1');
+    await A.ev(setNote(100005, 'szybko', 100));
+    await A.reload(); await A.ready();
+    check('przeładowanie 100 ms po zmianie', (await A.ev(note(100005))) === 'szybko');
+    const C = await P();
+    await C.go(BASE + '/'); await C.ready();
+    await C.ev(setNote(100006, 'zamknieta', 100));
+    await C.closePage();
+    await sleep(700);
+    check('zamknięcie karty 100 ms po zmianie', (await A.ev(`SDB.get('main').then((r) => JSON.parse(r.json).entries[100006].notes)`)) === 'zamknieta');
+    check('localStorage nadal nietknięty', (await A.ev(LEGACY)) === seed);
+
+    console.log('Starsza wersja aplikacji w innej karcie');
+    await A.ev(`(() => { const s = JSON.parse(${LEGACY}); s.entries[100002].notes = 'stara-karta'; s.entries[100002].updatedAt = Date.now(); localStorage.setItem('disboard.library.v1', JSON.stringify(s)); return true; })()`);
+    await A.reload(); await A.ready();
+    const lg = await A.ev(`${note(100002)} + "|" + ${note(100001)}`);
+    check('jej zmiana dołączona, własna zachowana', lg === 'stara-karta|zmiana-1', lg);
+
+    console.log('Dwie karty');
+    const B = await P();
+    await B.go(BASE + '/'); await B.ready();
+    await A.ev(`(S.entries[100003].score = 3, S.entries[100003].updatedAt = Date.now(), saveNow())`);
+    let seen = false;
+    for (let i = 0; i < 30 && !seen; i++) { seen = (await B.ev('S.entries[100003].score')) === 3; if (!seen) await sleep(100); }
+    check('karta B widzi zmianę z A', seen);
+    await Promise.all([
+      A.ev(`(S.entries[100010].notes = 'z-A', S.entries[100010].updatedAt = Date.now(), saveNow())`),
+      B.ev(`(S.entries[100011].notes = 'z-B', S.entries[100011].updatedAt = Date.now(), saveNow())`),
+    ]);
+    await sleep(800);
+    await A.reload(); await A.ready();
+    const both = await A.ev(`${note(100010)} + "|" + ${note(100011)}`);
+    check('równoczesne zmiany z obu kart zachowane', both === 'z-A|z-B', both);
+    B.close();
+
+    console.log('Ekrany');
+    const routes = ['#/', '#/lista', '#/lista/watching', '#/szukaj', '#/anime/100001', '#/premiery', '#/ngnl', '#/skaner', '#/statystyki', '#/statystyki/nerd', '#/historia', '#/historia/100001', '#/ustawienia'];
+    for (const r of routes) {
+      const before = A.logs.length;
+      await A.ev(`(location.hash = ${JSON.stringify(r)}, new Promise((res) => setTimeout(res, 700)))`);
+      const errs = A.logs.slice(before).filter((l) => l.startsWith('EXC'));
+      const filled = (await A.ev(`(document.getElementById('view') || document.body).innerText.trim().length`)) > 20;
+      check(`ekran ${r}`, filled && !errs.length, errs.slice(0, 2).join(' | '));
+    }
+    check('w Ustawieniach widać „zapis: IndexedDB”', (await A.ev(`(location.hash = '#/ustawienia', new Promise((r) => setTimeout(() => r(document.body.innerText.includes('zapis: IndexedDB')), 700)))`)));
+
+    console.log('Lista ponad dawny limit localStorage');
+    await A.ev(`(() => { const now = Date.now(); for (let i = 1; i <= 2000; i++) { const id = 200000 + i; const e = JSON.parse(JSON.stringify(S.entries[100001])); e.id = id; e.media.id = id; e.notes = ''; S.entries[id] = e; for (let ep = 1; ep <= 24; ep++) S.history.push({ id: 'g' + i + '_' + ep, t: now, k: 'ep', m: id, s: 0, ep, bulk: true, ti: 'Duże ' + i }); } return saveNow(); })()`);
+    await A.reload(); await A.ready();
+    const size = await A.ev(`SDB.get('main').then((r) => r.json.length)`);
+    check(`2600 pozycji, ${(size / 1e6).toFixed(1)} mln znaków (limit localStorage ~5)`, (await A.ev('Object.keys(S.entries).length')) === 2600 && size > 5e6);
+
+    console.log('Kopia sprzed przeniesienia');
+    await A.ev(`restoreBackup('przed-migracja').then(() => new Promise((r) => setTimeout(r, 500)))`);
+    await A.reload(); await A.ready();
+    check('przywrócenie daje z powrotem 600 pozycji', (await A.ev('Object.keys(S.entries).length')) === 600);
+
+    console.log('Sprzątanie cache API');
+    await A.ev(`(async () => { const old = Date.now() - 40 * 86400e3; await IDB.set('cache', 'gql:stare', { t: old, data: 1 }); await IDB.set('cache', 'gql:nowe', { t: Date.now(), data: 1 }); await IDB.set('cache', 'epflags:v1', { t: old, data: {} }); await IDB.set('cache', 'tr:ja-en:x', { t: old, data: 1 }); return pruneApiCache({ force: true }); })()`);
+    const keys = await A.ev(`IDB.keys('cache')`);
+    check('stare usunięte; nowe, fillery i tłumaczenia zostały', !keys.includes('gql:stare') && ['gql:nowe', 'epflags:v1', 'tr:ja-en:x'].every((k) => keys.includes(k)), JSON.stringify(keys));
+
+    const errs = A.logs.filter((l) => l.startsWith('EXC') || l.startsWith('error'));
+    check('brak błędów w konsoli', !errs.length, errs.slice(0, 3).join(' | '));
+    A.close();
+
+    console.log('Tryb awaryjny bez IndexedDB');
+    const F = await P({ noIndexedDB: true });
+    await F.go(BASE + '/'); await F.ready();
+    check('zapis: localStorage, lista wczytana', (await F.ev('storageInfo() + "/" + Object.keys(S.entries).length')) === 'localStorage/600');
+    await F.ev(setNote(100009, 'ls-mode', 300));
+    check('zapis trafia do localStorage', (await F.ev(`JSON.parse(${LEGACY}).entries[100009].notes`)) === 'ls-mode');
+    F.close();
+  } finally {
+    await browser.stop();
+    server.close();
+  }
+  console.log(`\n${ok} OK, ${fail} FAIL`);
+  process.exit(fail ? 1 : 0);
+}
+
+main().catch((e) => { console.error(e); process.exit(1); });

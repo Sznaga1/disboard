@@ -33,6 +33,7 @@ Kliknij dwukrotnie `index.html`. Tracker, wyszukiwarka, premiery, statystyki i n
 ## Gdzie są moje dane i jak ich nie stracić
 
 - Lista, historia i rewatche zapisują się **w przeglądarce, w której ich używasz**. Nic nie trafia na żaden serwer.
+- Lista leży w bazie IndexedDB przeglądarki, więc nie ma limitu ok. 5 MB z localStorage. Starsze wersje trzymały ją w localStorage: przy pierwszym uruchomieniu nowej wersji lista przenosi się sama, stara kopia zostaje nietknięta, a w *Ustawienia i kopie* pojawia się kopia „Sprzed przeniesienia do IndexedDB”. W sekcji „O aplikacji” widać, gdzie lista jest zapisana.
 - **Telefon i komputer mają osobne listy.** Przenosisz je eksportem JSON na jednym urządzeniu i importem na drugim (*Ustawienia i kopie*).
 - Aplikacja sama robi kopię w przeglądarce raz na godzinę i trzyma ją 7 dni. To chroni przed pomyłką, ale nie przed wyczyszczeniem danych przeglądarki.
 - **Regularnie rób eksport JSON.** Po 2 tygodniach bez kopii aplikacja sama o tym przypomni. Plik JSON odtwarza wszystko: sesje, rewatche, daty i notatki.
@@ -219,7 +220,7 @@ css/app.css              wygląd (ciemny motyw)
 css/themes.css           motywy: Ex Machina, Flügel, Werebeast, Zero, OLED
 css/fx.css               bajery (efekty za przełącznikiem) i karta „Wygląd” w ustawieniach
 js/util.js               formatowanie PL (odmiana, czas, daty), ikony
-js/db.js                 zapis listy, kopie zapasowe, pamięć podręczna
+js/db.js                 zapis listy (IndexedDB), kopie zapasowe, pamięć podręczna
 js/api.js                AniList, Jikan, feed; limity i tryb offline
 js/library.js            tracker: statusy, odcinki, rewatche, czas, powiadomienia
 js/ngnl.js               centrum No Game No Life
@@ -233,12 +234,27 @@ js/watch-order.js        kolejność oglądania serii z relacji AniList
 js/episodes.js           odcinki: kadry, fillery, zaznaczanie zakresów, skan fillerów
 js/radar.js              radar kontynuacji
 js/fx.js                 motywy i bajery: przełączniki, przejścia, efekty, easter eggi
-js/ui.js, js/pages.js    komponenty i ekrany
+js/ui.js                 komponenty (karty, sekcje, menu statusów)
+js/pages/                ekrany: common.js (wspólne), home, list, search, anime,
+                         upcoming, ngnl, stats (z historią), settings, lightbox
 js/app.js                routing, licznik oczekiwania, odświeżanie w tle
 sw.js, manifest          instalacja na telefonie i działanie bez sieci
 tools/build-feed.mjs     budowanie feedu RSS (Node 20, bez zależności)
+tools/test-browser.mjs   test w Chrome/Edge: zapis w IndexedDB, karty, wszystkie ekrany
+tests/                   testy logiki (node --test)
 .github/workflows/       harmonogram feedu w GitHub Actions
 data/ngnl-feed.json      feed (na start pusty; wypełnia go workflow)
 ```
+
+## Testy
+
+Bez instalowania czegokolwiek, wystarczy Node 22+:
+
+```
+node --test "tests/*.test.mjs"     # logika: czas, rewatche, zakresy odcinków, łączenie kart, eksport/import, zegar NGNL
+node tools/test-browser.mjs        # prawdziwa przeglądarka (Chrome albo Edge, bez okna, na czystym profilu)
+```
+
+Testy logiki ładują te same pliki z `js/`, których używa aplikacja. Test przeglądarkowy sam uruchamia serwer i przeglądarkę, blokuje sieć do AniList i Jikan i po sobie sprząta. Twojej listy nie dotyka. Po dodaniu nowego pliku JS dopisz go do `index.html` i do listy w `sw.js`; test `tests/files.test.mjs` przypomni, jeśli zapomnisz.
 
 Dane anime pochodzą z [AniList](https://anilist.co) i [MyAnimeList](https://myanimelist.net) (przez [Jikan](https://jikan.moe)). Aplikacja jest do prywatnego, niekomercyjnego użytku.
