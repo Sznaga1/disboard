@@ -1,33 +1,33 @@
 {
- "generatedAt": "2026-11-12T07:23:44.819Z",
+ "generatedAt": "2026-11-12T16:52:40.836Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 54,
-   "added": 54
+   "count": 55,
+   "added": 41
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 61,
-   "added": 61
+   "count": 59,
+   "added": 31
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
    "count": 24,
-   "added": 21
+   "added": 15
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
    "count": 55,
-   "added": 38
+   "added": 30
   },
   {
    "id": "ann",
@@ -52,6 +52,18 @@
    "source": "Comic Book Resources",
    "via": "Google News: merch (EN)",
    "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1sdno1SDBBdnpUWmhjdVA2ZXRlQkJzU0J5QXhvNmdfQjUtVG1ucXlZZ09vNkdUajlVUlF6TG5TZ0lSMnZqUkFlNWRZU3g0Rjc0SU9zUHNFeHNQa0NNSDhqQXNqaXBqdWx2LURGRms0RkxSOEU?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "d3e618930db9ff2a",
+   "title": "No Game No Life’s Shiro Gets Huge New $8,000 Life-Size Statue From Prime 1 Studio",
+   "date": "2026-11-07T19:27:46.000Z",
+   "summary": "",
+   "source": "Essential Japan",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNVmJUMXowQUtMSk91RVpDeF8yNVhtaFFxdkg5MTNLd05aVVZ4S0pfLTJOZzhwWjdLY0VVMllFVkM4LUVQaE9PS3Q3NElSRUdDYlpEOFBpdms2bHh2N2ZwNlJ5cFlZcE5UaF84U29OZkg1allQYWRDME5yRHl3ZUJPdTUwOXdlUWRkWURxel9xU1RxVlByZUtPSGlnREM5eHNYc3JVT0JnVGF2RDF3ckpmTV9R?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
@@ -203,7 +215,7 @@
   {
    "id": "00d9cc93435dc4da",
    "title": "『ノーゲーム・ノーライフ』バニーガール姿のジブリールがフィギュア化。余裕ある微笑みやしなやかなボディラインに見惚れる",
-   "date": "2026-10-21T07:00:00.000Z",
+   "date": "2026-10-22T07:00:00.000Z",
    "summary": "",
    "source": "電撃オンライン",
    "via": "Google News: グッズ (JP)",
@@ -220,6 +232,18 @@
    "source": "Rock Paper Shotgun",
    "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQREJfVjJxem41MTBNdzgtZXVMMXh3YUYxTHRFc3dmZW5rZm41UWx4ZDFqM1Z3azZzNXJBMUlMaWpRSTZIbGRHbVg2QUtmUzBubXhzRG5FSzU0dUFnQWJXdmNNSW40bHI2Y0puS0NYV25iSzVwZ2Fib2YyUmxuSU05b19QeFRtWG1rVkVqM0swTnBzMWp3RVF1LS1TVHZTdnpySTVYcnhvRmRBWnpHWGdrckFGdk1qdTZoanlMam9EVU9jYmZsTjdyaw?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "0d7b5047d9d56388",
+   "title": "Prime 1 Studio Unveils Stunning 1:1 Scale Marin Kitagawa Statue from My Dress-Up Darling",
+   "date": "2026-09-18T07:00:00.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News: merch (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE85SUEwQlN4ZXZneGIteUtzZUhSTjA1X1pKMkRDbENjekFZSzhGNUxpRjdqM2tjSWEwb2hrbHBiQWdLTnh2MFBuenJudEdHZkUz?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
@@ -328,6 +352,18 @@
    "source": "Essential Japan",
    "via": "Google News: merch (EN)",
    "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOX21iTlZKQXpndmc3NGFSZGZPZEgtdGxxUGVqLTNaV2VVN1V6bG9Mek8zWjRUZDNsWTllbUxTOGU2MHVUSGw0aVIzdmxLZElKTGNfeUM0Tkd6WEVvVFA0MGN4dG5HWWdUYU5nekRZR0wyd3RlZXlvbDVWTGpra0NFc3pkSHJrVWFaejRRWjFobkt0Y0t0elpRV0dlaWFjb2pKdlMyZExGN1dPeC1VRUQ0SC1mQXB2VGtPTlBPRHROdEM?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "a3c853bb2f47f510",
+   "title": "ノーゲーム・ノーライフ ギャル制服 ver. 描き下ろしグッズ 発売!",
+   "date": "2026-06-17T07:00:00.000Z",
+   "summary": "",
+   "source": "コラボカフェ",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQZVpPVDN2UzFXMjN1eEpXNTk5VkxrNmRBbHVCdDdUVWQ0T1NJN0FTc2xfSTI3WU9aeFVGLURvaHRvQzJkUWV3eldlenpkN2UzYlpwX3k5YURjSGtZb0l4Ym1vWHFYRTJ4MzJ2SmVtdHo0VDJvMFNyOW9mY0tkMUVDQktybE9fVFVMNTdlNklUeU1JNm1JZWVrUFI1TUg1aHln?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
@@ -597,18 +633,6 @@
    "kind": "merch"
   },
   {
-   "id": "18bf757dd7d60ec8",
-   "title": "No Game No Life The Movie Heroine to be Released as an Articulated Figure 'figma Schwi' Scheduled for December Release!",
-   "date": "2026-03-12T12:22:29.000Z",
-   "summary": "",
-   "source": "玩具人 TOY PEOPLE",
-   "via": "Google News: merch (EN)",
-   "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBUazZvS2c3U3haUlo5NWRjZy05aDVSUHFRa05fYU9pWXZuRjdxSUZfZGpEbnhrMEZfUlVTMGNWWmlhN1o2X2s4Vk80eW44bEk?oc=5",
-   "image": null,
-   "price": null,
-   "kind": "merch"
-  },
-  {
    "id": "530f55978525f1fa",
    "title": "GSC \"Lycoris Recoil Chisato Nishikigi Key Visual Ver.\" 1/6 Scale Figure: An Energetic Smile and V-Sign Gesture!",
    "date": "2026-03-10T07:00:00.000Z",
@@ -652,6 +676,18 @@
    "source": "Comic Book Resources",
    "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1jX2kwSThtdE5rQXlFOEJhWlRaTHA5b21mR1E0cWRhQng3NERBZXZsTWRRWHJpNlRXYVh2R2kyTEVRWmMwMGkwcnFTS2Y2aHJfQ1F5NzdXMEMycG1wSGJuZnZIVjFfdzJIdUhsVVZ2QTVnTTg?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "5945c844bd709e28",
+   "title": "No Game No Life Returns With Volume 13 in April, First New Release in Over 3 Years",
+   "date": "2026-02-19T08:00:00.000Z",
+   "summary": "",
+   "source": "Anime Corner",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNQWNxemxHYko0V01haEpnS2VHaWZmMDNKWHIzTTFMdTBuRzVxTFN0MjNPeFlyVk04WjBlYWtPQXFhS1VpTmhnOWFnZDI1RTRuQnVObDhOcHJVcnlmdm5XalIyRXFNLWZQdXQ5ZVBQNDNhZzkxOFQ2UlM0cnJiN0pLVVNJOGdhMGRMN01vSUFTOWhFb25RaHVpTUFDYkpyX05qUUpXYzA0QjQ?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
