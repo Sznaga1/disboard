@@ -572,7 +572,8 @@ fieldset { border: 0; padding: 0; margin: 0; }
 .lb-cap { position: absolute; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); color: var(--text-2); font-size: var(--fs-sm); }
 
 /* ---------- strona główna ---------- */
-.home-duo, .home-trio { display: grid; gap: 0 28px; }
+/* minmax(0, 1fr): długi tytuł w środku nie może rozepchnąć kolumny poza ekran telefonu */
+.home-duo, .home-trio { display: grid; gap: 0 28px; grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 1100px) {
   .home-duo { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
   .home-trio { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -592,8 +593,8 @@ fieldset { border: 0; padding: 0; margin: 0; }
 .nx-list.big .nx.nearest .nx-cd { max-width: none; }
 .backlog { margin-top: 14px; }
 .backlog h3 { font: 700 var(--fs-xs) var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-.backlog ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; }
-.backlog li { display: flex; align-items: center; gap: 10px; font-size: var(--fs-sm); }
+.backlog ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; grid-template-columns: minmax(0, 1fr); }
+.backlog li { display: flex; align-items: center; gap: 10px; font-size: var(--fs-sm); min-width: 0; }
 .backlog li a { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .backlog li .num { color: var(--shiro); font-size: var(--fs-xs); }
 
