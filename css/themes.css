@@ -1,0 +1,84 @@
+/* ==========================================================================
+   Disboard — motywy (wszystkie ciemne). Domyślny „Disboard” jest w app.css.
+   Motyw zmienia tylko kolory planszy, tekstu i akcentów oraz dokłada subtelny
+   motyw w tle. Kolory statusów, wykresów i semantyki zostają wspólne
+   (sprawdzone pod kątem kontrastu i daltonizmu), więc „Oglądam” zawsze jest niebieskie.
+   Kontrast sprawdzony skryptem: tekst ≥ 7:1, tekst przygaszony ≥ 4,5:1, akcenty ≥ 4,5:1.
+   ========================================================================== */
+
+/* ---------- Ex Machina: chłodny granat i obwody Schwi ---------- */
+html[data-theme="exmachina"] {
+  --ink: #060a10; --ink-deep: #030509;
+  --surface: #0c131d; --surface-2: #111b29; --surface-3: #182538;
+  --line: #1c2b3f; --line-2: #273b55;
+  --text: #e7f1ff; --text-2: #b6c6dc; --muted: #8497b1; --faint: #5f7089;
+  --sora: #3dbdff; --sora-ink: #021422; --sora-hi: #7fd4ff;
+  --shiro: #b7a2ff; --crown: #ffd37a;
+  --grid: #1a2738; --glow-a: #0e2a44; --glow-b: #1c1438;
+}
+html[data-theme="exmachina"] body {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--sora) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--sora) 4%, transparent) 1px, transparent 1px);
+  background-size: 34px 34px;
+  background-attachment: fixed;
+}
+
+/* ---------- Flügel: śliwka, róż Jibril i złota aureola ---------- */
+html[data-theme="flugel"] {
+  --ink: #100710; --ink-deep: #080308;
+  --surface: #1a0d1a; --surface-2: #221224; --surface-3: #2e1831;
+  --line: #33203a; --line-2: #46294d;
+  --text: #fff0fb; --text-2: #e0c6da; --muted: #b797b2; --faint: #80647d;
+  --sora: #ff7ac4; --sora-ink: #2a0619; --sora-hi: #ffa3d6;
+  --shiro: #7df0c8; --crown: #ffd98a;
+  --grid: #2c1a2e; --glow-a: #3a1036; --glow-b: #0f2a24;
+}
+html[data-theme="flugel"] body {
+  background-image:
+    radial-gradient(circle at 88% -6%, transparent 0 170px, color-mix(in srgb, var(--crown) 9%, transparent) 171px 173px, transparent 174px 232px, color-mix(in srgb, var(--crown) 5%, transparent) 233px 234px, transparent 235px),
+    radial-gradient(60% 50% at 88% 0%, color-mix(in srgb, var(--sora) 7%, transparent), transparent 70%);
+  background-attachment: fixed;
+}
+
+/* ---------- Werebeast: ciepły brąz, bursztyn Izuny i jadeit ---------- */
+html[data-theme="werebeast"] {
+  --ink: #0e0906; --ink-deep: #070402;
+  --surface: #18110c; --surface-2: #211710; --surface-3: #2c1f15;
+  --line: #34261a; --line-2: #4a3624;
+  --text: #fff3e6; --text-2: #e2cfb9; --muted: #b39c85; --faint: #81705e;
+  --sora: #ff8a3d; --sora-ink: #2a1002; --sora-hi: #ffab73;
+  --shiro: #5fd4a3; --crown: #ffd166;
+  --grid: #2a1f16; --glow-a: #3a1a08; --glow-b: #0e2418;
+}
+html[data-theme="werebeast"] body {
+  background-image: radial-gradient(120% 70% at 50% -10%, color-mix(in srgb, var(--sora) 7%, transparent), transparent 60%);
+  background-attachment: fixed;
+}
+
+/* ---------- Zero: popiół Wielkiej Wojny, żar czerwieni, przygaszone okładki ---------- */
+html[data-theme="zero"] {
+  --ink: #0b0b0b; --ink-deep: #050505;
+  --surface: #141312; --surface-2: #1b1a18; --surface-3: #252320;
+  --line: #2c2926; --line-2: #3d3935;
+  --text: #ece6e0; --text-2: #cbc3ba; --muted: #9e958e; --faint: #736b65;
+  --sora: #ee5a4f; --sora-ink: #1f0302; --sora-hi: #f5827a;
+  --shiro: #a3b8cc; --crown: #d9b56e;
+  --grid: #242120; --glow-a: #2e0f0c; --glow-b: #121a22;
+}
+html[data-theme="zero"] body {
+  background-image: radial-gradient(140% 100% at 50% 40%, transparent 55%, rgba(0, 0, 0, .55) 100%);
+  background-attachment: fixed;
+}
+/* okładki wracają do kolorów dopiero pod kursorem */
+html[data-theme="zero"] .cover img { filter: saturate(.4) contrast(1.06); transition: filter .35s ease; }
+html[data-theme="zero"] :is(.acard-media, .ecard-cover, .erow-cover, .d-head, .wo-row, .rd-tile):hover .cover img,
+html[data-theme="zero"] .d-head .cover img { filter: none; }
+
+/* ---------- OLED: czysta czerń na telefon ---------- */
+html[data-theme="oled"] {
+  --ink: #000000; --ink-deep: #000000;
+  --surface: #0a090d; --surface-2: #121016; --surface-3: #1b1822;
+  --line: #25212e; --line-2: #332d40;
+  --grid: #1c1826; --glow-a: #1d0f26; --glow-b: #08131a;
+}

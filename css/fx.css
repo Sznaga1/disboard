@@ -1,0 +1,281 @@
+/* ==========================================================================
+   Disboard — „Bajery” (eksperymentalne efekty) i karta „Wygląd” w Ustawieniach.
+   Każdy efekt działa tylko pod klasą na <html>: .fx-<efekt> (nadaje js/fx.js).
+   Elementy tworzone przez efekty mają przedrostek .fxe-.
+   Bez bajerów żadna z reguł poniżej (poza kartą ustawień) nic nie zmienia.
+   ========================================================================== */
+
+/* ---------- karta „Wygląd i bajery” w Ustawieniach ---------- */
+.fxe-card .card-sub { max-width: 80ch; }
+.fxe-themes { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 128px), 1fr)); margin: 14px 0 18px; }
+.fxe-theme {
+  display: grid; gap: 3px; align-content: start; text-align: left; padding: 8px 8px 10px;
+  border-radius: var(--r-sm); background: var(--surface-2); border: 1px solid var(--line); color: var(--text);
+  cursor: pointer; transition: border-color .15s, transform .15s var(--ease);
+}
+.fxe-theme:hover { border-color: var(--line-2); transform: translateY(-2px); }
+.fxe-theme.on { border-color: var(--sora); box-shadow: 0 0 0 1px var(--sora); }
+.fxe-pv { display: grid; gap: 7px; padding: 9px; border-radius: 7px; background: var(--p0); margin-bottom: 5px; }
+.fxe-pv-card { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 7px; align-items: center; padding: 6px; border-radius: 6px; background: var(--p1); }
+.fxe-pv-card > i { height: 32px; border-radius: 4px; background: color-mix(in srgb, var(--p2) 40%, var(--p1)); }
+.fxe-pv-card > span { display: grid; gap: 4px; }
+.fxe-pv-card b { height: 5px; width: 80%; border-radius: 3px; background: var(--p5); }
+.fxe-pv-card em { height: 4px; width: 55%; border-radius: 3px; background: color-mix(in srgb, var(--p5) 40%, var(--p1)); }
+.fxe-pv-card u { height: 4px; border-radius: 3px; background: linear-gradient(90deg, var(--p2) 62%, color-mix(in srgb, var(--p5) 12%, var(--p1)) 62%); }
+.fxe-pv-dots { display: flex; gap: 5px; }
+.fxe-pv-dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--p2); }
+.fxe-pv-dots i:nth-child(2) { background: var(--p3); }
+.fxe-pv-dots i:nth-child(3) { background: var(--p4); }
+.fxe-theme-n { font-weight: 700; font-size: var(--fs-sm); }
+.fxe-theme-d { font-size: .6875rem; color: var(--muted); line-height: 1.35; }
+.fxe-master { margin: 4px 0 10px; }
+.fxe-rm { display: grid; gap: 6px; margin: 0 0 12px; padding: 10px 12px; border-radius: var(--r-sm); font-size: var(--fs-sm); background: color-mix(in srgb, var(--warn) 10%, var(--surface-2)); border: 1px solid color-mix(in srgb, var(--warn) 35%, transparent); }
+.fxe-groups { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); margin-bottom: 14px; transition: opacity .2s; }
+.fxe-groups.off { opacity: .55; }
+.fxe-group { margin: 0; padding: 10px 12px 12px; border: 1px solid var(--line); border-radius: var(--r-sm); display: grid; align-content: start; min-width: 0; }
+.fxe-group legend { padding: 0 6px; font-weight: 700; font-size: var(--fs-sm); color: var(--text-2); }
+.fxe-item { display: flex; align-items: flex-start; gap: 8px; padding: 7px 2px; }
+.fxe-item + .fxe-item { border-top: 1px solid color-mix(in srgb, var(--line) 60%, transparent); }
+.fxe-item label { flex: 1; display: flex; gap: 10px; align-items: flex-start; cursor: pointer; min-width: 0; }
+.fxe-item input { margin-top: 3px; accent-color: var(--sora); flex: none; width: 16px; height: 16px; }
+.fxe-item label > span { display: grid; gap: 1px; min-width: 0; }
+.fxe-item b { font-size: var(--fs-sm); font-weight: 600; }
+.fxe-item small { font-size: var(--fs-xs); color: var(--muted); line-height: 1.4; }
+.fxe-demos { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; flex: none; max-width: 45%; }
+
+/* ---------- przejścia między stronami ---------- */
+.fx-vt #view { view-transition-name: fxe-view; }
+html.fx-vt-theme #view { view-transition-name: none; }
+::view-transition-group(root) { animation-duration: .24s; }
+::view-transition-group(fxe-view) { animation-duration: .38s; animation-timing-function: cubic-bezier(.2, .7, .2, 1); }
+::view-transition-old(fxe-view) { animation: fxe-vt-out .2s cubic-bezier(.4, 0, 1, 1) both; }
+::view-transition-new(fxe-view) { animation: fxe-vt-in .4s cubic-bezier(.2, .7, .2, 1) .04s both; }
+@keyframes fxe-vt-out { to { opacity: 0; transform: translateY(-10px) scale(.985); } }
+@keyframes fxe-vt-in { from { opacity: 0; transform: translateY(18px) scale(.985); } }
+/* przelot okładki */
+::view-transition-group(fxe-cover) { z-index: 50; animation-duration: .52s; animation-timing-function: cubic-bezier(.22, .9, .24, 1); }
+::view-transition-old(fxe-cover), ::view-transition-new(fxe-cover) { height: 100%; object-fit: cover; animation-duration: .52s; }
+/* zmiana motywu kołem: bez przenikania, nowy motyw odsłaniany maską z JS */
+html.fx-vt-theme::view-transition-old(root), html.fx-vt-theme::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+
+/* ---------- strona anime w kolorze okładki ---------- */
+.fx-tint[data-tint] .detail { isolation: isolate; }
+.fx-tint[data-tint] .detail::before {
+  content: ''; position: absolute; z-index: -1; pointer-events: none;
+  left: calc(-1 * var(--gutter)); right: calc(-1 * var(--gutter)); top: 110px; height: 720px;
+  background:
+    radial-gradient(60% 55% at 20% 22%, color-mix(in srgb, var(--tint) 26%, transparent), transparent 72%),
+    radial-gradient(45% 50% at 88% 12%, color-mix(in srgb, var(--tint) 13%, transparent), transparent 70%);
+  -webkit-mask-image: linear-gradient(transparent 0, #000 90px, #000 60%, transparent);
+  mask-image: linear-gradient(transparent 0, #000 90px, #000 60%, transparent);
+}
+@media (min-width: 900px) { .fx-tint[data-tint] .detail::before { top: 200px; } }
+.fx-tint[data-tint] .d-banner::after {
+  background:
+    linear-gradient(0deg, var(--ink) 0%, color-mix(in srgb, var(--ink) 35%, transparent) 100%),
+    linear-gradient(120deg, color-mix(in srgb, var(--tint) 35%, transparent), transparent 70%);
+}
+.fx-tint[data-tint] .d-head .cover.lg { box-shadow: 0 26px 64px -14px color-mix(in srgb, var(--tint) 70%, transparent), 0 0 0 1px color-mix(in srgb, var(--tint) 45%, transparent); }
+.fx-tint[data-tint] .d-title { text-shadow: 0 0 38px color-mix(in srgb, var(--tint) 55%, transparent); }
+.fx-tint[data-tint] #d-tracker .pbar i { background: linear-gradient(90deg, color-mix(in srgb, var(--tint) 70%, #fff), var(--tint)); box-shadow: 0 0 14px color-mix(in srgb, var(--tint) 60%, transparent); }
+.fx-tint[data-tint] #d-tracker .tracker { border-top-color: var(--tint); }
+.fx-tint[data-tint] ::selection { background: color-mix(in srgb, var(--tint) 45%, transparent); color: var(--text); }
+
+/* ---------- poświata okładek ---------- */
+.fx-glow :is(.acard-media, .ecard-cover, .erow-cover):hover .cover {
+  box-shadow: 0 12px 36px -6px color-mix(in srgb, var(--cc) 85%, transparent), 0 0 0 1px color-mix(in srgb, var(--cc) 60%, transparent);
+}
+
+/* ---------- zorza i ziarno ---------- */
+.fx-aurora body::before {
+  content: ''; position: fixed; inset: -25vmax; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(32vmax 30vmax at 22% 26%, color-mix(in srgb, var(--sora) 13%, transparent), transparent 70%),
+    radial-gradient(36vmax 30vmax at 78% 32%, color-mix(in srgb, var(--shiro) 10%, transparent), transparent 70%),
+    radial-gradient(30vmax 26vmax at 52% 82%, color-mix(in srgb, var(--crown) 7%, transparent), transparent 70%);
+  animation: fxe-aurora 42s ease-in-out infinite alternate;
+}
+@keyframes fxe-aurora {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(5vmax, -4vmax, 0) rotate(9deg); }
+  100% { transform: translate3d(-4vmax, 3vmax, 0) rotate(-7deg); }
+}
+.fx-grain body::after {
+  content: ''; position: fixed; inset: -50px; z-index: 95; pointer-events: none; opacity: .065;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+@media (prefers-reduced-motion: no-preference) { .fx-grain body::after { animation: fxe-grain 1.2s steps(5) infinite; } }
+@keyframes fxe-grain { 20% { transform: translate(-18px, 12px); } 40% { transform: translate(14px, -20px); } 60% { transform: translate(-10px, -8px); } 80% { transform: translate(20px, 16px); } }
+
+/* ---------- okładki: przechył, holo, błysk ---------- */
+.fx-tilt :is(.acard-media, .ecard-cover), .fx-tilt .d-head .cover.lg { transition: transform .45s var(--ease), box-shadow .3s; }
+.fx-tilt :is(.acard-media, .ecard-cover).fxe-hot, .fx-tilt .d-head .cover.lg.fxe-hot {
+  transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-4px) scale(1.035);
+  transition: transform .1s linear, box-shadow .3s;
+}
+.fx-holo :is(.acard-cover.is-fav, .ecard-cover:has(.ecard-fav), .d-head.is-fav) .cover::after {
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit;
+  background:
+    linear-gradient(118deg, transparent 20%, rgba(255, 70, 190, .55) 34%, rgba(80, 230, 255, .5) 44%, rgba(255, 250, 120, .45) 53%, rgba(120, 255, 170, .4) 61%, transparent 76%),
+    repeating-linear-gradient(62deg, rgba(255, 255, 255, .15) 0 1px, transparent 1px 6px),
+    radial-gradient(circle at var(--mx, 50%) var(--my, 30%), rgba(255, 255, 255, .35), transparent 45%);
+  background-size: 260% 260%, 100% 100%, 100% 100%;
+  background-position: 0% 0%, 0 0, 0 0;
+  mix-blend-mode: color-dodge; opacity: .5;
+  animation: fxe-holo 7s ease-in-out infinite alternate;
+}
+.fx-holo .acard-media.fxe-hot .acard-cover.is-fav .cover::after,
+.fx-holo .ecard-cover.fxe-hot:has(.ecard-fav) .cover::after,
+.fx-holo .d-head.is-fav .cover.fxe-hot::after {
+  animation: none; opacity: .8; background-position: var(--mx, 50%) var(--my, 50%), 0 0, 0 0;
+}
+@keyframes fxe-holo { to { background-position: 100% 100%, 0 0, 0 0; } }
+.fx-shine :is(.acard-media, .ecard-cover):hover .cover::before, .fx-shine .d-head .cover.lg:hover::before {
+  content: ''; position: absolute; inset: -20%; z-index: 2; pointer-events: none;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, .32) 50%, transparent 60%);
+  transform: translateX(-100%); animation: fxe-shine .9s var(--ease) forwards;
+}
+@keyframes fxe-shine { to { transform: translateX(100%); } }
+
+/* ---------- reflektor ---------- */
+.fx-spot .fxe-lit { background-image: radial-gradient(380px circle at var(--sx, -999px) var(--sy, -999px), color-mix(in srgb, var(--shiro) 9%, transparent), transparent 55%); }
+.fx-spot .fxe-lit:is(.card, .ecard, .tracker, .tile, .wo-row) { border-color: color-mix(in srgb, var(--shiro) 30%, var(--line)); }
+
+/* ---------- fala po kliknięciu ---------- */
+.fxe-rip { overflow: hidden !important; }
+.fxe-rel { position: relative; }
+.fxe-ripple { position: absolute; border-radius: 50%; background: currentColor; opacity: .28; transform: scale(0); pointer-events: none; animation: fxe-ripple .6s cubic-bezier(.2, .7, .2, 1) forwards; }
+@keyframes fxe-ripple { to { transform: scale(1); opacity: 0; } }
+
+/* ---------- cząstki i kamienie milowe ---------- */
+.fxe-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 160; pointer-events: none; }
+.fxe-mile { position: fixed; inset: 0; z-index: 170; display: grid; place-content: center; justify-items: center; gap: 2px; pointer-events: none; text-align: center; background: radial-gradient(closest-side, color-mix(in srgb, var(--ink) 78%, transparent), transparent) center / min(640px, 100vw) min(440px, 80vh) no-repeat; animation: fxe-pop-in .6s cubic-bezier(.2, 1.4, .3, 1) both; }
+.fxe-mile.out { animation: fxe-fade-out .45s ease forwards; }
+.fxe-mile-crown { font-size: 3rem; line-height: 1; color: var(--crown); filter: drop-shadow(0 0 18px color-mix(in srgb, var(--crown) 70%, transparent)); animation: fxe-bob 1.4s ease-in-out infinite; }
+.fxe-mile-n {
+  font: 400 clamp(4rem, 14vw, 9rem)/1 var(--f-display);
+  background: linear-gradient(180deg, #fff 8%, var(--crown) 55%, color-mix(in srgb, var(--crown) 55%, var(--sora)));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 8px 30px rgba(0, 0, 0, .65));
+}
+.fxe-mile-t { font: 700 var(--fs-lg) var(--f-body); letter-spacing: .04em; color: var(--text); text-shadow: 0 2px 20px rgba(0, 0, 0, .85); }
+@keyframes fxe-pop-in { from { opacity: 0; transform: scale(.6); } }
+@keyframes fxe-fade-in { from { opacity: 0; } }
+@keyframes fxe-fade-out { to { opacity: 0; } }
+@keyframes fxe-bob { 50% { transform: translateY(-6px) rotate(-6deg); } }
+
+/* ---------- odometr, błysk paska, podskok pola ---------- */
+.fxe-odo { display: inline-block; height: 1.25em; line-height: 1.25em; overflow: hidden; vertical-align: -.3em; }
+.fxe-odo-in { display: flex; flex-direction: column; animation: fxe-odo .55s cubic-bezier(.3, 1.45, .4, 1) forwards; }
+.fxe-odo-in > span { display: block; height: 1.25em; text-align: right; }
+.fxe-odo-in > span:last-child { color: var(--sora); }
+@keyframes fxe-odo { to { transform: translateY(-50%); } }
+.pbar.fxe-sweep { position: relative; }
+.pbar.fxe-sweep::after { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 40%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .6), transparent); transform: translateX(-100%); animation: fxe-sweep 1s ease forwards; }
+@keyframes fxe-sweep { to { transform: translateX(260%); } }
+.fxe-bump { animation: fxe-bump .5s cubic-bezier(.3, 1.6, .4, 1); }
+@keyframes fxe-bump { 40% { transform: scale(1.12); box-shadow: 0 0 0 4px color-mix(in srgb, var(--sora) 35%, transparent); } }
+
+/* ---------- wjazd przy przewijaniu ---------- */
+.fx-reveal .fxe-rv { opacity: 0; transform: translateY(22px) scale(.985); }
+.fx-reveal .fxe-rv.fxe-rv-in { opacity: 1; transform: none; transition: opacity .6s var(--ease), transform .6s var(--ease); transition-delay: var(--fxd, 0ms); }
+
+/* ---------- pasek przewinięcia i paralaksa ---------- */
+.fxe-progress { display: none; }
+.fx-progress .fxe-progress {
+  display: block; position: fixed; left: 0; right: 0; top: 0; height: 3px; z-index: 60; pointer-events: none;
+  transform-origin: 0 50%; transform: scaleX(0);
+  background: linear-gradient(90deg, var(--sora), var(--crown), var(--shiro));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--sora) 60%, transparent);
+}
+.fx-parallax .d-banner { background-position: center calc(50% + var(--fxe-py, 0px)); }
+
+/* ---------- wskaźnik zakładek ---------- */
+.fx-tabs .tabs { position: relative; }
+.fx-tabs .tab.on::after { opacity: 0; }
+.fxe-ink {
+  position: absolute; bottom: 1px; left: 0; width: 0; height: 2px; border-radius: 2px; pointer-events: none;
+  background: var(--sora); box-shadow: 0 0 10px color-mix(in srgb, var(--sora) 70%, transparent);
+  transition: left .42s cubic-bezier(.3, 1.3, .4, 1), width .42s cubic-bezier(.3, 1.3, .4, 1);
+}
+
+/* ---------- żywe logo ---------- */
+.fx-logo .brand-mark :is(.bm-a, .bm-b, .bm-p) { transform-box: view-box; transform-origin: 16px 16px; }
+.fx-logo .brand-mark :is(.bm-a, .bm-b) { transition: transform .65s cubic-bezier(.3, 1.4, .4, 1); }
+.fx-logo .brand-mark .bm-p { transition: transform .3s var(--ease); }
+.fx-logo .brand:hover .brand-mark :is(.bm-a, .bm-b) { transform: rotate(180deg); }
+.fx-logo .brand:hover .brand-mark .bm-p { transform: scale(1.18); }
+.fx-logo .brand-mark.fxe-flip :is(.bm-a, .bm-b) { animation: fxe-logo .7s cubic-bezier(.3, 1.3, .4, 1); }
+@keyframes fxe-logo { from { transform: rotate(-180deg); } }
+
+/* ---------- pierścień Sory i Shiro, dryfująca plansza ---------- */
+@property --fxe-ang { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+.fx-ring .wait {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--surface-2), var(--surface-2)) padding-box,
+    conic-gradient(from var(--fxe-ang), var(--sora), var(--crown), var(--shiro), var(--sora)) border-box;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .5), 0 0 26px -6px color-mix(in srgb, var(--sora) 55%, transparent);
+  animation: rise .35s var(--ease), fxe-spin 5s linear infinite;
+}
+@keyframes fxe-spin { to { --fxe-ang: 360deg; } }
+.fx-ring .ngnl::before { background: linear-gradient(90deg, var(--sora), var(--crown), var(--shiro), var(--sora)); background-size: 300% 100%; animation: fxe-slide 6s linear infinite; }
+@keyframes fxe-slide { to { background-position: 300% 0; } }
+.fx-ring .ngnl-board { animation: fxe-board 40s linear infinite; }
+@keyframes fxe-board { to { background-position: 112px 56px; } }
+
+/* ---------- intro ---------- */
+.fxe-intro { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: var(--ink); cursor: pointer; }
+.fxe-intro.out { animation: fxe-fade-out .45s ease forwards; }
+.fxe-board { display: grid; grid-template-columns: repeat(8, 1fr); width: min(72vmin, 440px); aspect-ratio: 1; gap: 3px; }
+.fxe-board i { border-radius: 4px; background: color-mix(in srgb, var(--sora) 55%, var(--surface)); opacity: 0; transform: scale(0) rotate(-45deg); animation: fxe-tile .45s cubic-bezier(.3, 1.5, .4, 1) var(--d) forwards; }
+.fxe-board i.b { background: color-mix(in srgb, var(--shiro) 45%, var(--surface)); }
+@keyframes fxe-tile { to { opacity: .9; transform: none; } }
+.fxe-intro.go .fxe-board i { animation: fxe-tile-out .7s cubic-bezier(.5, 0, .8, .4) calc(var(--d) * .4) forwards; }
+@keyframes fxe-tile-out {
+  from { opacity: .9; transform: none; }
+  to { opacity: 0; transform: translate(calc(var(--x) * 60vmin), calc(var(--y) * 60vmin)) rotate(calc(var(--x) * 180deg)) scale(.4); }
+}
+.fxe-intro-logo { position: absolute; display: grid; justify-items: center; gap: 10px; animation: fxe-pop-in .6s cubic-bezier(.2, 1.3, .3, 1) .55s both; }
+.fxe-intro-logo .brand-mark { width: 84px; height: 84px; filter: drop-shadow(0 10px 30px rgba(0, 0, 0, .6)); }
+.fxe-intro-logo b { font: 400 clamp(2rem, 7vw, 3.4rem)/1 var(--f-display); letter-spacing: .04em; color: var(--text); text-shadow: 0 4px 30px rgba(0, 0, 0, .8); }
+.fxe-intro-logo small { font: 600 var(--fs-sm) var(--f-data); letter-spacing: .2em; color: var(--crown); }
+.fxe-intro.go .fxe-intro-logo { animation: fxe-logo-out .5s ease .15s forwards; }
+@keyframes fxe-logo-out { to { opacity: 0; transform: scale(1.4); filter: blur(6px); } }
+
+/* ---------- easter egg: Aschente ---------- */
+.fxe-egg {
+  position: fixed; inset: 0; z-index: 190; display: grid; place-content: center; justify-items: center; gap: 14px; padding: 16px; text-align: center; cursor: pointer; overflow: hidden;
+  background: radial-gradient(60% 60% at 50% 50%, color-mix(in srgb, var(--ink) 70%, transparent), color-mix(in srgb, var(--ink) 95%, transparent));
+  animation: fxe-fade-in .3s ease both;
+}
+.fxe-egg.out { animation: fxe-fade-out .45s ease forwards; }
+.fxe-egg-word { display: flex; flex-wrap: wrap; justify-content: center; gap: .03em; font: 400 clamp(2.4rem, 11vw, 7rem)/1 var(--f-display); }
+.fxe-egg-word span {
+  display: inline-block;
+  background: linear-gradient(180deg, #fff 10%, var(--crown) 60%, var(--sora));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 6px 24px color-mix(in srgb, var(--sora) 55%, transparent));
+  animation: fxe-letter .7s cubic-bezier(.2, 1.5, .3, 1) calc(var(--i) * 70ms) both;
+}
+@keyframes fxe-letter { from { opacity: 0; transform: translateY(-60px) rotate(-12deg) scale(1.6); } }
+.fxe-egg-sub { font: 600 var(--fs-md) var(--f-body); color: var(--text-2); animation: fxe-fade-in .5s ease .8s both; }
+.fxe-egg-ring { position: absolute; left: 50%; top: 50%; width: 0; height: 0; border-radius: 50%; border: 2px solid var(--crown); transform: translate(-50%, -50%); animation: fxe-shock 1.3s cubic-bezier(.2, .7, .2, 1) .35s both; }
+@keyframes fxe-shock { from { width: 0; height: 0; opacity: 1; } to { width: 170vmax; height: 170vmax; opacity: 0; } }
+
+/* ---------- easter egg: tryb Blank (Konami) ---------- */
+html.fx-blank { --f-body: 'VT323', ui-monospace, monospace; --f-data: 'VT323', ui-monospace, monospace; --f-display: 'Press Start 2P', ui-monospace, monospace; }
+html.fx-blank body { font-size: 1.2rem; }
+html.fx-blank :is(.d-title, .brand-t, .fxe-egg-word) { font-size: clamp(1rem, 3.2vw, 1.6rem); line-height: 1.5; }
+html.fx-blank :is(h1, h2, .page-title) { text-shadow: 1px 0 rgba(255, 0, 80, .6), -1px 0 rgba(0, 220, 255, .6); }
+html.fx-blank .cover img { filter: contrast(1.2) saturate(1.35); }
+.fxe-crt {
+  position: fixed; inset: 0; z-index: 94; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, .22) 0 1px, transparent 1px 3px), radial-gradient(120% 90% at 50% 50%, transparent 60%, rgba(0, 0, 0, .5));
+  animation: fxe-flicker 4s steps(2) infinite;
+}
+@keyframes fxe-flicker { 50% { opacity: .85; } }
+
+/* ---------- kursor ---------- */
+html.fx-cursor, html.fx-cursor body { cursor: var(--fxe-cursor), auto; }

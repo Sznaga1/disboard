@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Disboard</title>
+<meta name="description" content="Prywatny tracker anime: lista, czas oglądania, rewatche, premiery i centrum No Game No Life.">
+<meta name="theme-color" content="#0c0914">
+<meta name="color-scheme" content="dark">
+<script>
+  // motyw i bajery przed pierwszym malowaniem (bez mignięcia domyślnych kolorów)
+  try { var L = JSON.parse(localStorage.getItem('disboard.look') || 'null'); if (L) { var d = document.documentElement; if (L.t && L.t !== 'disboard') d.setAttribute('data-theme', L.t); if (L.c) d.className = L.c; if (L.i) document.querySelector('meta[name="theme-color"]').content = L.i; } } catch (e) {}
+</script>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://graphql.anilist.co" crossorigin>
+<link rel="preconnect" href="https://s4.anilist.co">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Dela+Gothic+One&family=Press+Start+2P&family=VT323&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/themes.css">
+<link rel="stylesheet" href="css/fx.css">
+</head>
+<body>
+<a class="skip" href="#view">Przejdź do treści</a>
+<div class="app">
+  <aside class="sidebar" aria-label="Menu główne">
+    <a class="brand" href="#/">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" class="bm-bg"/><path d="M1 16h15V1H8a7 7 0 0 0-7 7z" class="bm-a"/><path d="M16 31h8a7 7 0 0 0 7-7v-8H16z" class="bm-b"/><path d="M12.5 10.5v11l9-5.5z" class="bm-p"/></svg>
+      <span class="brand-t">Disboard</span>
+    </a>
+    <nav class="side-nav">
+      <a href="#/" data-nav="home"><span class="ni" data-icon="home"></span>Strona główna</a>
+      <a href="#/lista" data-nav="list"><span class="ni" data-icon="list"></span>Moja lista</a>
+      <a href="#/szukaj" data-nav="search"><span class="ni" data-icon="search"></span>Szukaj</a>
+      <a href="#/premiery" data-nav="upcoming"><span class="ni" data-icon="calendar"></span>Premiery</a>
+      <a href="#/ngnl" data-nav="ngnl" class="nav-ngnl"><span class="ni" data-icon="crown"></span>No Game No Life</a>
+      <a href="#/skaner" data-nav="scanner"><span class="ni" data-icon="scan"></span>Skaner kadrów</a>
+      <a href="#/statystyki" data-nav="stats"><span class="ni" data-icon="chart"></span>Statystyki</a>
+      <a href="#/historia" data-nav="history"><span class="ni" data-icon="history"></span>Historia</a>
+      <a href="#/ustawienia" data-nav="settings"><span class="ni" data-icon="gear"></span>Ustawienia i kopie</a>
+    </nav>
+    <p class="side-foot">Dane: <a href="https://anilist.co" target="_blank" rel="noopener">AniList</a> i <a href="https://myanimelist.net" target="_blank" rel="noopener">MyAnimeList</a></p>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <a class="brand brand-sm" href="#/" aria-label="Disboard — strona główna">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" class="bm-bg"/><path d="M1 16h15V1H8a7 7 0 0 0-7 7z" class="bm-a"/><path d="M16 31h8a7 7 0 0 0 7-7v-8H16z" class="bm-b"/><path d="M12.5 10.5v11l9-5.5z" class="bm-p"/></svg>
+      </a>
+      <h1 id="page-title" class="page-title">Disboard</h1>
+      <div class="topbar-actions">
+        <button id="bf-pill" class="bf-pill" type="button" hidden title="Tryb uzupełniania jest włączony: odcinki zapisują się bez daty. Kliknij albo naciśnij Alt+U, żeby wyłączyć.">
+          <span class="bf-dot" aria-hidden="true"></span><span class="bf-long">Tryb uzupełniania</span><span class="bf-short">Uzupełnianie</span><kbd>Alt+U</kbd><span class="ni" data-icon="x"></span>
+        </button>
+        <button id="sf-pill" class="bf-pill sf-pill" type="button" hidden title="Pomijanie fillerów jest włączone: plusik przeskakuje fillery i recapy. Kliknij albo naciśnij Alt+P, żeby wyłączyć.">
+          <span class="bf-dot" aria-hidden="true"></span><span class="bf-long">Pomijam fillery</span><span class="bf-short">Bez fillerów</span><kbd>Alt+P</kbd><span class="ni" data-icon="x"></span>
+        </button>
+        <a class="icon-btn only-wide" href="#/szukaj" aria-label="Szukaj" title="Szukaj · albo po prostu zacznij pisać tytuł na dowolnej stronie"><span class="ni" data-icon="search"></span></a>
+        <button id="bell" class="icon-btn bell" type="button" aria-label="Powiadomienia"><span class="ni" data-icon="bell"></span><span id="bell-count" class="bell-count" hidden></span></button>
+      </div>
+    </header>
+    <div id="net-banner" class="net-banner" role="status" hidden></div>
+    <main id="view" class="view" tabindex="-1"></main>
+  </div>
+
+  <nav class="tabbar" aria-label="Menu">
+    <a href="#/" data-nav="home"><span class="ni" data-icon="home"></span><span>Główna</span></a>
+    <a href="#/lista" data-nav="list"><span class="ni" data-icon="list"></span><span>Lista</span></a>
+    <a href="#/szukaj" data-nav="search"><span class="ni" data-icon="search"></span><span>Szukaj</span></a>
+    <a href="#/premiery" data-nav="upcoming"><span class="ni" data-icon="calendar"></span><span>Premiery</span></a>
+    <button type="button" id="more-btn"><span class="ni" data-icon="more"></span><span>Więcej</span></button>
+  </nav>
+</div>
+
+<aside id="wait" class="wait" aria-label="Jak długo czekam na drugi sezon No Game No Life"></aside>
+
+<div id="scrim" class="scrim" hidden></div>
+<aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-h" hidden>
+  <header class="drawer-head">
+    <h2 id="drawer-h">Powiadomienia</h2>
+    <button class="btn ghost sm" type="button" id="drawer-readall">Oznacz jako przeczytane</button>
+    <button class="icon-btn" type="button" id="drawer-close" aria-label="Zamknij"><span class="ni" data-icon="x"></span></button>
+  </header>
+  <ul id="drawer-list" class="drawer-list"></ul>
+</aside>
+<nav id="more-sheet" class="sheet" aria-label="Więcej" hidden>
+  <a href="#/ngnl" data-nav="ngnl" class="nav-ngnl"><span class="ni" data-icon="crown"></span>No Game No Life</a>
+  <a href="#/skaner" data-nav="scanner"><span class="ni" data-icon="scan"></span>Skaner kadrów</a>
+  <a href="#/statystyki" data-nav="stats"><span class="ni" data-icon="chart"></span>Statystyki</a>
+  <a href="#/historia" data-nav="history"><span class="ni" data-icon="history"></span>Historia</a>
+  <a href="#/ustawienia" data-nav="settings"><span class="ni" data-icon="gear"></span>Ustawienia i kopie</a>
+</nav>
+<div id="toasts" class="toasts" aria-live="polite"></div>
+
+<noscript><p class="noscript">Disboard potrzebuje włączonego JavaScriptu.</p></noscript>
+<script src="js/util.js"></script>
+<script src="js/db.js"></script>
+<script src="js/api.js"></script>
+<script src="js/library.js"></script>
+<script src="js/extras.js"></script>
+<script src="js/episodes.js"></script>
+<script src="js/ngnl.js"></script>
+<script src="js/io.js"></script>
+<script src="js/translate.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/pages.js"></script>
+<script src="js/nerd.js"></script>
+<script src="js/person.js"></script>
+<script src="js/ngnl-timeline.js"></script>
+<script src="js/watch-order.js"></script>
+<script src="js/radar.js"></script>
+<script src="js/scanner.js"></script>
+<script src="js/quickadd.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/app.js"></script>
+<script>document.querySelectorAll('.ni[data-icon]').forEach(function (n) { n.outerHTML = ICON[n.dataset.icon] || ''; });</script>
+</body>
+</html>
