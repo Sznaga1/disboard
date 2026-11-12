@@ -43,6 +43,9 @@ const LIST_SORT_GROUPS = [['you', 'Twoje dane'], ['cat', 'Oceny w kategoriach'],
 // rozsądny start dla każdej zakładki, zanim sam coś wybierzesz
 const LIST_TAB_DEFAULT = { all: 'updated', watching: 'watched', planning: 'added', completed: 'finished', paused: 'updated', dropped: 'updated', fav: 'score' };
 
+// telefon: czy panel „Filtry” (gatunek, sortowanie, widok) jest rozwinięty; pamiętany do przeładowania
+let listAdvOpen = false;
+
 function listSortState(tab) {
   const saved = (S.settings.listSorts || {})[tab];
   if (saved && LIST_SORTS[saved.k]) return { k: saved.k, dir: saved.dir === 'asc' ? 'asc' : 'desc' };
@@ -101,14 +104,17 @@ Pages.list = (ctx) => {
     ${tabsNav()}
     <div class="toolbar list-tools">
       <label class="field grow"><span class="sr">Filtruj listę</span>${ICON.search}<input id="l-q" type="search" placeholder="Filtruj po tytule, także japońskim" autocomplete="off"></label>
-      <label class="field"><span class="sr">Gatunek, format albo tag</span><select id="l-tag">${filterOptions()}</select></label>
-      <div class="sort-box">
-        <label class="field"><span class="sr">Sortowanie</span><select id="l-sort">${sortOptions()}</select></label>
-        <button type="button" class="dir-btn${sort.dir === 'asc' ? ' asc' : ''}" id="l-dir" title="Odwróć kolejność">${dirHtml()}</button>
-      </div>
-      <div class="seg" role="group" aria-label="Widok">
-        <button type="button" id="l-grid" class="${S.settings.listView === 'grid' ? 'on' : ''}" aria-label="Siatka okładek">${ICON.grid}</button>
-        <button type="button" id="l-rows" class="${S.settings.listView === 'rows' ? 'on' : ''}" aria-label="Lista wierszy">${ICON.rows}</button>
+      <button type="button" class="dir-btn l-more" id="l-more" aria-expanded="${listAdvOpen}" aria-controls="l-adv">${ICON.filter}<span>Filtry</span><b class="l-badge" hidden></b></button>
+      <div class="l-adv${listAdvOpen ? ' open' : ''}" id="l-adv">
+        <label class="field"><span class="sr">Gatunek, format albo tag</span><select id="l-tag">${filterOptions()}</select></label>
+        <div class="sort-box">
+          <label class="field"><span class="sr">Sortowanie</span><select id="l-sort">${sortOptions()}</select></label>
+          <button type="button" class="dir-btn${sort.dir === 'asc' ? ' asc' : ''}" id="l-dir" title="Odwróć kolejność">${dirHtml()}</button>
+        </div>
+        <div class="seg" role="group" aria-label="Widok">
+          <button type="button" id="l-grid" class="${S.settings.listView === 'grid' ? 'on' : ''}" aria-label="Siatka okładek">${ICON.grid}</button>
+          <button type="button" id="l-rows" class="${S.settings.listView === 'rows' ? 'on' : ''}" aria-label="Lista wierszy">${ICON.rows}</button>
+        </div>
       </div>
     </div>
     <div id="l-out"></div>
@@ -149,7 +155,7 @@ Pages.list = (ctx) => {
   function summaryHtml(list) {
     const mins = list.reduce((a, x) => a + Lib.entryMinutes(x.e), 0);
     const noVal = LIST_SORTS[sort.k].badge ? list.filter((x) => !x.badge).length : 0;
-    return `<p class="list-sum">${nUnit(list.length, 'title')} · ${NF.format(list.reduce((a, x) => a + Lib.totalEps(x.e), 0))} obejrzanych odcinków · ${esc(fmtDuration(mins))}${noVal ? ` · <span title="Te pozycje są na końcu listy">${NF.format(noVal)} bez wartości „${esc(LIST_SORTS[sort.k].l)}”</span>` : ''}</p>`;
+    return `<p class="list-sum">${nUnit(list.length, 'title')} · ${NF.format(list.reduce((a, x) => a + Lib.totalEps(x.e), 0))} odc. · ${esc(fmtDuration(mins, { short: true }))}${noVal ? ` · <span title="Te pozycje są na końcu listy">${NF.format(noVal)} bez wartości „${esc(LIST_SORTS[sort.k].l)}”</span>` : ''}</p>`;
   }
   // co jest teraz narysowane: widok i kolejność pozycji (do szybkiej poprawki po „+1”)
   let shown = null;
@@ -221,7 +227,7 @@ Pages.list = (ctx) => {
     const sel = $('#l-tag');
     if (sel && document.activeElement !== sel) {
       const html = filterOptions();
-      if (html !== filterHtml) { sel.innerHTML = html; filterHtml = html; if (sel.value !== filter) filter = sel.value; }
+      if (html !== filterHtml) { sel.innerHTML = html; filterHtml = html; if (sel.value !== filter) { filter = sel.value; updBadge(); } }
     }
     if (d && d.id && !d.kind && !d.refresh && patch(d.id)) return;
     render();
@@ -236,7 +242,15 @@ Pages.list = (ctx) => {
     render();
   };
   $('#l-q').addEventListener('input', debounce((ev) => { q = ev.target.value.trim().toLowerCase(); render(); }, 120));
-  $('#l-tag').addEventListener('change', (ev) => { filter = ev.target.value; render(); });
+  // na telefonie gatunek, sortowanie i widok są schowane pod „Filtry”; liczba na przycisku = aktywny filtr
+  const updBadge = () => { const b = $('#l-more .l-badge'); if (b) { b.hidden = !filter; b.textContent = '1'; } };
+  updBadge();
+  $('#l-more').addEventListener('click', () => {
+    listAdvOpen = !listAdvOpen;
+    $('#l-adv').classList.toggle('open', listAdvOpen);
+    $('#l-more').setAttribute('aria-expanded', String(listAdvOpen));
+  });
+  $('#l-tag').addEventListener('change', (ev) => { filter = ev.target.value; updBadge(); render(); });
   $('#l-sort').addEventListener('change', (ev) => { sort = { k: ev.target.value, dir: LIST_SORTS[ev.target.value].dir }; saveSort(); });
   $('#l-dir').addEventListener('click', () => { sort.dir = sort.dir === 'asc' ? 'desc' : 'asc'; saveSort(); });
   const setView = (v) => { S.settings.listView = v; save(); $('#l-grid').classList.toggle('on', v === 'grid'); $('#l-rows').classList.toggle('on', v === 'rows'); render(); };

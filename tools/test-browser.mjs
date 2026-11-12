@@ -96,7 +96,7 @@ async function newPage(port, { noIndexedDB = false, inject = null } = {}) {
   const go = async (url) => { const p = loaded(); await send('Page.navigate', { url }); await p; };
   const reload = async () => { const p = loaded(); await send('Page.reload'); await p; };
   const ready = () => ev('(async () => { await stateReady; return true; })()');
-  return { ev, go, reload, ready, logs, closePage: () => send('Page.close'), close: () => ws.close() };
+  return { send, ev, go, reload, ready, logs, closePage: () => send('Page.close'), close: () => ws.close() };
 }
 
 /* ---------- dane testowe: lista jak ze starej wersji (localStorage) ---------- */
@@ -280,6 +280,26 @@ async function main() {
     await A.ev(`(document.getElementById('el-clear').click(), new Promise((r) => setTimeout(r, 300)))`);
     check('wyczyść dziennik', (await A.ev('ErrLog.list().length')) === 0 && (await A.ev(`document.getElementById('el-host').innerText`)).includes('żadnych błędów'));
     A.close();
+
+    console.log('Telefon (390 px, dotyk)');
+    const M = await P();
+    await M.send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
+    await M.send('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 });
+    await M.go(BASE + '/#/lista'); await M.ready(); await sleep(1200);
+    await M.ev(`(document.getElementById('net-banner').hidden = true, true)`); // baner „brak AniList” to skutek zablokowanej sieci w teście
+    const mob = await M.ev(`(() => {
+      const vis = (id) => { const e = document.getElementById(id); return !!e && getComputedStyle(e).display !== 'none' && e.getBoundingClientRect().width > 0; };
+      const card = document.querySelector('#l-out [data-id]');
+      const inc = document.querySelector('#l-out .btn-inc');
+      return { waitBtn: vis('wait-btn'), waitPanel: vis('wait'), more: vis('l-more'), tag: vis('l-tag'), cardTop: Math.round(card.getBoundingClientRect().top), inc: inc ? Math.round(inc.getBoundingClientRect().height) : null, docW: document.documentElement.scrollWidth };
+    })()`);
+    check('licznik NGNL w górnym pasku, nie na treści', mob.waitBtn && !mob.waitPanel, JSON.stringify(mob));
+    check(`lista: pierwsza karta ${mob.cardTop} px od góry (filtry schowane)`, mob.more && !mob.tag && mob.cardTop < 260, JSON.stringify(mob));
+    check('bez przewijania w bok', mob.docW === 390, String(mob.docW));
+    const opened = await M.ev(`(async () => { document.getElementById('wait-btn').click(); await new Promise((r) => setTimeout(r, 200)); const a = getComputedStyle(document.getElementById('wait')).display; document.querySelector('.page-title').click(); await new Promise((r) => setTimeout(r, 200)); const b = getComputedStyle(document.getElementById('wait')).display; document.getElementById('l-more').click(); await new Promise((r) => setTimeout(r, 200)); return [a, b, getComputedStyle(document.getElementById('l-tag')).display !== 'none' && document.getElementById('l-tag').getBoundingClientRect().width > 0].join(','); })()`);
+    check('licznik otwiera się i zamyka stuknięciem obok; „Filtry” pokazują gatunek i sortowanie', opened === 'flex,none,true', opened);
+    check('brak błędów (telefon)', !M.logs.some((l) => l.startsWith('EXC')), M.logs.filter((l) => l.startsWith('EXC')).join(' | '));
+    M.close();
 
     console.log('Brave (zapis do folderu domyślnie wyłączony)');
     // Brave ma navigator.brave i, dopóki nie włączysz opcji w brave://flags, nie ma showDirectoryPicker

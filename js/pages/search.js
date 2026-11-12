@@ -21,8 +21,9 @@ Pages.search = (ctx) => {
     <form class="searchbar" id="s-form" role="search">
       <label class="field big grow">${ICON.search}<span class="sr">Tytuł anime</span>
         <input id="s-q" type="search" value="${esc(st.q)}" placeholder="Tytuł po angielsku, japońsku lub w romaji…" autocomplete="off" enterkeyhint="search"></label>
+      <button type="button" class="dir-btn s-fbtn" id="s-fbtn" aria-expanded="false" aria-controls="s-filters" aria-label="Filtry">${ICON.filter}<span>Filtry</span><b class="l-badge" hidden></b></button>
     </form>
-    <div class="filters">
+    <div class="filters" id="s-filters">
       <label class="field"><span class="lbl">Format</span><select id="s-format"><option value="">Każdy</option>${FORMATS.map((f) => `<option value="${f}"${f === st.format ? ' selected' : ''}>${FORMAT_PL[f]}</option>`).join('')}</select></label>
       <label class="field"><span class="lbl">Status</span><select id="s-status"><option value="">Każdy</option>${STATUSES.map((f) => `<option value="${f}"${f === st.status ? ' selected' : ''}>${MSTATUS_PL[f]}</option>`).join('')}</select></label>
       <label class="field"><span class="lbl">Rok</span><input id="s-year" type="number" inputmode="numeric" min="1940" max="2035" value="${esc(st.year)}" placeholder="np. 2014"></label>
@@ -81,13 +82,21 @@ Pages.search = (ctx) => {
     }
   }
 
+  // na telefonie filtry są schowane pod przyciskiem; liczba = ile filtrów działa
+  const updBadge = () => { const n = ['format', 'status', 'year', 'genre'].filter((k) => st[k]).length; const b = $('#s-fbtn .l-badge'); b.hidden = !n; b.textContent = String(n); };
+  updBadge();
+  $('#s-fbtn').addEventListener('click', () => {
+    const open = !$('#s-filters').classList.contains('open');
+    $('#s-filters').classList.toggle('open', open);
+    $('#s-fbtn').setAttribute('aria-expanded', String(open));
+  });
   const debounced = debounce(() => search(), 450);
   $('#s-q').addEventListener('input', (ev) => { st.q = ev.target.value.trim(); if (st.q.length === 1) return; debounced(); });
   $('#s-form').addEventListener('submit', (ev) => { ev.preventDefault(); st.q = $('#s-q').value.trim(); search(); $('#s-q').blur(); });
   [['s-format', 'format'], ['s-status', 'status'], ['s-genre', 'genre'], ['s-sort', 'sort']].forEach(([id, k]) => {
-    $('#' + id).addEventListener('change', (ev) => { st[k] = ev.target.value; search(); });
+    $('#' + id).addEventListener('change', (ev) => { st[k] = ev.target.value; updBadge(); search(); });
   });
-  $('#s-year').addEventListener('input', debounce((ev) => { const v = ev.target.value; st.year = /^\d{4}$/.test(v) ? v : ''; search(); }, 600));
+  $('#s-year').addEventListener('input', debounce((ev) => { const v = ev.target.value; st.year = /^\d{4}$/.test(v) ? v : ''; updBadge(); search(); }, 600));
   if (typed) {
     const inp = $('#s-q');
     inp.focus({ preventScroll: true });

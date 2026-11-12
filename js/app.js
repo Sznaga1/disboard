@@ -29,8 +29,17 @@ const Wait = (() => {
   }
 
   const narrow = window.matchMedia('(max-width: 1023px)');
-  // na telefonie domyślnie zwinięty do pigułki, żeby nie zasłaniał treści
-  const isCollapsed = () => (narrow.matches ? S.settings.wait.collapsedMobile !== false : !!S.settings.wait.collapsed);
+  // na telefonie licznik nie leży na treści: jest przyciskiem z pionkiem w górnym pasku,
+  // a pełny licznik otwiera się pod nim po stuknięciu
+  const isCollapsed = () => (narrow.matches ? false : !!S.settings.wait.collapsed);
+  let open = false;
+  const btn = () => document.getElementById('wait-btn');
+  function setOpen(v) {
+    open = !!v && narrow.matches;
+    if (el) el.classList.toggle('open', open);
+    const b = btn();
+    if (b) b.setAttribute('aria-expanded', String(open));
+  }
 
   function render() {
     el = el || document.getElementById('wait');
@@ -47,6 +56,15 @@ const Wait = (() => {
       ? `<a class="wait-flag" href="#/anime/${seq.media.id}">Zapowiedziano! ${esc(fuzzyDate(seq.media.startDate) || 'data nieustalona')}</a>`
       : mode === 'done' ? `<a class="wait-flag" href="#/anime/${seq.media.id}">Doczekałem się! Oglądaj</a>` : '';
     el.classList.toggle('collapsed', collapsed);
+    el.classList.toggle('open', open);
+    const wb = btn();
+    if (wb) {
+      wb.hidden = !!w.hidden;
+      const mini = d.y ? `${d.y} l. ${d.d} d.` : `${d.d} d.`;
+      wb.querySelector('.wait-btn-t').textContent = mini;
+      wb.setAttribute('aria-label', `Jak długo czekam na drugi sezon No Game No Life: ${short}`);
+      wb.title = 'Jak długo czekam na drugi sezon No Game No Life';
+    }
     el.innerHTML = `
       <button class="wait-toggle" type="button" aria-expanded="${!collapsed}" aria-controls="wait-body" title="${collapsed ? 'Rozwiń licznik' : 'Zwiń licznik'}">
         <span class="wait-pawn" aria-hidden="true"></span>
@@ -84,12 +102,15 @@ const Wait = (() => {
         render();
       }
     });
-    if (narrow.addEventListener) narrow.addEventListener('change', render);
+    btn().addEventListener('click', (ev) => { ev.stopPropagation(); setOpen(!open); });
+    // stuknięcie poza licznikiem zamyka go
+    document.addEventListener('click', (ev) => { if (open && !ev.target.closest('#wait, #wait-btn')) setOpen(false); });
+    if (narrow.addEventListener) narrow.addEventListener('change', () => { setOpen(false); render(); });
     render();
     NGNL.series().then((s) => { series = s; render(); }).catch(() => {});
   }
 
-  return { init, render, tick, state, setSeries: (s) => { series = s; render(); } };
+  return { init, render, tick, state, close: () => setOpen(false), setSeries: (s) => { series = s; render(); } };
 })();
 
 /* ---------- tryb uzupełniania listy (Alt+U) ---------- */
@@ -386,6 +407,7 @@ function openDrawer() {
   $('#drawer-close').focus();
 }
 function closeSheets() {
+  Wait.close();
   $('#drawer').hidden = true;
   $('#more-sheet').hidden = true;
   $('#scrim').hidden = true;

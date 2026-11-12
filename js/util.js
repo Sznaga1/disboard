@@ -340,6 +340,7 @@ const ICON = {
   clock: svgI('<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>'),
   radar: svgI('<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12 18 6"/><circle cx="12" cy="12" r="1.2"/>'),
   arrowDown: svgI('<path d="M12 5v14M6 13l6 6 6-6"/>'),
+  filter: svgI('<path d="M4 6h16M7 12h10M10 18h4"/>'),
   heart: svgI('<path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.6 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/>'),
   chevron: svgI('<path d="m9 6 6 6-6 6"/>'),
   news: svgI('<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/>'),
