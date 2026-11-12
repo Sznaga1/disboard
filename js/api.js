@@ -452,6 +452,28 @@ async function clearApiCache() {
   await IDB.clear('cache');
 }
 
+/* Automatyczne sprzątanie cache: raz na dobę usuwamy wpisy dawno nieodświeżane.
+   Nie kasujemy ich zaraz po upływie ważności, bo przeterminowany wpis służy jako
+   zapas, gdy API nie odpowiada. Klucze zbiorcze (fillery, dane dla nerda) mają
+   własną ważność w środku i są drogie do odbudowania, więc zostają. */
+const CACHE_KEEP = new Set(['epflags:v1', 'extras:v1']);
+const CACHE_MAX_AGE = 30 * 86400e3;
+const CACHE_MAX_AGE_TR = 180 * 86400e3; // tłumaczenia się nie zmieniają, a limit MyMemory jest dzienny
+const PRUNE_KEY = 'disboard.cachePrunedAt';
+async function pruneApiCache({ force = false } = {}) {
+  const now = Date.now();
+  let last = 0;
+  try { last = Number(localStorage.getItem(PRUNE_KEY)) || 0; } catch { /* brak dostępu */ }
+  if (!force && now - last < 86400e3) return 0;
+  const n = await IDB.prune('cache', (k, v) => {
+    if (CACHE_KEEP.has(k)) return false;
+    const age = now - ((v && v.t) || 0);
+    return age > (String(k).startsWith('tr:') ? CACHE_MAX_AGE_TR : CACHE_MAX_AGE);
+  });
+  try { localStorage.setItem(PRUNE_KEY, String(now)); } catch { /* brak dostępu */ }
+  return n;
+}
+
 /* ---------- trace.moe: rozpoznawanie anime ze zrzutu ekranu ---------- */
 // Bez klucza: limit dzienny (okno 24 h) liczony dla Twojego adresu IP, jedno wyszukiwanie naraz.
 const TRACE_URL = 'https://api.trace.moe';

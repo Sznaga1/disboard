@@ -415,6 +415,7 @@ function start() {
   on('net', renderNet);
 
   if (!storageOk) toast('Przeglądarka blokuje zapis danych (np. tryb prywatny). Lista nie przetrwa zamknięcia karty.', { kind: 'error', ms: 10000 });
+  if (staleFallbackSince()) toast('Baza danych przeglądarki nie odpowiada, więc pokazuję starszą kopię listy (sprzed przeniesienia do IndexedDB). Twoja aktualna lista nie zginęła: odśwież stronę albo uruchom przeglądarkę ponownie. Zmiany zrobione teraz zostaną dołączone.', { kind: 'error', ms: 20000 });
   FX.init();
   Wait.init();
   Backfill.init();
@@ -441,6 +442,7 @@ function start() {
     if (document.visibilityState === 'visible' && Date.now() - (S.meta.lastRefresh || 0) > 15 * 60e3) refreshAll();
   });
 
+  setTimeout(() => pruneApiCache().catch(() => {}), 15000);
   if (Object.keys(S.entries).length) requestPersistence();
   const lastExp = S.meta.lastExportAt || S.meta.createdAt;
   if (Object.keys(S.entries).length >= 5 && Date.now() - lastExp > 14 * 86400e3) {
@@ -451,4 +453,5 @@ function start() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', start);
+// start dopiero po wczytaniu listy z bazy (IndexedDB jest asynchroniczne)
+document.addEventListener('DOMContentLoaded', () => { stateReady.then(start); });

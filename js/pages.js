@@ -1693,7 +1693,7 @@ Pages.settings = (ctx) => {
         <div id="i-status" class="import-status" role="status"></div>
         <h3 class="sub-h">Automatyczne kopie w przeglądarce</h3>
         <p class="card-sub">Raz na godzinę, do 7 dni wstecz. Chronią przed pomyłką, nie przed wyczyszczeniem danych przeglądarki.</p>
-        ${backups.length ? `<ul class="backups">${backups.map((b) => `<li><span>${esc(fmtDateTime(b.t))}</span><span>${nUnit(b.count, 'title')}</span><button class="btn ghost sm" type="button" data-restore="${esc(b.key)}">Przywróć</button></li>`).join('')}</ul>` : '<p class="muted">Jeszcze brak kopii.</p>'}
+        ${backups.length ? `<ul class="backups">${backups.map((b) => `<li><span>${esc(fmtDateTime(b.t))}${b.label ? ` · ${esc(b.label)}` : ""}</span><span>${nUnit(b.count, 'title')}</span><button class="btn ghost sm" type="button" data-restore="${esc(b.key)}">Przywróć</button></li>`).join('')}</ul>` : '<p class="muted">Jeszcze brak kopii.</p>'}
         <div id="restore-confirm" hidden class="confirm">Przywrócić kopię z <b id="rc-date"></b>? Obecna lista zostanie zastąpiona. <button class="btn danger sm" type="button" id="rc-yes">Przywróć</button> <button class="btn ghost sm" type="button" id="rc-no">Anuluj</button></div>
         <p class="card-sub">Trwała pamięć przeglądarki: <b>${persisted ? 'włączona' : 'niepotwierdzona'}</b>${persisted ? '' : ' <button class="btn ghost sm" type="button" id="persist">Poproś o trwałą pamięć</button>'}</p>
       </section>
@@ -1752,7 +1752,7 @@ Pages.settings = (ctx) => {
       <section class="card about">
         <h2 class="card-h">O aplikacji</h2>
         <p>Dane o anime pochodzą z <a href="https://anilist.co" target="_blank" rel="noopener">AniList</a>. Newsy, promo i producenci pochodzą z <a href="https://myanimelist.net" target="_blank" rel="noopener">MyAnimeList</a> przez <a href="https://jikan.moe" target="_blank" rel="noopener">Jikan</a>. Aplikacja nie ma własnego serwera: Twoja lista nigdzie nie wychodzi poza tę przeglądarkę.</p>
-        <p class="muted">Pozycji na liście: ${Object.keys(S.entries).length} · zdarzeń w historii: ${NF.format(S.history.length)} · rozmiar danych: ${NF1.format(JSON.stringify(S).length / 1024)} kB</p>
+        <p class="muted">Pozycji na liście: ${Object.keys(S.entries).length} · zdarzeń w historii: ${NF.format(S.history.length)} · rozmiar danych: ${NF1.format(JSON.stringify(S).length / 1024)} kB · zapis: ${storageInfo()}</p>
       </section>
     </div>`;
     FX.bindSettings(ctx.el);
