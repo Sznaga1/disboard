@@ -1,11 +1,11 @@
 {
- "generatedAt": "2026-11-13T01:11:57.092Z",
+ "generatedAt": "2026-11-13T12:20:58.854Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 55,
+   "count": 54,
    "added": 39
   },
   {
@@ -13,21 +13,21 @@
    "name": "Google News (JP)",
    "ok": true,
    "count": 61,
-   "added": 32
+   "added": 30
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
    "count": 25,
-   "added": 16
+   "added": 15
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
-   "count": 55,
-   "added": 29
+   "count": 53,
+   "added": 28
   },
   {
    "id": "ann",
@@ -44,6 +44,30 @@
   }
  ],
  "items": [
+  {
+   "id": "3b3ad64b804daa8d",
+   "title": "週末はイベントに行こう！：「『ノーゲーム・ノーライフ ゼロ』 POP UP SHOP in AMNIBUS STORE -white-」や「アニメ『デート・ア・ライブF Last Date』×カラオケの鉄人」など",
+   "date": "2026-11-13T10:03:20.000Z",
+   "summary": "",
+   "source": "ラノベニュースオンライン",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1jLWs1bnYxZTZvV1psckVyRUE0enpRQ3oxWHFwNXhHcnhVclJ5Tkw0SElGaDJBekFhVWM1MUtBNXZfR0lLWUdjMm5Vdw?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "8435a1b798e4dabb",
+   "title": "週末はイベントに行こう！：「『ノーゲーム・ノーライフ ゼロ』 POP UP SHOP in AMNIBUS STORE -white-」や「アニメ『デート・ア・ライブF Last Date』×カラオケの鉄人」など",
+   "date": "2026-11-13T10:02:47.000Z",
+   "summary": "",
+   "source": "千葉テレビ放送株式会社",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE4xcFJnN2VkWkNSMTEwRW9Lb1VYQkpQZTJtNFJVX19xVEowTXJmS0ZqbWJjQXZiaFU3UE9VamN4R0IwekNqZDIwNUF6VW1XVnhGYU1kUUZpMGlESktjVDVB?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
   {
    "id": "c42c5d4143f47e34",
    "title": "No Game No Life Officially Reveals Massive New $8,000 Release",
@@ -748,6 +772,18 @@
    "source": "コラボカフェ",
    "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNODAtMGlqNUpWejZZTDEtRHl2M3lvc3AyaU5tVjB6b3RVak40RDhkMG5IaDhFQmM5Q2IxZXBzaTYxQk5hVGltVldJOWpHcnlxV3d6T29uVlprWXkwcEMycUQweHhBR3prMWFiWHg5QXhTUjRNRjE3Y2p5eEJWZFAxV1VTS19aSVFuWlROTGhiZlhUNjdOTlBLTEpvejd4NWxHWjhNR29yZHRHZ9IBsgFBVV95cUxOeWpkR1F4bjR6ZF94ZWtPemdJU2NTeFV4cWsydHFYUDE2V2dhSWVYSU5WUjdtLXFMVmxnMlpxVmo2eEVDcnVPcExYeGtJc25neWJvd1JXM0k0NVVWeWlLbm1lVDdsY1FLYzhyVFNfM0FuMjNkWmVlVS12S0RZV0JHdEdHUVFTVnZ0Mng1RzVrdjduWmRuUTA0cjRocjZqQnhiZkkxMDFBang3QzNmYkpyTlFn?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "4b6450ccc40cef6c",
+   "title": "ノーゲーム・ノーライフ ライトノベル展2025 白の描き下ろしグッズ 発売!",
+   "date": "2025-12-31T08:00:00.000Z",
+   "summary": "",
+   "source": "コラボカフェ",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPaS1sUXZpcDAwUEVXS0lNUVFTQ0N0Y3JlVVVUR0ZqQ0Nyd095YTVQUU5pM1FNanpqNUJDeDNYMnFwdmdaUE9nQUxGM09DLW9TUmtuNS1fOG5BaWRGUkUwTnFkZ2hJSlJGMEt0ZFVodmVXM3kzOEVIZUE3MkpNX2dJRE5udTQzc0RCOEVGWVZrWXRRMl9KeWdlNFhtWdIBowFBVV95cUxOY2x1RTlMZnpUSnZNZ3RKdXMwODZPeV9ZbkVVS20tQm1VNG0yNi1zRS05a1AxU1BzZ2RFS3BOMGJVbE53SVZoSWdRMlo3VWl0djFnemNBeGY3Sm9vVjlqelRkSmptNjRndTNtYldjbzk5QTFDaEphd2VaV0tweVhyX0Q0Z2w0blhZTy1CUjJCdVRBT1BMajE2ZGNXMEF5bGNhYUNB?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
