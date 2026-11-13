@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-13T12:20:58.854Z",
+ "generatedAt": "2026-11-13T22:01:40.744Z",
  "sources": [
   {
    "id": "gnews-en",
@@ -12,22 +12,22 @@
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 61,
-   "added": 30
+   "count": 62,
+   "added": 29
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
    "count": 25,
-   "added": 15
+   "added": 16
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
-   "count": 53,
-   "added": 28
+   "count": 55,
+   "added": 31
   },
   {
    "id": "ann",
@@ -50,7 +50,7 @@
    "date": "2026-11-13T10:03:20.000Z",
    "summary": "",
    "source": "ラノベニュースオンライン",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1jLWs1bnYxZTZvV1psckVyRUE0enpRQ3oxWHFwNXhHcnhVclJ5Tkw0SElGaDJBekFhVWM1MUtBNXZfR0lLWUdjMm5Vdw?oc=5",
    "image": null,
    "price": null,
@@ -148,6 +148,18 @@
    "source": "Yahoo!ニュース",
    "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQVG5odkh6d04zTjBYdFBfTnVzOGdfR3J1d2NwZkI0ZHAySHFnb3djalNJUjBWUjRvWmVLME82RjJvSHA0bUZDejB5TTFvTnZlODd3cXRDb2FpckZQRE1aUzdDQWJIRVZsOFhtdUpKLTJaQkRCVWRWMXloRmdndUtTcDYwblROTF9pblFXSEtB?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "a764ca39eef62ea6",
+   "title": "お値段132万円！「ノーゲーム・ノーライフ」のヒロイン「白」が1/1スケールで立体化、“脱げかけの靴下”まで表現",
+   "date": "2026-11-06T11:40:03.000Z",
+   "summary": "",
+   "source": "インサイド",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBEdktJWk9BeUNPaWcyTEFjZ2lWbjdmSDAzcXRfMTh1d2ZDanZfOTRYcTV2OURQWDkyNDBXQThwM0QzaFBCbkUzU3FLN0Q2UDZneDI0QjRHWlZoeHVnYWh6d2E2ZGhxY0dER1E?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
@@ -482,7 +494,7 @@
    "date": "2026-05-08T07:00:00.000Z",
    "summary": "",
    "source": "電撃ホビーウェブ",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE4taUl1TkhJWFM1U1U3dXJqUC1lUXo5SUxkWi0ycTBnVmJSV1pjNVhaQUNqMFAtYnFMazlHbTZTcWUtanlaRUZUM1NyWmpqUkZD?oc=5",
    "image": null,
    "price": null,
