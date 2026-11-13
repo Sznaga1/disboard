@@ -1,33 +1,33 @@
 {
- "generatedAt": "2026-11-12T16:52:40.836Z",
+ "generatedAt": "2026-11-13T01:11:57.092Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
    "count": 55,
-   "added": 41
+   "added": 39
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 59,
-   "added": 31
+   "count": 61,
+   "added": 32
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 24,
-   "added": 15
+   "count": 25,
+   "added": 16
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
    "count": 55,
-   "added": 30
+   "added": 29
   },
   {
    "id": "ann",
@@ -201,6 +201,18 @@
    "kind": "merch"
   },
   {
+   "id": "75252ac9ee126a46",
+   "title": "「白」を高精細なフルカラープリント！『ノーゲーム・ノーライフ』より、「MA-1 ジャケット」と「コーチジャケット」が登場！【株式会社コスパ】 (2026年11月4日掲載)",
+   "date": "2026-11-04T08:00:00.000Z",
+   "summary": "",
+   "source": "ライブドアニュース",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE13RkRBck44WkVsYjcxMXVGVWFVeGFDdXBWd0pDd0dVYnJ4RGF0SzRRSmpQbkpGZ05CcXFpSEhUUkNybHNFY09BX2J2dS0ycUEyTWh6ME1kdVl3Vi11SXc3LTRn?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "4d0f76e686de7e0d",
    "title": "たわわバスト＆バニーコスチュームがセクシーすぎる！『ノゲノラ』『デアラV』『ウマ娘』のフィギュアが秋葉原で展示！",
    "date": "2026-10-31T07:00:00.000Z",
@@ -213,9 +225,21 @@
    "kind": "merch"
   },
   {
+   "id": "c4ebf72d38572404",
+   "title": "Phat! NO GAME NO LIFE Jibril: Bunny Ver. 1/6 Scale Figure Brings the Summer School Festival Illustration to Life",
+   "date": "2026-10-22T07:00:00.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News: merch (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9iZElmMzdJVUp1MFM2d2UtWWVRZE1DMFROdGxqOVVuanBaT1p3SmprQzFJTnlnRF9PSDRKRVQzRWRvQlNBbWNUZzJHTTN0bGxw?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
    "id": "00d9cc93435dc4da",
    "title": "『ノーゲーム・ノーライフ』バニーガール姿のジブリールがフィギュア化。余裕ある微笑みやしなやかなボディラインに見惚れる",
-   "date": "2026-10-22T07:00:00.000Z",
+   "date": "2026-10-21T07:00:00.000Z",
    "summary": "",
    "source": "電撃オンライン",
    "via": "Google News: グッズ (JP)",
@@ -256,6 +280,18 @@
    "source": "ABEMA",
    "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5Sa0dqYjdkQUx3OGZOYmtnSkZwck90cXRTZy0yeFB4dTlKQWluVndWYkNWZ1NYOHFvczRKRk5GYnV6dWt1MUhaa0M5X2xKT1VvZGRBOFNud3BIWE1ISjFOanJTR0dmWGNK?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "382fb04895523a74",
+   "title": "ノーゲーム・ノーライフ #1〜12【無料ビデオ2週間】",
+   "date": "2026-08-29T02:40:32.000Z",
+   "summary": "",
+   "source": "ABEMA",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5YVFF0dF84emVEN1ZSSkZQQ2EteEREZGg0d3MzMk9JRXQyUGR1enZ2dFNNSUY3WXo2RUhCeW9VdFdvRmNueWdJU2wzWDRNT2EteXRlOFNESk9XUEhSeWROdFlnY2dMOTk1NEFjYVpTMjk?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
@@ -760,6 +796,18 @@
    "source": "PR TIMES",
    "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFB1QnNYX2RVNmdTNUtzcGV4LVhxNTdQN0lVQVB6dFVNQnV2X1BkUXkxUFA4ZFAzZU9GaF80dFp2Ty1taFR1SUQ1NHVnZHhRY2V6NjRsV0pGaEp1ck9wNlJwNi1DWndkX3ZHdVE?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "91efb2108f044cad",
+   "title": "GOOD SMILE COMPANY Unveils \"Kuroe Shizuku Cosplay by Marin\" 1/6 Scale Figure with Alluring Original Pose!",
+   "date": "2025-10-28T05:01:15.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News: merch (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1lRWhpUjBxaWh1ZmxNSl8xSUpaWHNWbUQ0MEkxTkNYQ05mQ3R1VExhVGEtZ0dnUDl0ZmV2V0F2N05xUWdBeGZ4ZFJLNnhFakU?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
