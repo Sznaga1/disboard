@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-14T06:41:09.302Z",
+ "generatedAt": "2026-11-14T15:11:07.724Z",
  "sources": [
   {
    "id": "gnews-en",
@@ -12,7 +12,7 @@
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 61,
+   "count": 60,
    "added": 28
   },
   {
@@ -20,7 +20,7 @@
    "name": "Google News: merch (EN)",
    "ok": true,
    "count": 24,
-   "added": 15
+   "added": 14
   },
   {
    "id": "gnews-merch-ja",
@@ -155,7 +155,7 @@
   {
    "id": "a764ca39eef62ea6",
    "title": "お値段132万円！「ノーゲーム・ノーライフ」のヒロイン「白」が1/1スケールで立体化、“脱げかけの靴下”まで表現",
-   "date": "2026-11-06T11:40:03.000Z",
+   "date": "2026-11-06T08:00:00.000Z",
    "summary": "",
    "source": "インサイド",
    "via": "Google News: グッズ (JP)",
@@ -163,6 +163,18 @@
    "image": null,
    "price": null,
    "kind": "news"
+  },
+  {
+   "id": "885ffd6802011edf",
+   "title": "『ノーゲーム・ノーライフ』から、「白」の1/1スケールフィギュアが登場",
+   "date": "2026-11-06T08:00:00.000Z",
+   "summary": "",
+   "source": "PR TIMES",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5jNk9KMHZxZ0VvZHlzSWVIODZydl9EcnFHQ3FUWFV5TDRxOVFaQlJocWRaMFk5N1d0S3lDQmRTSDd5cTA0VUhxbERwSFlvRHB5S1pSN2VYMG9sRmt2dndQOGNWdVFXRHh1S0E?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
   },
   {
    "id": "c2e5ae4d482152ec",
@@ -220,18 +232,6 @@
    "source": "Mantan Web",
    "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9EQXZpdDhRSkMzQnV0UlByMmRyX1hqLW5aaTA1elhQTTZNOUlfbm5palZHR1hJakYxRXRucWU0SG81Sy1Zcklqc1dFS1ZVc3F0dVZUdkE3TUQycVowd2k3LUE4TEpEdndjWUFB?oc=5",
-   "image": null,
-   "price": null,
-   "kind": "merch"
-  },
-  {
-   "id": "885ffd6802011edf",
-   "title": "『ノーゲーム・ノーライフ』から、「白」の1/1スケールフィギュアが登場",
-   "date": "2026-11-06T06:00:01.000Z",
-   "summary": "",
-   "source": "PR TIMES",
-   "via": "Google News: グッズ (JP)",
-   "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5jNk9KMHZxZ0VvZHlzSWVIODZydl9EcnFHQ3FUWFV5TDRxOVFaQlJocWRaMFk5N1d0S3lDQmRTSDd5cTA0VUhxbERwSFlvRHB5S1pSN2VYMG9sRmt2dndQOGNWdVFXRHh1S0E?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
@@ -453,6 +453,18 @@
    "kind": "merch"
   },
   {
+   "id": "ce5c2799deba02fb",
+   "title": "Artist Yuu Kamiya of \"No Game No Life\" Fame Declares: \"I'd Rather Quit Than Draw Pubic Hair!\" After Viral Suggestion to Avoid Bans",
+   "date": "2026-06-09T02:50:47.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE0zRTRNaWgzdG1jcEZSMzU5cmRRMzBpa190QU1fc3hpSzNYLXpEczNzTW9zRFF2bFJQR0pJLWFJc0FWdnJPMFJ3aWZBQ2VRcktB?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "cdeea2507b8cc5d0",
    "title": "「忍物語」や「ノーゲーム・ノーライフ」などグッスマ新作フィギュアのデコマスが展示【#グッドスマイルフェス】（HOBBY Watch）",
    "date": "2026-06-06T07:00:00.000Z",
@@ -628,18 +640,6 @@
    "source": "Comic Book Resources",
    "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1Ma2FYZ1VzQ0pQWWYzdmJxaVVlNjZsTDZlWjhSd3FTZmlpaloxanNVSzNWM0s5eHcxSWxHVnJrZE5pekpvZWdvMGFfelRFV3AyODlQdFNnU1FrNGFPMTdoTE42QVFvbndFWWViSVJ1dXNqNV9JMWliZlZTeVU?oc=5",
-   "image": null,
-   "price": null,
-   "kind": "news"
-  },
-  {
-   "id": "ce5c2799deba02fb",
-   "title": "Artist Yuu Kamiya of \"No Game No Life\" Fame Declares: \"I'd Rather Quit Than Draw Pubic Hair!\" After Viral Suggestion to Avoid Bans",
-   "date": "2026-03-27T07:00:00.000Z",
-   "summary": "",
-   "source": "玩具人 TOY PEOPLE",
-   "via": "Google News (EN)",
-   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE0zRTRNaWgzdG1jcEZSMzU5cmRRMzBpa190QU1fc3hpSzNYLXpEczNzTW9zRFF2bFJQR0pJLWFJc0FWdnJPMFJ3aWZBQ2VRcktB?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
