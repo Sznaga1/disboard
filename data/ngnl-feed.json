@@ -1,26 +1,26 @@
 {
- "generatedAt": "2026-11-13T22:01:40.744Z",
+ "generatedAt": "2026-11-14T06:41:09.302Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 54,
-   "added": 39
+   "count": 55,
+   "added": 40
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 62,
-   "added": 29
+   "count": 61,
+   "added": 28
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 25,
-   "added": 16
+   "count": 24,
+   "added": 15
   },
   {
    "id": "gnews-merch-ja",
@@ -700,6 +700,18 @@
    "source": "PR TIMES",
    "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1sMDdSR0F1YWdVVVBsZG9jMVJqLXZYdlNtRHl4a2FLLUlyT0tjOUVsMkxLM2dSLVZKYUNzY1V3QkdsSHVrM3FmeHVXVV82WWlxNF9NUm8wd0ptMEtJNUpuMU01OVBjU2dacVE?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "18bf757dd7d60ec8",
+   "title": "No Game No Life The Movie Heroine to be Released as an Articulated Figure 'figma Schwi' Scheduled for December Release!",
+   "date": "2026-03-12T12:22:29.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News: merch (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBUazZvS2c3U3haUlo5NWRjZy05aDVSUHFRa05fYU9pWXZuRjdxSUZfZGpEbnhrMEZfUlVTMGNWWmlhN1o2X2s4Vk80eW44bEk?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
