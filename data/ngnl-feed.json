@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-14T15:11:07.724Z",
+ "generatedAt": "2026-11-14T20:48:03.545Z",
  "sources": [
   {
    "id": "gnews-en",
@@ -12,22 +12,22 @@
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 60,
-   "added": 28
+   "count": 58,
+   "added": 29
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 24,
-   "added": 14
+   "count": 23,
+   "added": 13
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
-   "count": 55,
-   "added": 31
+   "count": 54,
+   "added": 32
   },
   {
    "id": "ann",
@@ -105,6 +105,18 @@
    "kind": "news"
   },
   {
+   "id": "1a2c53e0057dfa51",
+   "title": "お値段132万円の迫力！『ノゲノラ』の“等身大”フィギュア登場、くつろぐ華奢な天才少女白を再現 重量50kg超え（オタク総研）",
+   "date": "2026-11-07T12:50:00.000Z",
+   "summary": "",
+   "source": "Yahoo!ニュース",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBNc2RLekpyZlcxeHE5ZVgtZVBIc0pZdG0zbi02QzdEOGpxZW9qQms2U3hVSW1lcXA5QlpMdlcyQnFnY0hOeDFHV2lod3RON2xZSTJNUlhGejE1Qi1uMWVWV3lpSFRZT3psUmtBVjJfYmpWd1lzTW95NTJoNW5JN3M?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
    "id": "40e521d686094858",
    "title": "お値段132万円の迫力！『ノゲノラ』の“等身大”フィギュア登場、くつろぐ華奢な天才少女白を再現 重量50kg超え",
    "date": "2026-11-07T12:49:33.000Z",
@@ -179,7 +191,7 @@
   {
    "id": "c2e5ae4d482152ec",
    "title": "全高72cm、全幅110cmの等身大サイズ！「ノーゲーム・ノーライフ」より「白」が1/1スケールスタチューで登場 価格は132万円",
-   "date": "2026-11-06T07:51:59.000Z",
+   "date": "2026-11-06T08:00:00.000Z",
    "summary": "",
    "source": "hobby Watch",
    "via": "Google News (JP)",
@@ -283,6 +295,18 @@
    "image": null,
    "price": null,
    "kind": "merch"
+  },
+  {
+   "id": "9ce19f9952d931e2",
+   "title": "「『ノーゲーム・ノーライフ ゼロ』 POP UP SHOP in AMNIBUS STORE -white-」が開催決定！",
+   "date": "2026-10-09T07:00:00.000Z",
+   "summary": "",
+   "source": "PR TIMES",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1SYWxxNzRHUGFBZ0V5TkI4c3l0SVd3U2J5WFdtMUtHUDEtR0pSODlkNWdqUlBzSXBzandES01HekpZWWRvX2pXVjBELXgtRTBuajFqNjUweVZtVDAwZEREV2Q4R3pEVTJIVnc?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
   },
   {
    "id": "8c7a045807f0c4ec",
@@ -451,18 +475,6 @@
    "image": null,
    "price": null,
    "kind": "merch"
-  },
-  {
-   "id": "ce5c2799deba02fb",
-   "title": "Artist Yuu Kamiya of \"No Game No Life\" Fame Declares: \"I'd Rather Quit Than Draw Pubic Hair!\" After Viral Suggestion to Avoid Bans",
-   "date": "2026-06-09T02:50:47.000Z",
-   "summary": "",
-   "source": "玩具人 TOY PEOPLE",
-   "via": "Google News (EN)",
-   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE0zRTRNaWgzdG1jcEZSMzU5cmRRMzBpa190QU1fc3hpSzNYLXpEczNzTW9zRFF2bFJQR0pJLWFJc0FWdnJPMFJ3aWZBQ2VRcktB?oc=5",
-   "image": null,
-   "price": null,
-   "kind": "news"
   },
   {
    "id": "cdeea2507b8cc5d0",
@@ -640,6 +652,18 @@
    "source": "Comic Book Resources",
    "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1Ma2FYZ1VzQ0pQWWYzdmJxaVVlNjZsTDZlWjhSd3FTZmlpaloxanNVSzNWM0s5eHcxSWxHVnJrZE5pekpvZWdvMGFfelRFV3AyODlQdFNnU1FrNGFPMTdoTE42QVFvbndFWWViSVJ1dXNqNV9JMWliZlZTeVU?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "ce5c2799deba02fb",
+   "title": "Artist Yuu Kamiya of \"No Game No Life\" Fame Declares: \"I'd Rather Quit Than Draw Pubic Hair!\" After Viral Suggestion to Avoid Bans",
+   "date": "2026-03-27T07:00:00.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE0zRTRNaWgzdG1jcEZSMzU5cmRRMzBpa190QU1fc3hpSzNYLXpEczNzTW9zRFF2bFJQR0pJLWFJc0FWdnJPMFJ3aWZBQ2VRcktB?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
