@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-15T06:47:00.707Z",
+ "generatedAt": "2026-11-15T15:42:37.756Z",
  "sources": [
   {
    "id": "gnews-en",
@@ -13,21 +13,21 @@
    "name": "Google News (JP)",
    "ok": true,
    "count": 59,
-   "added": 27
+   "added": 28
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 24,
+   "count": 23,
    "added": 13
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
-   "count": 53,
-   "added": 31
+   "count": 54,
+   "added": 32
   },
   {
    "id": "ann",
@@ -525,6 +525,18 @@
    "kind": "merch"
   },
   {
+   "id": "5ee1c253b2026b34",
+   "title": "「『ノーゲーム・ノーライフ ゼロ』POP UP SHOP in マルイ」の開催が決定！",
+   "date": "2026-05-14T07:00:00.000Z",
+   "summary": "",
+   "source": "PR TIMES",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9LYzUyVWNwcUF3WmVyMWJwT0N3SUV1alJMcGFpQzNpS0IyVVRoWHhxeGVFbHJFOEVLcUZhZUtoXzFpcDJJek52eENlS0FqQTgyVDlhYVo3WlpPQ0FzdWFYNG1keHJIbG5vbnc?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "5919eb4ea2b93411",
    "title": "No Game No Life Surges in Official Ranking With 1st New Release in 3 Years",
    "date": "2026-05-10T07:00:00.000Z",
@@ -679,18 +691,6 @@
    "image": null,
    "price": null,
    "kind": "news"
-  },
-  {
-   "id": "5a2b0e05e973e47c",
-   "title": "5.8 Million Yen! Design COCO 'Urusei Yatsura' Lum & Ten BOX cafe & space Collaboration 1/1 Life-Size Figure",
-   "date": "2026-03-27T06:29:32.000Z",
-   "summary": "",
-   "source": "玩具人 TOY PEOPLE",
-   "via": "Google News: merch (EN)",
-   "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBXSzd1a0xseVRhVVUtbGpLcEVzQnExOUNrN1YtMXdDRWVfY1JOb1dvWFBRUU14MzV3cS13M05wY1JobFdxLXN3T3lyckUzUEU?oc=5",
-   "image": null,
-   "price": null,
-   "kind": "merch"
   },
   {
    "id": "07bacb9c38165653",
