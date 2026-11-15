@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-14T20:48:03.545Z",
+ "generatedAt": "2026-11-15T06:47:00.707Z",
  "sources": [
   {
    "id": "gnews-en",
@@ -12,22 +12,22 @@
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 58,
-   "added": 29
+   "count": 59,
+   "added": 27
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 23,
+   "count": 24,
    "added": 13
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
-   "count": 54,
-   "added": 32
+   "count": 53,
+   "added": 31
   },
   {
    "id": "ann",
@@ -98,7 +98,7 @@
    "date": "2026-11-07T15:00:00.000Z",
    "summary": "",
    "source": "hobby Watch",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBxTXJPZmJ0YzQ4bmtscHNQU0tpRG5YMzlMMkw2V3NkRTVnaUYzN2l2SENxWGRrUHowa2c5aE11UEY3RXZ1NVRCT2hfNURkSk5YR2NValFjdDAxYmZ6R3BqeEc3dHFhLVk2eEVF?oc=5",
    "image": null,
    "price": null,
@@ -201,6 +201,30 @@
    "kind": "news"
   },
   {
+   "id": "fb976e3e6d707b2d",
+   "title": "ノーゲーム・ノーライフ＞白の等身大フィギュア ありのままの天才少女 132万円（MANTANWEB）",
+   "date": "2026-11-06T08:00:00.000Z",
+   "summary": "",
+   "source": "Yahoo!ニュース",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBmeVZQQWVxekpWWU5qZkF3SXNyckRzcV81VGJONExDRVRuWno2dzFLMkNadXByVUZQTVBybHlCUzc0NWY4RTlaa0gtZl9kTGlzVUpqU0QyUXg3UDFMaWxDb2JOWVlkTEZ5NExKNzAwYXllUDB2bjNvY29maFJKSVk?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "123d8965250fa60d",
+   "title": "ノーゲーム・ノーライフ：白の等身大フィギュア ありのままの天才少女 132万円",
+   "date": "2026-11-06T08:00:00.000Z",
+   "summary": "",
+   "source": "Mantan Web",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9EQXZpdDhRSkMzQnV0UlByMmRyX1hqLW5aaTA1elhQTTZNOUlfbm5palZHR1hJakYxRXRucWU0SG81Sy1Zcklqc1dFS1ZVc3F0dVZUdkE3TUQycVowd2k3LUE4TEpEdndjWUFB?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
    "id": "f61b81d905b9407b",
    "title": "全高72cm、全幅110cmの等身大サイズ！「ノーゲーム・ノーライフ」より「白」が1/1スケールスタチューで登場 (HOBBY Watch)",
    "date": "2026-11-06T07:51:00.000Z",
@@ -213,18 +237,6 @@
    "kind": "news"
   },
   {
-   "id": "fb976e3e6d707b2d",
-   "title": "ノーゲーム・ノーライフ＞白の等身大フィギュア ありのままの天才少女 132万円（MANTANWEB）",
-   "date": "2026-11-06T06:23:00.000Z",
-   "summary": "",
-   "source": "Yahoo!ニュース",
-   "via": "Google News (JP)",
-   "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBmeVZQQWVxekpWWU5qZkF3SXNyckRzcV81VGJONExDRVRuWno2dzFLMkNadXByVUZQTVBybHlCUzc0NWY4RTlaa0gtZl9kTGlzVUpqU0QyUXg3UDFMaWxDb2JOWVlkTEZ5NExKNzAwYXllUDB2bjNvY29maFJKSVk?oc=5",
-   "image": null,
-   "price": null,
-   "kind": "merch"
-  },
-  {
    "id": "3e0bdb3caed20dd7",
    "title": "ノーゲーム・ノーライフ＞白の等身大フィギュア ありのままの天才少女 132万円 (MANTANWEB)",
    "date": "2026-11-06T06:23:00.000Z",
@@ -232,18 +244,6 @@
    "source": "Yahoo!ニュース",
    "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNU1RaWGNjbldycmd4VDVRS1JBRXhnc2dkaEtQMnMxYkp5ZUxrdXQ0MUNQS2lfaUZ0QjlXQ0pmLVlKQkYyVFVmX0NlNXo4RWlXc3VpeVdfSnVIQUpfT2JTNFN0SmVLR2tFM0dPbUhGbWV6ZkRFakJkQ3Rkelk4QzBwODJTS0FHcXZsTmlVMHpn?oc=5",
-   "image": null,
-   "price": null,
-   "kind": "merch"
-  },
-  {
-   "id": "123d8965250fa60d",
-   "title": "ノーゲーム・ノーライフ：白の等身大フィギュア ありのままの天才少女 132万円",
-   "date": "2026-11-06T06:19:00.000Z",
-   "summary": "",
-   "source": "Mantan Web",
-   "via": "Google News: グッズ (JP)",
-   "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9EQXZpdDhRSkMzQnV0UlByMmRyX1hqLW5aaTA1elhQTTZNOUlfbm5palZHR1hJakYxRXRucWU0SG81Sy1Zcklqc1dFS1ZVc3F0dVZUdkE3TUQycVowd2k3LUE4TEpEdndjWUFB?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
@@ -316,6 +316,18 @@
    "source": "Rock Paper Shotgun",
    "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQREJfVjJxem41MTBNdzgtZXVMMXh3YUYxTHRFc3dmZW5rZm41UWx4ZDFqM1Z3azZzNXJBMUlMaWpRSTZIbGRHbVg2QUtmUzBubXhzRG5FSzU0dUFnQWJXdmNNSW40bHI2Y0puS0NYV25iSzVwZ2Fib2YyUmxuSU05b19QeFRtWG1rVkVqM0swTnBzMWp3RVF1LS1TVHZTdnpySTVYcnhvRmRBWnpHWGdrckFGdk1qdTZoanlMam9EVU9jYmZsTjdyaw?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "8a5fe157e93cc7f4",
+   "title": "ノーゲーム・ノーライフ #1【試し見#1 続きはABEMAビデオへ】",
+   "date": "2026-09-19T07:00:00.000Z",
+   "summary": "",
+   "source": "ABEMA",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1xRmktXy1OTWhROGZyWHdOYTl1ZjRRUFpoQUJFdXNveFF2Q01YbzdUSG9CVVJUWnRINUZ1NjM1b0lIdFdHQlhnZjg5MGFFVGhYM2VDTTNaQnEwOHVSUkRieDlPeE9DSjE0?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
@@ -475,6 +487,18 @@
    "image": null,
    "price": null,
    "kind": "merch"
+  },
+  {
+   "id": "ce5c2799deba02fb",
+   "title": "Artist Yuu Kamiya of \"No Game No Life\" Fame Declares: \"I'd Rather Quit Than Draw Pubic Hair!\" After Viral Suggestion to Avoid Bans",
+   "date": "2026-06-09T02:50:47.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE0zRTRNaWgzdG1jcEZSMzU5cmRRMzBpa190QU1fc3hpSzNYLXpEczNzTW9zRFF2bFJQR0pJLWFJc0FWdnJPMFJ3aWZBQ2VRcktB?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
   },
   {
    "id": "cdeea2507b8cc5d0",
@@ -657,18 +681,6 @@
    "kind": "news"
   },
   {
-   "id": "ce5c2799deba02fb",
-   "title": "Artist Yuu Kamiya of \"No Game No Life\" Fame Declares: \"I'd Rather Quit Than Draw Pubic Hair!\" After Viral Suggestion to Avoid Bans",
-   "date": "2026-03-27T07:00:00.000Z",
-   "summary": "",
-   "source": "玩具人 TOY PEOPLE",
-   "via": "Google News (EN)",
-   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE0zRTRNaWgzdG1jcEZSMzU5cmRRMzBpa190QU1fc3hpSzNYLXpEczNzTW9zRFF2bFJQR0pJLWFJc0FWdnJPMFJ3aWZBQ2VRcktB?oc=5",
-   "image": null,
-   "price": null,
-   "kind": "news"
-  },
-  {
    "id": "5a2b0e05e973e47c",
    "title": "5.8 Million Yen! Design COCO 'Urusei Yatsura' Lum & Ten BOX cafe & space Collaboration 1/1 Life-Size Figure",
    "date": "2026-03-27T06:29:32.000Z",
@@ -722,7 +734,7 @@
    "date": "2026-03-23T07:00:00.000Z",
    "summary": "",
    "source": "PR TIMES",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1sMDdSR0F1YWdVVVBsZG9jMVJqLXZYdlNtRHl4a2FLLUlyT0tjOUVsMkxLM2dSLVZKYUNzY1V3QkdsSHVrM3FmeHVXVV82WWlxNF9NUm8wd0ptMEtJNUpuMU01OVBjU2dacVE?oc=5",
    "image": null,
    "price": null,
