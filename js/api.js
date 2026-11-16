@@ -356,11 +356,27 @@ const Ani = {
 // Każda próba (także ponowienie) przechodzi przez ogranicznik: max ~1 start na 1,2 s,
 // więc nie wpadamy w limit 3/s. Błędy 5xx (np. 504) oznaczają, że Jikan nie doczekał
 // się odpowiedzi od MyAnimeList — ponawiamy raz, potem zgłaszamy „upstream”.
+// Brak odpowiedzi to nie zawsze brak internetu: Jikan odrzuca nadmiar zapytań (429)
+// bez nagłówków CORS, więc przeglądarka widzi wtedy tylko „błąd sieci”, a przy awarii
+// serwera zapytanie potrafi wisieć minutami. Dlatego: limit czasu, a przy działającym
+// internecie dwie spokojne ponowne próby i błąd „unreachable” zamiast „network”.
+const JIKAN_TIMEOUT = 15000;
+async function jikanFetch(path) {
+  const ctl = typeof AbortController === 'function' ? new AbortController() : null;
+  const timer = ctl ? setTimeout(() => ctl.abort(), JIKAN_TIMEOUT) : null;
+  try { return await fetch(JIKAN_URL + path, { headers: { Accept: 'application/json' }, signal: ctl ? ctl.signal : undefined }); }
+  finally { clearTimeout(timer); }
+}
 async function jikanGet(path, retries5xx = 1) {
+  let silent = 0; // próby bez odpowiedzi (limit bez CORS, przeciążenie, awaria)
   for (let attempt = 0; ; attempt++) {
     let res;
-    try { res = await jikanLimit(() => fetch(JIKAN_URL + path, { headers: { Accept: 'application/json' } })); }
-    catch { throw new ApiError('network', 'Brak połączenia z Jikan (MyAnimeList).'); }
+    try { res = await jikanLimit(() => jikanFetch(path)); }
+    catch {
+      if (typeof navigator !== 'undefined' && navigator.onLine === false) throw new ApiError('network', 'Brak połączenia z internetem.');
+      if (silent < 2) { silent++; await sleep(4000 * silent); continue; }
+      throw new ApiError('unreachable', 'Jikan (MyAnimeList) nie odpowiada. To przerwa po ich stronie, nie problem z Twoją listą ani internetem.');
+    }
     if (res.status === 429 && attempt < 3) { await sleep(2000 * (attempt + 1)); continue; }
     if (res.status >= 500 && attempt < retries5xx) { await sleep(4000); continue; }
     if (res.status === 404) throw new ApiError('notfound', 'Brak wpisu w MyAnimeList.');

@@ -93,7 +93,7 @@ const NGNL = (() => {
     { name: 'Google News: merch (EN)', q: '"No Game No Life" (figure OR nendoroid OR merch OR "Blu-ray")', lang: 'en' },
     { name: 'Google News: グッズ (JP)', q: 'ノーゲーム・ノーライフ (フィギュア OR グッズ OR ねんどろいど)', lang: 'ja' },
   ];
-  const RETRYABLE = ['upstream', 'rate', 'network', 'server'];
+  const RETRYABLE = ['upstream', 'rate', 'network', 'server', 'unreachable'];
 
   async function news(s, { force = false, onPartial } = {}) {
     const items = [];

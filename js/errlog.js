@@ -78,7 +78,7 @@ const ErrLog = (() => {
   // błędy, które nic nie znaczą albo są oczekiwane (brak sieci jest obsługiwany osobno)
   function ignorable(err, msg) {
     if (/ResizeObserver loop/i.test(msg || '')) return true;
-    if (err && (err.name === 'AbortError' || (err.kind && ['network', 'rate', 'offline', 'notfound'].includes(err.kind)))) return true;
+    if (err && (err.name === 'AbortError' || (err.kind && ['network', 'rate', 'offline', 'notfound', 'unreachable'].includes(err.kind)))) return true;
     return false;
   }
 

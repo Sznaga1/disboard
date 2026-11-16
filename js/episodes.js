@@ -150,22 +150,31 @@ const Episodes = (() => {
     if (scanning) { await scanning.catch(() => {}); return scan(entries, { onProgress, alive }); }
     scanning = (async () => {
       const todo = needScan(entries);
-      let done = 0, failed = false;
+      // pojedynczy nieudany tytuł nie przerywa skanu; dopiero kilka porażek z rzędu
+      // (Jikan leży) albo brak internetu. Pobrane serie zapisują się od razu, więc
+      // „Spróbuj ponownie” zaczyna od miejsca, w którym skan stanął.
+      let done = 0, got = 0, failed = false, streak = 0, reason = null;
       for (const e of todo) {
         if (alive && !alive()) break;
         try {
           const list = await jikanEpisodes(e.idMal, { ttl: e.media.status === 'RELEASING' ? 7 * 86400e3 : 30 * 86400e3 });
           updateFlags(e.idMal, list, e.media.episodes);
+          got++;
+          streak = 0;
         } catch (err) {
-          if (err.kind === 'network') { failed = true; break; }
-          if (err.kind === 'notfound') flags[e.idMal] = { t: Date.now(), n: e.media.episodes || 0, f: [], r: [] };
-          else failed = true;
+          if (err.kind === 'notfound') { flags[e.idMal] = { t: Date.now(), n: e.media.episodes || 0, f: [], r: [] }; persist(); streak = 0; }
+          else {
+            failed = true;
+            reason = err.kind || 'error';
+            streak++;
+            if (err.kind === 'network' || streak >= 3) { done++; if (onProgress) onProgress(done, todo.length); break; }
+          }
         }
         done++;
         if (onProgress) onProgress(done, todo.length);
       }
       persist();
-      return { done, total: todo.length, failed };
+      return { done, got, total: todo.length, failed, reason };
     })();
     try { return await scanning; } finally { scanning = null; }
   }

@@ -631,7 +631,14 @@ const Nerd = (() => {
         const what = xs.job === 'fill' ? 'Sprawdzam w MyAnimeList fillery w długich seriach' : 'Pobieram z AniList obsadę, twórców, studia i rankingi';
         return `<div class="nxb" role="status"><div class="nxb-t"><span class="nxb-dot" aria-hidden="true"></span>${what}: <b class="num">${xs.done}/${xs.total}</b> ${xs.job === 'fill' ? plural(xs.total, 'seria', 'serie', 'serii') : 'anime'}</div><div class="nxb-bar"><i style="width:${p}%"></i></div></div>`;
       }
-      if (xs.state === 'fail') return `<div class="nxb fail" role="status"><div class="nxb-t">Nie udało się pobrać wszystkiego ${xs.job === 'fill' ? 'z MyAnimeList' : 'z AniList'} (${xs.done}/${xs.total}). Część kafelków czeka na dane.</div><button class="btn ghost sm" type="button" id="nx-retry">${ICON.refresh}Spróbuj ponownie</button></div>`;
+      if (xs.state === 'fail' && xs.job === 'fill') {
+        const why = xs.reason === 'network' ? 'Brak internetu.'
+          : ['unreachable', 'upstream', 'rate'].includes(xs.reason) ? 'Jikan (serwer z danymi MyAnimeList) teraz nie odpowiada. To przerwa po ich stronie, nie problem z Twoją listą.'
+            : 'Część serii nie odpowiedziała.';
+        const left = xs.left != null ? xs.left : xs.total - xs.done;
+        return `<div class="nxb fail" role="status"><div class="nxb-t">${why} Fillery czekają jeszcze dla <b class="num">${left}</b> ${plural(left, 'serii', 'serii', 'serii')}; pobrane już serie zostają zapisane i skan ruszy od miejsca, w którym stanął.</div><button class="btn ghost sm" type="button" id="nx-retry">${ICON.refresh}Spróbuj ponownie</button></div>`;
+      }
+      if (xs.state === 'fail') return `<div class="nxb fail" role="status"><div class="nxb-t">Nie udało się pobrać wszystkiego z AniList (${xs.done}/${xs.total}). Część kafelków czeka na dane.</div><button class="btn ghost sm" type="button" id="nx-retry">${ICON.refresh}Spróbuj ponownie</button></div>`;
       return '';
     };
     const updBanner = () => { const b = ctx.el.querySelector('#nx-host'); if (b) b.innerHTML = bannerHtml(); };
@@ -746,6 +753,8 @@ const Nerd = (() => {
       try { r = await Episodes.scan(seenE, { alive: ctx.alive, onProgress: (dn, tt) => { xs.done = dn; xs.total = tt; updBanner(); } }); } catch { r = { failed: true }; }
       if (!ctx.alive()) return;
       xs.state = r.failed ? 'fail' : 'ok';
+      xs.reason = r.reason || null;
+      xs.left = Episodes.needScan(seenE).length;
       render();
     }
 
