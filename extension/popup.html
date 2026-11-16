@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Disboard</title>
+<script src="theme.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="popup.css">
+<link rel="stylesheet" href="themes.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" id="home" target="_blank" rel="noopener" title="Otwórz Disboard">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" class="bm-bg"/><path d="M1 16h15V1H8a7 7 0 0 0-7 7z" class="bm-a"/><path d="M16 31h8a7 7 0 0 0 7-7v-8H16z" class="bm-b"/><path d="M12.5 10.5v11l9-5.5z" class="bm-p"/></svg>
+      <span class="brand-t">Disboard</span>
+    </a>
+    <label class="search" id="search" hidden>
+      <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input id="q" type="search" placeholder="Szukaj na swojej liście…" autocomplete="off" spellcheck="false" aria-label="Szukaj na swojej liście">
+    </label>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="refresh" title="Odśwież listę" aria-label="Odśwież listę" hidden>
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <a class="icon-btn" id="open" title="Otwórz Disboard" aria-label="Otwórz Disboard" target="_blank" rel="noopener">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <button class="acct" id="account" title="Konto" aria-label="Konto" aria-expanded="false" hidden>
+        <img id="acct-photo" alt="" referrerpolicy="no-referrer" hidden>
+        <svg id="acct-icon" class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="acct-dot" id="acct-dot"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="account" id="account-panel" hidden>
+    <div class="who"><b id="who-name"></b><span id="who-mail"></span><span id="who-sync" class="who-sync"></span></div>
+    <button class="btn ghost sm" id="signout">Wyloguj</button>
+  </div>
+
+  <section class="signin" id="signin" hidden>
+    <svg class="signin-logo" viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" class="bm-bg"/><path d="M1 16h15V1H8a7 7 0 0 0-7 7z" class="bm-a"/><path d="M16 31h8a7 7 0 0 0 7-7v-8H16z" class="bm-b"/><path d="M12.5 10.5v11l9-5.5z" class="bm-p"/></svg>
+    <h1>Twoja lista pod ręką</h1>
+    <p>Zaloguj się tym samym kontem Google, co w Disboard. Rozszerzenie pokaże, co oglądasz, i zapisze kolejne odcinki prosto na Twojej liście.</p>
+    <button class="btn" id="signin-btn">Zaloguj przez Google</button>
+    <p class="hint">Otworzy się okno Google. Po zalogowaniu kliknij ikonę Disboard jeszcze raz.</p>
+  </section>
+
+  <main id="main" hidden>
+    <div class="tabs-row">
+      <nav class="tabs" id="tabs" role="tablist" aria-label="Status na liście"></nav>
+      <span class="sync" id="sync" aria-live="polite"></span>
+    </div>
+    <div class="grid" id="list"></div>
+  </main>
+
+  <footer class="msg" id="msg" role="status" hidden></footer>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "Disboard",
+  "version": "1.0.0",
+  "description": "Twoja lista Disboard pod ręką: „Oglądam”, +1 odcinek jednym kliknięciem, nowe odcinki na ikonce.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlyFi1HpjUFOv6o88rQGYZbZGdzPF/9EhUrKPnuZsFW+l4V9u2Z8LrTYwzc076AT3FR8bwZQefQjRG2lnsqystv3QtodPP8zcZwijYMS1zPkSFtj2ej/egEknsVixq3ohu/oCUTYvFo/3lMzBWNwQ+inmQqHfDLZN0MFPmY5M9ubCyDknugIHTiIh+QDaTWO/6qsQng9+i9kklMbHMUv7wSIfJcJf2NX+4TOVeOzNc5/OCH0PFbw84N+lf3pvhePtvjKPSdQ8TTLrRZUmp/gqUHwLlK0zmLZ4E0F2Wrj2Ac8MJWzXCxgOx7Z4cnys0gfji9bUFfVRmXPH7UglkUldmwIDAQAB",
+  "icons": {
+    "16": "icons/icon-192.png",
+    "32": "icons/icon-192.png",
+    "48": "icons/icon-192.png",
+    "128": "icons/icon-192.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Disboard",
+    "default_icon": {
+      "16": "icons/icon-192.png",
+      "32": "icons/icon-192.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "identity",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://firestore.googleapis.com/*",
+    "https://identitytoolkit.googleapis.com/*",
+    "https://securetoken.googleapis.com/*",
+    "https://graphql.anilist.co/*",
+    "https://api.jikan.moe/*"
+  ],
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+D"
+      },
+      "description": "Otwórz okienko Disboard"
+    }
+  }
+}

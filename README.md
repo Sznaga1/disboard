@@ -54,6 +54,16 @@ Import obsługuje JSON z tej aplikacji, eksport XML z MyAnimeList oraz CSV z kol
 
 ---
 
+## Rozszerzenie do przeglądarki (Brave, Chrome, Edge)
+
+Lista „Oglądam” pod ikoną obok paska adresu, bez otwierania strony. Kliknięcie **+1** zapisuje obejrzany odcinek, a **−1** cofa pomyłkę. Pole wyszukiwania znajduje dowolny tytuł z listy, a zakładki (Oglądam, Planuję, Wstrzymane, Obejrzane, Porzucone) pokazują listę w dwóch kolumnach kart jak na stronie. Kolory biorą się z motywu wybranego w Disboard (`extension/themes.css` to kopia `css/themes.css`). Liczba na ikonce mówi, w ilu oglądanych seriach wyszły nowe odcinki (do 3; większe zaległości to „do nadrobienia”). Skrót: **Alt+Shift+D**.
+
+- **Instalacja:** `brave://extensions` → włącz „Tryb dewelopera” → „Załaduj rozpakowane” → wskaż folder `extension`. Potem kliknij ikonę Disboard i „Zaloguj przez Google” (to samo konto co na stronie).
+- **Skąd ma listę:** loguje się do tego samego Firebase co strona i czyta listę z chmury, a co 15 minut sprawdza zmiany. Emisję odcinków bierze z AniList.
+- **Bezpieczeństwo:** „+1” wykonuje ten sam kod co na stronie (`extension/core.js` buduje się z `js/util.js`, `js/db.js`, `js/library.js` i `js/cloud.js`). Zapis przechodzi tylko wtedy, gdy lista w chmurze nie zmieniła się od odczytu. W przeciwnym razie rozszerzenie czyta ją ponownie i powtarza zmianę. Odcinek zaznaczony już na innym urządzeniu nie liczy się drugi raz. Bez internetu zmiana czeka i zapisuje się później. Rozszerzenie nie dodaje ani nie usuwa tytułów i nie tworzy listy w pustej chmurze.
+- **Logowanie wymaga jednorazowego wpisu** w Google Cloud Console (projekt `disboard-63851` → APIs & Services → Credentials → „Web client (auto created by Google Service)”). W „Authorized redirect URIs” musi być `https://fbhamioghmkijpokplfnaebijcplacho.chromiumapp.org/`. Numer rozszerzenia jest stały dzięki polu `key` w `extension/manifest.json`.
+- **Po zmianie plików strony** uruchom `node tools/build-extension.mjs`, potem w `brave://extensions` kliknij „Odśwież” przy Disboard. Test `tests/extension.test.mjs` pilnuje, żeby `core.js` był aktualny.
+
 ## Uzupełnianie listy o anime obejrzane dawniej
 
 - **Tryb uzupełniania** (*Ustawienia i kopie* albo skrót **Alt+U** na każdej stronie). Gdy jest włączony, odcinki, ukończenia i rewatche zapisują się bez daty, a „+” na okładkach dodaje tytuł od razu jako „Obejrzane”. U góry widać złotą pigułkę: kliknięcie jej albo ponowne Alt+U wyłącza tryb.
