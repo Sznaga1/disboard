@@ -62,6 +62,10 @@ const UI = (() => {
     return `Premiera: ${esc(d)}`;
   }
 
+  // rzadkość karty (Bajery → Rzadkość kart): ocena 8 / 9 / 10 to SR / SSR / UR jak w gachy
+  const rarity = (e) => (!e || e.score == null ? '' : e.score >= 10 ? 'UR' : e.score >= 9 ? 'SSR' : e.score >= 8 ? 'SR' : '');
+  const rarAttr = (e) => { const r = rarity(e); return r ? ` data-rar="${r}"` : ''; };
+
   // „+” na okładce: w trybie uzupełniania dodaje od razu jako Obejrzane (bez daty)
   const quickStatus = (base = 'planning') => (S.settings.backfill ? 'completed' : base);
   const quickAddTitle = (base = 'planning') => (S.settings.backfill
@@ -71,7 +75,7 @@ const UI = (() => {
   // okładka karty z przyciskiem „+” albo odznaką statusu (obie otwierają menu statusów)
   function cardMedia(m, addStatus = 'planning') {
     const e = Lib.get(m.id);
-    return `<a class="acard-cover${e && e.favorite ? ' is-fav' : ''}" href="#/anime/${m.id}" aria-label="${esc(titleOf(m))}">
+    return `<a class="acard-cover${e && e.favorite ? ' is-fav' : ''}"${rarAttr(e)} href="#/anime/${m.id}" aria-label="${esc(titleOf(m))}">
         ${cover(m)}
         ${m.format || m.isAdult ? `<span class="acard-format">${esc(FORMAT_PL[m.format] || m.format || '')}${m.isAdult ? `${m.format ? ' · ' : ''}<b class="adult">18+</b>` : ''}</span>` : ''}
       </a>
@@ -129,7 +133,7 @@ const UI = (() => {
     const last = Lib.lastEp(e);
     const behind = aired != null && !m.isAdult && aired > last && e.status === 'watching' ? aired - last : 0;
     return `<article class="ecard st-${e.status}" data-id="${e.id}">
-      <a class="ecard-cover" href="#/anime/${e.id}" aria-label="${esc(titleOf(m))}">
+      <a class="ecard-cover"${rarAttr(e)} href="#/anime/${e.id}" aria-label="${esc(titleOf(m))}">
         ${cover(m)}
         ${e.favorite ? `<span class="ecard-fav" title="Ulubione">${ICON.star}</span>` : ''}
         ${behind ? `<span class="ecard-behind" title="Wyemitowane, a nieobejrzane">+${behind}</span>` : ''}

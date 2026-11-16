@@ -28,24 +28,55 @@ const FX_LIST = [
   { k: 'glow', g: 'Kolor', l: 'Poświata okładek', d: 'Okładka pod kursorem świeci własnym kolorem.' },
   { k: 'aurora', g: 'Kolor', l: 'Zorza w tle', d: 'Powoli dryfujące plamy światła w kolorach motywu.', m: 1 },
   { k: 'grain', g: 'Kolor', l: 'Ziarno filmowe', d: 'Delikatny szum na całym ekranie, jak na taśmie.' },
+  { k: 'weather', g: 'Kolor', l: 'Pogoda', d: 'Z góry spada coś pasującego do pory roku: śnieg, sakura, świetliki albo liście.', m: 1, n: 1, opt: 'weather' },
+  { k: 'board', g: 'Kolor', l: 'Plansza pod kursorem', d: 'W tle za kursorem prześwituje szachownica Disboardu.', n: 1 },
+  { k: 'ambi', g: 'Kolor', l: 'Ambilight banera', d: 'Baner strony anime rozlewa rozmytą poświatę pod nagłówek.', n: 1 },
+  { k: 'bars', g: 'Kolor', l: 'Lśniące paski postępu', d: 'Paski postępu mają głębię i jasny czubek, jakby się żarzyły.', n: 1 },
   { k: 'tilt', g: 'Karty', l: 'Przechył 3D okładek', d: 'Okładka pod kursorem przechyla się w jego stronę.', m: 1 },
-  { k: 'holo', g: 'Karty', l: 'Holograficzne ulubione', d: 'Ulubione mają folię jak rzadka karta kolekcjonerska; mieni się za kursorem.' },
+  { k: 'holo', g: 'Karty', l: 'Holograficzne ulubione', d: 'Ulubione mają folię jak rzadka karta kolekcjonerska; mieni się za kursorem. Wybierz rodzaj folii.', opt: 'holo' },
+  { k: 'rarity', g: 'Karty', l: 'Rzadkość kart', d: 'Ocena 8, 9 i 10 to znaczek SR, SSR i UR jak w gachy. Karty UR mają złotą ramkę.', n: 1 },
   { k: 'shine', g: 'Karty', l: 'Błysk na okładce', d: 'Po najechaniu przez okładkę przechodzi refleks światła.', m: 1 },
   { k: 'spot', g: 'Karty', l: 'Reflektor', d: 'Karty i panele podświetlają się tam, gdzie jest kursor.' },
+  { k: 'edge', g: 'Karty', l: 'Obwódka mocy', d: 'Karta pod kursorem dostaje obracającą się obwódkę w kolorach Sory i Shiro.', m: 1, n: 1 },
+  { k: 'glass', g: 'Karty', l: 'Szklane panele', d: 'Panele i kafelki są półprzezroczyste i rozmywają tło. Najlepiej wygląda z zorzą albo pogodą.', n: 1 },
+  { k: 'live', g: 'Karty', l: 'Pulsujące „Oglądam”', d: 'Kropki „Oglądam” i najbliższy odcinek oddychają światłem.', m: 1, n: 1 },
   { k: 'confetti', g: 'Reakcje', l: 'Figury szachowe przy ukończeniu', d: 'Ukończenie serii wystrzeliwuje figury; 1., 10., 25., 50., 100. ukończone anime to większy pokaz.', m: 1, demo: [['finish', 'Pokaż'], ['milestone', 'Kamień milowy']] },
   { k: 'stars', g: 'Reakcje', l: 'Gwiazdy przy ocenie 10', d: 'Dziesiątka sypie złotymi gwiazdami.', m: 1, demo: [['ten', 'Pokaż']] },
   { k: 'odo', g: 'Reakcje', l: 'Licznik jak odometr', d: 'Po „+1” numer odcinka przewija się w górę, a pasek postępu dopełnia z błyskiem.', m: 1 },
   { k: 'countup', g: 'Reakcje', l: 'Odliczane liczby w statystykach', d: 'Kafelki statystyk liczą od zera, gdy pojawią się na ekranie.', m: 1 },
   { k: 'ripple', g: 'Reakcje', l: 'Fala po kliknięciu', d: 'Przyciski rozchodzą się falą od miejsca kliknięcia.', m: 1 },
+  { k: 'sparks', g: 'Reakcje', l: 'Iskry przy „+1”', d: 'Każdy obejrzany odcinek wystrzeliwuje z przycisku garść iskier.', m: 1, n: 1 },
+  { k: 'trail', g: 'Reakcje', l: 'Ślad kursora', d: 'Za kursorem sypią się drobne gwiazdki w kolorach motywu.', m: 1, n: 1 },
   { k: 'progress', g: 'Nawigacja', l: 'Pasek przewinięcia', d: 'Cienki pasek u góry ekranu pokazuje, ile strony już przewinąłeś.' },
+  { k: 'scroll', g: 'Nawigacja', l: 'Kolorowe przewijanie', d: 'Suwak paska przewijania i zaznaczony tekst w kolorach motywu.', n: 1 },
   { k: 'parallax', g: 'Nawigacja', l: 'Paralaksa banera', d: 'Baner na stronie anime przesuwa się wolniej niż treść.', m: 1 },
   { k: 'tabs', g: 'Nawigacja', l: 'Przesuwany wskaźnik zakładek', d: 'Podkreślenie aktywnej zakładki przejeżdża do nowej.', m: 1 },
   { k: 'logo', g: 'Nawigacja', l: 'Żywe logo', d: 'Połówki logo obracają się przy najechaniu i przy zmianie strony.', m: 1 },
   { k: 'ring', g: 'NGNL', l: 'Pierścień Sory i Shiro', d: 'Licznik czekania na 2. sezon ma obracającą się obwódkę, a plansza NGNL dryfuje.', m: 1 },
+  { k: 'foil', g: 'NGNL', l: 'Złoty tytuł', d: 'Napis „No Game No Life” i nazwa Disboard mienią się płynącym złotem.', m: 1, n: 1 },
+  { k: 'glitch', g: 'NGNL', l: 'Glitch nagłówków', d: 'Duże tytuły pod kursorem drżą rozszczepione na róż i turkus.', m: 1, n: 1 },
+  { k: 'pieces', g: 'NGNL', l: 'Dryfujące figury', d: 'W tle powoli płyną ogromne, ledwo widoczne figury szachowe.', m: 1, n: 1 },
   { k: 'intro', g: 'NGNL', l: 'Intro Disboard', d: 'Szachownica i logo przy pierwszym otwarciu dnia. Kliknięcie pomija.', m: 1, demo: [['intro', 'Pokaż']] },
   { k: 'eggs', g: 'NGNL', l: 'Easter eggi', d: 'Ukryte niespodzianki. Podpowiedź: słowo przysięgi, stary kod z gier i nerwowe klikanie w logo.', demo: [['aschente', 'Aschente'], ['blank', 'Tryb Blank']] },
   { k: 'cursor', g: 'NGNL', l: 'Kursor Disboard', d: 'Własna strzałka w kolorach motywu.' },
 ];
+
+// Personalizacja: działa zawsze, niezależnie od przełącznika bajerów
+const ACCENTS = [
+  { k: '#ff4f8b', l: 'Sora' }, { k: '#5fe3e0', l: 'Shiro' }, { k: '#ffc65c', l: 'Korona' },
+  { k: '#3dbdff', l: 'Schwi' }, { k: '#b98cff', l: 'Jibril' }, { k: '#ff8a3d', l: 'Izuna' },
+  { k: '#ff7a6e', l: 'Steph' }, { k: '#7ee08a', l: 'Kurami' },
+];
+const LOOK_OPTS = {
+  radius: { l: 'Zaokrąglenia', o: [['sharp', 'Ostre'], ['std', 'Zwykłe'], ['round', 'Okrągłe']] },
+  density: { l: 'Gęstość', o: [['compact', 'Ciasno'], ['std', 'Zwykle'], ['airy', 'Przestronnie']] },
+  scale: { l: 'Tekst', o: [['sm', 'A−'], ['std', 'A'], ['lg', 'A+'], ['xl', 'A++']] },
+};
+const FX_OPTS = {
+  holo: [['rainbow', 'Tęcza'], ['gold', 'Złota folia'], ['galaxy', 'Kosmos'], ['glitter', 'Brokat']],
+  weather: [['auto', 'Wg pory roku'], ['snow', 'Śnieg'], ['sakura', 'Sakura'], ['fireflies', 'Świetliki'], ['leaves', 'Liście']],
+};
+const LOOK_DEF = { accent: '', radius: 'std', density: 'std', scale: 'std', holo: 'rainbow', weather: 'auto' };
 
 const FX = (() => {
   const html = document.documentElement;
@@ -67,6 +98,8 @@ const FX = (() => {
     return !(f.m && !motionOK());
   }
   const themeOf = () => THEMES.find((t) => t.k === S.settings.theme) || THEMES[0];
+  const look = () => ({ ...LOOK_DEF, ...((S.settings.fx && S.settings.fx.look) || {}) });
+  const HEX_RE = /^#[0-9a-f]{6}$/i;
 
   /* ---------- zastosowanie ustawień ---------- */
   function apply() {
@@ -77,12 +110,44 @@ const FX = (() => {
     want.forEach((c) => html.classList.add(c));
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.content = t.c[0];
-    try { localStorage.setItem(LOOK_KEY, JSON.stringify({ t: t.k, c: want.join(' '), i: t.c[0] })); } catch { /* prywatny tryb */ }
+    const lk = applyLook();
+    try { localStorage.setItem(LOOK_KEY, JSON.stringify({ t: t.k, c: want.join(' '), i: t.c[0], a: lk.attrs, v: lk.vars })); } catch { /* prywatny tryb */ }
     if (enabled('cursor')) html.style.setProperty('--fxe-cursor', cursorUrl(t)); else html.style.removeProperty('--fxe-cursor');
     $$('#fx-card [data-theme-pick]').forEach((btn) => { const onT = btn.dataset.themePick === t.k; btn.classList.toggle('on', onT); btn.setAttribute('aria-checked', String(onT)); });
+    pal = null;
     applyTint();
     syncTabs(false);
+    syncLayers();
     onScroll();
+  }
+
+  /* ---------- personalizacja: akcent, zaokrąglenia, gęstość, tekst ---------- */
+  function applyLook() {
+    const L = look();
+    const attrs = {};
+    for (const k of ['radius', 'density', 'scale']) {
+      if (L[k] && L[k] !== 'std') { html.setAttribute(`data-${k}`, L[k]); attrs[`data-${k}`] = L[k]; } else html.removeAttribute(`data-${k}`);
+    }
+    if (L.holo && L.holo !== 'rainbow') { html.setAttribute('data-holo', L.holo); attrs['data-holo'] = L.holo; } else html.removeAttribute('data-holo');
+    let vars = '';
+    if (HEX_RE.test(L.accent || '')) {
+      const acc = accentOf(L.accent);
+      html.style.setProperty('--sora', acc.base); html.style.setProperty('--sora-hi', acc.hi); html.style.setProperty('--sora-ink', acc.ink);
+      vars = `--sora:${acc.base};--sora-hi:${acc.hi};--sora-ink:${acc.ink}`;
+    } else ['--sora', '--sora-hi', '--sora-ink'].forEach((p) => html.style.removeProperty(p));
+    $$('#fx-card [data-look]').forEach((b) => {
+      const onB = (L[b.dataset.look] || '') === b.dataset.v;
+      b.classList.toggle('on', onB); b.setAttribute('aria-checked', String(onB));
+    });
+    const fromTheme = document.querySelector('#fx-card [data-look="accent"][data-v=""]');
+    if (fromTheme) fromTheme.style.setProperty('--sw', themeOf().c[2]);
+    const cp = document.getElementById('fx-accent');
+    if (cp) cp.closest('.fxe-sw').classList.toggle('on', HEX_RE.test(L.accent || '') && !ACCENTS.some((a) => a.k === L.accent));
+    return { attrs, vars };
+  }
+  function setLook(k, v) {
+    S.settings.fx.look = { ...look(), [k]: v };
+    save(); apply(); emit('settings', { look: k });
   }
 
   /* ---------- kolory pomocnicze ---------- */
@@ -260,7 +325,18 @@ const FX = (() => {
       sp.style.setProperty('--sx', `${Math.round(ev.clientX - r.left)}px`);
       sp.style.setProperty('--sy', `${Math.round(ev.clientY - r.top)}px`);
     }
+    if (chess) { chess.style.setProperty('--bx', `${Math.round(ev.clientX)}px`); chess.style.setProperty('--by', `${Math.round(ev.clientY)}px`); }
+    if (enabled('trail') && fine.matches) {
+      const dx = ev.clientX - trailAt.x, dy = ev.clientY - trailAt.y;
+      if (dx * dx + dy * dy > 196) {
+        trailAt.x = ev.clientX; trailAt.y = ev.clientY;
+        Burst.fire({ x: ev.clientX, y: ev.clientY, n: 2, glyphs: '✦✧⋆', colors: colors(), speed: 1.4, gravity: 0.05, size: [7, 13], life: 650 });
+      }
+    }
   }
+  const trailAt = { x: -99, y: -99 };
+  let pal = null;
+  const colors = () => pal || (pal = palette());
   document.addEventListener('pointermove', (ev) => {
     if (!master()) return;
     pe = ev;
@@ -268,6 +344,137 @@ const FX = (() => {
   }, { passive: true });
   document.addEventListener('pointerleave', () => { resetHot(); resetLit(); });
   window.addEventListener('blur', () => { resetHot(); resetLit(); });
+
+  /* ---------- iskry przy „+1” ---------- */
+  document.addEventListener('click', (ev) => {
+    const b = enabled('sparks') && ev.target.closest ? ev.target.closest('[data-inc]:not([data-d]):not(:disabled)') : null;
+    if (!b) return;
+    const r = b.getBoundingClientRect();
+    const [sora, shiro, crown] = colors();
+    Burst.fire({ x: r.left + r.width / 2, y: r.top + r.height / 2, n: 16, glyphs: '✦✧+★', colors: [sora, crown, shiro], speed: 5.5, gravity: 0.18, size: [8, 15], spread: Math.PI * 1.1, life: 850 });
+  }, true);
+
+  /* ---------- warstwy tła: plansza pod kursorem, dryfujące figury, pogoda ---------- */
+  let chess = null;
+  function layer(cls, on, fill) {
+    let el = document.querySelector(`body > .${cls}`);
+    if (on && !el) {
+      el = document.createElement('div');
+      el.className = cls;
+      el.setAttribute('aria-hidden', 'true');
+      if (fill) fill(el);
+      document.body.append(el);
+    }
+    if (!on && el) { el.remove(); el = null; }
+    return el;
+  }
+  function syncLayers() {
+    chess = layer('fxe-chess', enabled('board') && fine.matches);
+    layer('fxe-pieces', enabled('pieces'), (el) => {
+      const glyphs = '♚♛♜♝♞♟♔♕';
+      el.innerHTML = [...glyphs].map((g, i) => {
+        const t = 70 + Math.random() * 70;
+        return `<span style="--x:${(i * 12.5 + Math.random() * 8).toFixed(1)}%;--s:${(16 + Math.random() * 22).toFixed(1)}vmin;--t:${t.toFixed(0)}s;--d:-${(Math.random() * t).toFixed(0)}s;--r0:${Math.round(Math.random() * 60 - 30)}deg;--r1:${Math.round(Math.random() * 120 - 60)}deg">${g}</span>`;
+      }).join('');
+    });
+    Weather.sync();
+  }
+
+  const Weather = (() => {
+    let cv = null, cx = null, parts = [], raf = 0, kind = '', last = 0, W = 0, H = 0;
+    const BASE = { snow: 70, sakura: 26, leaves: 18, fireflies: 24 };
+    const PINK = ['#ffc1d6', '#ffb0cb', '#ffd9e6', '#f99dbd'];
+    const AUTUMN = ['#e8743b', '#d9502e', '#f2a541', '#b5562a', '#c9822f'];
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    function kindNow() {
+      const o = look().weather;
+      if (o && o !== 'auto' && BASE[o]) return o;
+      const m = new Date().getMonth();
+      return m === 11 || m <= 1 ? 'snow' : m <= 4 ? 'sakura' : m <= 7 ? 'fireflies' : 'leaves';
+    }
+    function resize() {
+      if (!cv) return;
+      const d = Math.min(window.devicePixelRatio || 1, 1.5);
+      W = innerWidth; H = innerHeight;
+      cv.width = Math.round(W * d); cv.height = Math.round(H * d);
+      cx.setTransform(d, 0, 0, d, 0, 0);
+    }
+    function spawn(top) {
+      const p = { x: rnd(0, W), y: top ? rnd(-40, -10) : rnd(0, H), ph: rnd(0, 6.28), r: rnd(0, 6.28) };
+      if (kind === 'snow') Object.assign(p, { s: rnd(1, 3.4), vy: rnd(0.35, 1.1), vx: 0, a: rnd(0.3, 0.8), sw: rnd(0.2, 0.7) });
+      else if (kind === 'sakura') Object.assign(p, { s: rnd(5, 9), vy: rnd(0.5, 1.1), vx: rnd(0.25, 0.75), vr: rnd(-0.03, 0.03), a: rnd(0.55, 0.9), c: pick(PINK), sw: rnd(0.4, 1) });
+      else if (kind === 'leaves') Object.assign(p, { s: rnd(7, 11), vy: rnd(0.6, 1.2), vx: rnd(-0.3, 0.6), vr: rnd(-0.035, 0.035), a: rnd(0.6, 0.9), c: pick(AUTUMN), sw: rnd(0.5, 1.2) });
+      else Object.assign(p, { s: rnd(1.4, 2.6), vx: rnd(-0.3, 0.3), vy: rnd(-0.25, 0.25), a: 1, c: '#eaff8f' });
+      return p;
+    }
+    function petal(p, leaf) {
+      const s = p.s;
+      cx.save();
+      cx.translate(p.x, p.y); cx.rotate(p.r);
+      cx.scale(1, 0.45 + 0.55 * Math.abs(Math.cos(p.ph)));
+      cx.fillStyle = p.c;
+      cx.beginPath();
+      cx.moveTo(0, -s);
+      cx.quadraticCurveTo(s * (leaf ? 0.75 : 0.95), -s * 0.15, 0, s);
+      cx.quadraticCurveTo(-s * (leaf ? 0.75 : 0.95), -s * 0.15, 0, -s);
+      cx.fill();
+      if (leaf) { cx.strokeStyle = 'rgba(60,20,0,.45)'; cx.lineWidth = 0.8; cx.beginPath(); cx.moveTo(0, -s * 0.8); cx.lineTo(0, s * 1.3); cx.stroke(); }
+      cx.restore();
+    }
+    function step(now) {
+      raf = requestAnimationFrame(step);
+      const k = Math.min(3, (now - (last || now)) / 16.67 || 1);
+      last = now;
+      cx.clearRect(0, 0, W, H);
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
+        p.ph += 0.02 * k;
+        if (kind === 'fireflies') {
+          p.vx += rnd(-0.03, 0.03); p.vy += rnd(-0.03, 0.03);
+          p.vx = Math.max(-0.5, Math.min(0.5, p.vx)); p.vy = Math.max(-0.5, Math.min(0.5, p.vy));
+          p.x += p.vx * k; p.y += p.vy * k;
+          if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
+          if (p.y < -10) p.y = H + 10; if (p.y > H + 10) p.y = -10;
+          cx.globalAlpha = 0.15 + 0.85 * (0.5 + 0.5 * Math.sin(p.ph * 2.2));
+          cx.shadowColor = p.c; cx.shadowBlur = 12; cx.fillStyle = p.c;
+          cx.beginPath(); cx.arc(p.x, p.y, p.s, 0, 6.283); cx.fill();
+          continue;
+        }
+        p.y += p.vy * k;
+        p.x += (p.vx + Math.sin(p.ph) * p.sw) * k;
+        if (p.vr) p.r += p.vr * k;
+        if (p.y > H + 20 || p.x > W + 30 || p.x < -30) { parts[i] = spawn(true); continue; }
+        cx.globalAlpha = p.a;
+        if (kind === 'snow') { cx.fillStyle = '#fff'; cx.beginPath(); cx.arc(p.x, p.y, p.s, 0, 6.283); cx.fill(); } else petal(p, kind === 'leaves');
+      }
+      cx.globalAlpha = 1; cx.shadowBlur = 0;
+    }
+    function stop() {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0; last = 0; parts = [];
+      if (cv) { cv.remove(); cv = null; cx = null; }
+    }
+    function sync() {
+      const want = enabled('weather') && !document.hidden ? kindNow() : '';
+      if (!want) { kind = ''; stop(); return; }
+      if (want === kind && raf) return;
+      stop();
+      kind = want;
+      cv = document.createElement('canvas');
+      cv.className = 'fxe-weather';
+      cv.setAttribute('aria-hidden', 'true');
+      document.body.append(cv);
+      cx = cv.getContext('2d');
+      resize();
+      const n = Math.round(BASE[kind] * Math.max(0.4, Math.min(1.25, (W * H) / (1440 * 900))));
+      parts = Array.from({ length: n }, () => spawn(false));
+      raf = requestAnimationFrame(step);
+    }
+    window.addEventListener('resize', resize);
+    document.addEventListener('visibilitychange', sync);
+    return { sync };
+  })();
 
   /* ---------- fala po kliknięciu ---------- */
   const RIP_SEL = '.btn, .icon-btn:not(.bell), .chip-btn, .btn-inc, .fav-btn, .rate-toggle, .acard-add, .wo-st, .seg button, .fxe-theme';
@@ -717,6 +924,7 @@ const FX = (() => {
           <span class="fxe-theme-n">${esc(th.l)}</span><span class="fxe-theme-d">${esc(th.d)}</span>
         </button>`).join('')}
       </div>
+      ${lookHtml()}
       <div class="bf-row fxe-master">
         <label class="switch"><input type="checkbox" id="fx-on" ${c.on ? 'checked' : ''}><span>Bajery (eksperymentalne)</span></label>
         <span class="muted">Szybkie porównanie z bajerami i bez nich: <kbd>Alt+B</kbd></span>
@@ -725,7 +933,8 @@ const FX = (() => {
       <div class="fxe-groups${c.on ? '' : ' off'}">${groups.map((g) => `
         <fieldset class="fxe-group"><legend>${esc(g)}</legend>${FX_LIST.filter((f) => f.g === g).map((f) => `
           <div class="fxe-item">
-            <label><input type="checkbox" data-fx="${f.k}" ${(c.off || {})[f.k] ? '' : 'checked'}><span><b>${esc(f.l)}</b><small>${esc(f.d)}</small></span></label>
+            <label><input type="checkbox" data-fx="${f.k}" ${(c.off || {})[f.k] ? '' : 'checked'}><span><b>${esc(f.l)}${f.n ? ' <em class="fxe-new">nowe</em>' : ''}</b><small>${esc(f.d)}</small></span></label>
+            ${f.opt ? `<span class="fxe-demos"><select class="fxe-opt" data-look-sel="${f.opt}" aria-label="${esc(f.l)}: rodzaj">${FX_OPTS[f.opt].map(([v, l]) => `<option value="${v}"${look()[f.opt] === v ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select></span>` : ''}
             ${f.demo ? `<span class="fxe-demos">${f.demo.map(([k, l]) => `<button type="button" class="btn ghost sm" data-fx-demo="${k}">${esc(l)}</button>`).join('')}</span>` : ''}
           </div>`).join('')}
         </fieldset>`).join('')}
@@ -735,6 +944,41 @@ const FX = (() => {
         <button class="btn ghost sm" type="button" data-fx-all="0">Odznacz wszystkie</button>
       </div>
     </section>`;
+  }
+  function lookHtml() {
+    const L = look();
+    const own = HEX_RE.test(L.accent || '') && !ACCENTS.some((a) => a.k === L.accent);
+    const sw = (v, l, color) => `<button type="button" class="fxe-sw${(L.accent || '') === v ? ' on' : ''}" role="radio" aria-checked="${(L.accent || '') === v}" data-look="accent" data-v="${v}" title="${esc(l)}" style="--sw:${color}"><i></i><span>${esc(l)}</span></button>`;
+    const seg = (k) => `<div class="fxe-look-row"><span class="lbl">${esc(LOOK_OPTS[k].l)}</span>
+        <div class="seg" role="radiogroup" aria-label="${esc(LOOK_OPTS[k].l)}">${LOOK_OPTS[k].o.map(([v, l]) => `<button type="button" role="radio" class="${L[k] === v ? 'on' : ''}" aria-checked="${L[k] === v}" data-look="${k}" data-v="${v}">${esc(l)}</button>`).join('')}</div></div>`;
+    return `<div class="fxe-look">
+        <div class="fxe-look-row fxe-look-acc"><span class="lbl">Akcent</span>
+          <div class="fxe-sws" role="radiogroup" aria-label="Kolor akcentu">
+            ${sw('', 'Z motywu', themeOf().c[2])}
+            ${ACCENTS.map((a) => sw(a.k, a.l, a.k)).join('')}
+            <label class="fxe-sw fxe-sw-own${own ? ' on' : ''}" title="Własny kolor" style="--sw:${own ? L.accent : '#888'}"><i></i><span>Własny</span><input type="color" id="fx-accent" value="${own ? L.accent : '#ff4f8b'}" aria-label="Własny kolor akcentu"></label>
+          </div>
+        </div>
+        ${seg('radius')}${seg('density')}${seg('scale')}
+        <div class="fxe-look-row"><span class="lbl">Nie możesz się zdecydować?</span>
+          <button type="button" class="btn ghost sm fxe-dice" data-fx-dice><span class="fxe-die" aria-hidden="true">⚄</span> Rzuć kością</button>
+        </div>
+      </div>`;
+  }
+  // Sora i Shiro nie przegrywają: losowy motyw, akcent, zaokrąglenia i folia holo
+  function dice(btn) {
+    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const others = THEMES.filter((t) => t.k !== themeOf().k);
+    const th = pick(others);
+    const acc = Math.random() < 0.4 ? null : pick(ACCENTS);
+    S.settings.fx.look = { ...look(), accent: acc ? acc.k : '', radius: pick(LOOK_OPTS.radius.o)[0], holo: pick(FX_OPTS.holo)[0] };
+    const die = btn && btn.querySelector('.fxe-die');
+    if (die) { die.classList.remove('roll'); void die.offsetWidth; die.classList.add('roll'); die.textContent = pick(['⚀', '⚁', '⚂', '⚃', '⚄', '⚅']); }
+    save();
+    setTheme(th.k, btn);
+    apply();
+    emit('settings', { look: 'dice' });
+    toast(`Kości rzucone: ${th.l}${acc ? ` z akcentem ${acc.l}` : ''}. Nie pasuje? Rzuć jeszcze raz.`, { kind: 'ok', ms: 3200 });
   }
   function demo(k, btn) {
     const r = btn.getBoundingClientRect();
@@ -760,10 +1004,28 @@ const FX = (() => {
     card.addEventListener('change', (ev) => {
       const t = ev.target;
       if (t.id === 'fx-on') { setMaster(t.checked); rerender(); } else if (t.id === 'fx-rm') { S.settings.fx.rm = t.checked; save(); apply(); rerender(); } else if (t.dataset.fx) set(t.dataset.fx, t.checked);
+      else if (t.dataset.lookSel) setLook(t.dataset.lookSel, t.value);
+      else if (t.id === 'fx-accent') setLook('accent', t.value.toLowerCase());
+    });
+    // własny kolor: podgląd na żywo podczas wybierania (zapis dopiero po zamknięciu próbnika)
+    let craf = 0;
+    card.addEventListener('input', (ev) => {
+      const t = ev.target;
+      if (t.id !== 'fx-accent' || !HEX_RE.test(t.value)) return;
+      t.closest('.fxe-sw').style.setProperty('--sw', t.value);
+      cancelAnimationFrame(craf);
+      craf = requestAnimationFrame(() => {
+        const acc = accentOf(t.value);
+        html.style.setProperty('--sora', acc.base); html.style.setProperty('--sora-hi', acc.hi); html.style.setProperty('--sora-ink', acc.ink);
+      });
     });
     card.addEventListener('click', (ev) => {
       const th = ev.target.closest('[data-theme-pick]');
       if (th) { setTheme(th.dataset.themePick, th); return; }
+      const lk = ev.target.closest('button[data-look]');
+      if (lk) { setLook(lk.dataset.look, lk.dataset.v); return; }
+      const dc = ev.target.closest('[data-fx-dice]');
+      if (dc) { dice(dc); return; }
       const d = ev.target.closest('[data-fx-demo]');
       if (d) { demo(d.dataset.fxDemo, d); return; }
       const all = ev.target.closest('[data-fx-all]');

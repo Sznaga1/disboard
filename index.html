@@ -9,7 +9,7 @@
 <meta name="color-scheme" content="dark">
 <script>
   // motyw i bajery przed pierwszym malowaniem (bez mignięcia domyślnych kolorów)
-  try { var L = JSON.parse(localStorage.getItem('disboard.look') || 'null'); if (L) { var d = document.documentElement; if (L.t && L.t !== 'disboard') d.setAttribute('data-theme', L.t); if (L.c) d.className = L.c; if (L.i) document.querySelector('meta[name="theme-color"]').content = L.i; } } catch (e) {}
+  try { var L = JSON.parse(localStorage.getItem('disboard.look') || 'null'); if (L) { var d = document.documentElement; if (L.t && L.t !== 'disboard') d.setAttribute('data-theme', L.t); if (L.c) d.className = L.c; if (L.a) for (var k in L.a) d.setAttribute(k, L.a[k]); if (L.v) d.style.cssText = L.v; if (L.i) document.querySelector('meta[name="theme-color"]').content = L.i; } } catch (e) {}
 </script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">

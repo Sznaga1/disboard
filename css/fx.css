@@ -42,6 +42,61 @@
 .fxe-item b { font-size: var(--fs-sm); font-weight: 600; }
 .fxe-item small { font-size: var(--fs-xs); color: var(--muted); line-height: 1.4; }
 .fxe-demos { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; flex: none; max-width: 45%; }
+.fxe-new { display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 4px; font: 700 .5625rem/1.5 var(--f-data); font-style: normal; letter-spacing: .1em; text-transform: uppercase; vertical-align: 2px; color: var(--sora-ink); background: linear-gradient(90deg, var(--sora), var(--crown)); }
+select.fxe-opt { width: auto; min-height: 30px; padding: 4px 28px 4px 10px; font-size: var(--fs-xs); border-radius: 999px; background-position: calc(100% - 15px) 55%, calc(100% - 10px) 55%; }
+
+/* ---------- personalizacja (działa zawsze, także bez bajerów) ---------- */
+.fxe-look { display: grid; gap: 12px; margin: 0 0 18px; padding: 14px; border-radius: var(--r-sm); background: var(--surface-2); border: 1px solid var(--line); }
+.fxe-look-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.fxe-look-row > .lbl { min-width: 110px; }
+.fxe-look .seg { flex-wrap: wrap; }
+.fxe-sws { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; min-width: 0; }
+.fxe-sw {
+  position: relative; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 4px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--line); color: var(--text-2); font-size: var(--fs-xs); cursor: pointer;
+  transition: border-color .15s, color .15s, transform .15s var(--ease);
+}
+.fxe-sw i { width: 20px; height: 20px; border-radius: 50%; background: var(--sw); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .25), 0 0 10px -2px var(--sw); flex: none; }
+@media (hover: hover) { .fxe-sw:hover { color: var(--text); border-color: var(--line-2); transform: translateY(-1px); } }
+.fxe-sw.on { color: var(--text); border-color: var(--sw); box-shadow: 0 0 0 1px var(--sw); }
+.fxe-sw-own i { background: conic-gradient(from 0deg, #ff4f8b, #ffc65c, #7ee08a, #5fe3e0, #3dbdff, #b98cff, #ff4f8b); }
+.fxe-sw-own.on i { background: var(--sw); }
+.fxe-sw-own input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; border: 0; padding: 0; }
+.fxe-sw-own:focus-within { outline: 2px solid var(--shiro); outline-offset: 2px; }
+.fxe-die { display: inline-block; font-size: 1.25rem; line-height: 1; }
+.fxe-die.roll { animation: fxe-roll .6s cubic-bezier(.3, 1.4, .4, 1); }
+@keyframes fxe-roll { from { transform: rotate(-540deg) scale(.4); } }
+
+/* zaokrąglenia */
+html[data-radius="sharp"] { --r: 5px; --r-sm: 4px; --r-xs: 3px; }
+html[data-radius="round"] { --r: 22px; --r-sm: 15px; --r-xs: 10px; }
+/* wielkość tekstu: wszystkie rozmiary są w rem, więc wystarczy podstawa */
+html[data-scale="sm"] { font-size: 93.75%; }
+html[data-scale="lg"] { font-size: 106.25%; }
+html[data-scale="xl"] { font-size: 112.5%; }
+/* gęstość */
+html[data-density="compact"] .grid-cards { gap: 12px 10px; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); }
+html[data-density="compact"] .grid-entries { gap: 8px; grid-template-columns: repeat(auto-fill, minmax(236px, 1fr)); }
+html[data-density="compact"] :is(.card, .tracker) { padding: 14px; }
+html[data-density="compact"] .ecard { padding: 8px; gap: 10px; }
+html[data-density="compact"] .ecard-cover { width: 62px; }
+html[data-density="compact"] .sec { margin-block: 20px; }
+html[data-density="compact"] .erow { padding-block: 5px; }
+html[data-density="airy"] .grid-cards { gap: 22px 16px; }
+html[data-density="airy"] .grid-entries { gap: 16px; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+html[data-density="airy"] :is(.card, .tracker) { padding: 24px; }
+html[data-density="airy"] .ecard { padding: 12px; gap: 16px; }
+html[data-density="airy"] .ecard-cover { width: 84px; }
+html[data-density="airy"] .sec { margin-block: 38px; }
+html[data-density="airy"] .erow { padding-block: 11px; }
+@media (min-width: 720px) {
+  html[data-density="compact"] .grid-cards { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 16px 12px; }
+  html[data-density="airy"] .grid-cards { grid-template-columns: repeat(auto-fill, minmax(184px, 1fr)); gap: 30px 22px; }
+}
+@media (min-width: 1024px) {
+  html[data-density="compact"] { --gutter: 22px; }
+  html[data-density="airy"] { --gutter: 44px; }
+}
 
 /* ---------- przejścia między stronami ---------- */
 .fx-vt #view { view-transition-name: fxe-view; }
@@ -117,21 +172,44 @@ html.fx-vt-theme::view-transition-old(root), html.fx-vt-theme::view-transition-n
   transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-4px) scale(1.035);
   transition: transform .1s linear, box-shadow .3s;
 }
+/* rodzaj folii (Ustawienia → Holograficzne ulubione): pas połysku, faktura i jej rozmiar */
+html.fx-holo {
+  --holo-a: linear-gradient(118deg, transparent 20%, rgba(255, 70, 190, .55) 34%, rgba(80, 230, 255, .5) 44%, rgba(255, 250, 120, .45) 53%, rgba(120, 255, 170, .4) 61%, transparent 76%);
+  --holo-b: repeating-linear-gradient(62deg, rgba(255, 255, 255, .15) 0 1px, transparent 1px 6px);
+  --holo-bs: 100% 100%; --holo-op: .5; --holo-op-hot: .8;
+}
+html.fx-holo[data-holo="gold"] {
+  --holo-a: linear-gradient(118deg, transparent 18%, rgba(255, 196, 80, .6) 32%, rgba(255, 248, 214, .65) 42%, rgba(255, 170, 40, .5) 52%, rgba(255, 230, 150, .5) 62%, transparent 78%);
+  --holo-b: repeating-linear-gradient(135deg, rgba(255, 226, 150, .16) 0 2px, transparent 2px 5px, rgba(255, 200, 90, .1) 5px 6px, transparent 6px 9px);
+  --holo-op: .55; --holo-op-hot: .85;
+}
+html.fx-holo[data-holo="galaxy"] {
+  --holo-a: linear-gradient(118deg, transparent 12%, rgba(130, 80, 255, .6) 30%, rgba(40, 170, 255, .55) 45%, rgba(255, 80, 200, .5) 60%, transparent 80%);
+  --holo-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 22 0 0 0 -16'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --holo-bs: 180px 180px; --holo-op: .6; --holo-op-hot: .9;
+}
+html.fx-holo[data-holo="glitter"] {
+  --holo-a: linear-gradient(118deg, transparent 22%, rgba(255, 120, 210, .45) 36%, rgba(120, 220, 255, .45) 48%, rgba(255, 240, 150, .4) 58%, transparent 74%);
+  --holo-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 14 0 0 0 -9.4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --holo-bs: 140px 140px; --holo-op: .55; --holo-op-hot: .9;
+}
 .fx-holo :is(.acard-cover.is-fav, .ecard-cover:has(.ecard-fav), .d-head.is-fav) .cover::after {
   content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit;
   background:
-    linear-gradient(118deg, transparent 20%, rgba(255, 70, 190, .55) 34%, rgba(80, 230, 255, .5) 44%, rgba(255, 250, 120, .45) 53%, rgba(120, 255, 170, .4) 61%, transparent 76%),
-    repeating-linear-gradient(62deg, rgba(255, 255, 255, .15) 0 1px, transparent 1px 6px),
+    var(--holo-a),
+    var(--holo-b),
     radial-gradient(circle at var(--mx, 50%) var(--my, 30%), rgba(255, 255, 255, .35), transparent 45%);
-  background-size: 260% 260%, 100% 100%, 100% 100%;
+  background-size: 260% 260%, var(--holo-bs), 100% 100%;
   background-position: 0% 0%, 0 0, 0 0;
-  mix-blend-mode: color-dodge; opacity: .5;
+  mix-blend-mode: color-dodge; opacity: var(--holo-op);
   animation: fxe-holo 7s ease-in-out infinite alternate;
 }
+/* pod kursorem: pas połysku idzie za myszą, a brokat/gwiazdy przesuwają się wolniej (głębia) */
 .fx-holo .acard-media.fxe-hot .acard-cover.is-fav .cover::after,
 .fx-holo .ecard-cover.fxe-hot:has(.ecard-fav) .cover::after,
 .fx-holo .d-head.is-fav .cover.fxe-hot::after {
-  animation: none; opacity: .8; background-position: var(--mx, 50%) var(--my, 50%), 0 0, 0 0;
+  animation: none; opacity: var(--holo-op-hot);
+  background-position: var(--mx, 50%) var(--my, 50%), calc(var(--mx, 50%) * -.4) calc(var(--my, 50%) * -.4), 0 0;
 }
 @keyframes fxe-holo { to { background-position: 100% 100%, 0 0, 0 0; } }
 .fx-shine :is(.acard-media, .ecard-cover):hover .cover::before, .fx-shine .d-head .cover.lg:hover::before {
@@ -282,3 +360,131 @@ html.fx-blank .cover img { filter: contrast(1.2) saturate(1.35); }
 
 /* ---------- kursor ---------- */
 html.fx-cursor, html.fx-cursor body { cursor: var(--fxe-cursor), auto; }
+
+/* ==========================================================================
+   Bajery, runda 2
+   ========================================================================== */
+
+/* ---------- rzadkość kart: SR / SSR / UR ---------- */
+.fx-rarity :is(.acard-cover, .ecard-cover)[data-rar]::after {
+  content: attr(data-rar); position: absolute; right: 6px; bottom: 6px; z-index: 3; pointer-events: none;
+  padding: 2px 6px; border-radius: 4px; font: 700 .625rem/1.4 var(--f-data); letter-spacing: .08em;
+  color: #1d2430; background: linear-gradient(135deg, #f4f7fb, #9eb0c4 55%, #e6edf5); box-shadow: 0 2px 8px rgba(0, 0, 0, .45);
+}
+.fx-rarity .ecard-cover[data-rar]::after { right: 4px; bottom: 4px; padding: 1px 5px; font-size: .5625rem; }
+.fx-rarity :is(.acard-cover, .ecard-cover)[data-rar="SSR"]::after { color: #2a1700; background: linear-gradient(135deg, #fff1c2, #ffc65c 45%, #d98f1a 75%, #ffe39a); }
+.fx-rarity :is(.acard-cover, .ecard-cover)[data-rar="UR"]::after {
+  color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+  background: linear-gradient(110deg, #ff4f8b, #ffc65c, #7ee08a, #5fe3e0, #b98cff, #ff4f8b) 0 0 / 300% 100%;
+  box-shadow: 0 0 12px -2px rgba(255, 198, 92, .8), 0 2px 8px rgba(0, 0, 0, .45);
+  animation: fxe-ur 4s linear infinite;
+}
+@keyframes fxe-ur { to { background-position: 300% 0; } }
+.fx-rarity :is(.acard-cover, .ecard-cover)[data-rar="UR"] .cover { box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--crown) 85%, transparent), 0 0 18px -4px var(--crown); }
+
+/* ---------- obwódka mocy ---------- */
+@media (hover: hover) {
+  .fx-edge :is(.ecard, .tile, .nx, .rel, .news, .merch-card, .erow:not(.head)):hover { position: relative; border-color: transparent; }
+  .fx-edge :is(.ecard, .tile, .nx, .rel, .news, .merch-card, .erow:not(.head)):hover::after {
+    content: ''; position: absolute; inset: -1px; z-index: 2; pointer-events: none; border-radius: inherit; padding: 1.5px;
+    background: conic-gradient(from var(--fxe-ang), var(--sora), var(--crown), var(--shiro), var(--sora));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    animation: fxe-spin 2.6s linear infinite;
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--sora) 45%, transparent));
+  }
+}
+
+/* ---------- szklane panele ---------- */
+.fx-glass :is(.card:not(.bf-card), .tile:not(.hero), .tracker, .nx:not(.nearest), .rel, .news, .seq:not(.seq-yes), .mine, .ecard, .erow:not(.head), .merch-card, .sched li:not(.mine)) {
+  background-color: color-mix(in srgb, var(--surface) 55%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 7%, transparent);
+}
+/* rozmycie tylko dla większych paneli: przy setkach kart na liście byłoby za ciężkie */
+.fx-glass :is(.card, .tile, .tracker, .stat-hero, .news, .seq, .mine) { -webkit-backdrop-filter: blur(16px) saturate(1.35); backdrop-filter: blur(16px) saturate(1.35); }
+.fx-glass .topbar { background: color-mix(in srgb, var(--ink) 55%, transparent); }
+@media (min-width: 1024px) { .fx-glass .sidebar { background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 60%, transparent), color-mix(in srgb, var(--ink) 40%, transparent)); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); } }
+
+/* ---------- pulsujące „Oglądam” ---------- */
+.fx-live .chip.st.st-watching i { animation: fxe-beat 2.2s ease-out infinite; }
+@keyframes fxe-beat {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--c) 75%, transparent); }
+  70%, 100% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--c) 0%, transparent); }
+}
+.fx-live .acard-onlist.st-watching { animation: fxe-glowb 3s ease-in-out infinite; --gc: var(--c); }
+.fx-live .nx.nearest { animation: fxe-glowb 3.4s ease-in-out infinite; --gc: var(--shiro); }
+@keyframes fxe-glowb { 50% { box-shadow: 0 0 18px -3px color-mix(in srgb, var(--gc) 75%, transparent), 0 2px 8px rgba(0, 0, 0, .4); } }
+.fx-live .bf-dot, .fx-live .wait-pawn { filter: drop-shadow(0 0 6px color-mix(in srgb, var(--crown) 70%, transparent)); }
+
+/* ---------- lśniące paski postępu ---------- */
+.fx-bars .pbar { background: color-mix(in srgb, var(--surface-3) 80%, var(--ink)); box-shadow: inset 0 1px 2px rgba(0, 0, 0, .45); }
+.fx-bars .pbar:not(.unknown) i {
+  position: relative;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--c, var(--sora)) 45%, var(--ink)), var(--c, var(--sora)) 75%, color-mix(in srgb, var(--c, var(--sora)) 55%, #fff));
+}
+.fx-bars .pbar:not(.unknown) i::after { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 10px; border-radius: inherit; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .75)); }
+.fx-bars .pbar:not(.unknown) i[style="width:0%"]::after { display: none; }
+
+/* ---------- kolorowe przewijanie i zaznaczenie ---------- */
+.fx-scroll ::selection { background: color-mix(in srgb, var(--sora) 45%, transparent); color: var(--text); }
+.fx-scroll { caret-color: var(--sora); }
+@supports selector(::-webkit-scrollbar) {
+  .fx-scroll ::-webkit-scrollbar { width: 12px; height: 12px; }
+  .fx-scroll ::-webkit-scrollbar-track { background: transparent; }
+  .fx-scroll ::-webkit-scrollbar-thumb { border: 3px solid transparent; border-radius: 12px; background: linear-gradient(180deg, var(--sora), var(--crown) 50%, var(--shiro)) padding-box; }
+  .fx-scroll ::-webkit-scrollbar-thumb:hover { border-width: 2px; }
+  .fx-scroll ::-webkit-scrollbar-corner { background: transparent; }
+}
+@supports not selector(::-webkit-scrollbar) { .fx-scroll, .fx-scroll * { scrollbar-color: color-mix(in srgb, var(--sora) 70%, transparent) transparent; } }
+
+/* ---------- ambilight banera ---------- */
+.fx-ambi .d-banner::before {
+  content: ''; position: absolute; z-index: -1; left: 4%; right: 4%; top: 35%; height: 140%; pointer-events: none;
+  background: inherit; background-size: cover; filter: blur(60px) saturate(1.7); opacity: .5;
+}
+
+/* ---------- plansza pod kursorem ---------- */
+.fxe-chess {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: repeating-conic-gradient(color-mix(in srgb, var(--text) 7%, transparent) 0 25%, transparent 0 50%) 0 0 / 52px 52px;
+  -webkit-mask-image: radial-gradient(300px circle at var(--bx, -999px) var(--by, -999px), #000 0%, rgba(0, 0, 0, .35) 45%, transparent 75%);
+  mask-image: radial-gradient(300px circle at var(--bx, -999px) var(--by, -999px), #000 0%, rgba(0, 0, 0, .35) 45%, transparent 75%);
+}
+.fxe-chess::after { content: ''; position: absolute; inset: 0; background: radial-gradient(220px circle at var(--bx, -999px) var(--by, -999px), color-mix(in srgb, var(--sora) 9%, transparent), transparent 70%); }
+
+/* ---------- dryfujące figury ---------- */
+.fxe-pieces { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.fxe-pieces span {
+  position: absolute; left: var(--x); bottom: 0; font: 400 var(--s)/1 "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", serif; font-variant-emoji: text;
+  color: var(--text); opacity: .035; will-change: transform;
+  animation: fxe-float var(--t) linear var(--d) infinite;
+}
+.fxe-pieces span:nth-child(3n) { color: var(--sora); opacity: .05; }
+.fxe-pieces span:nth-child(3n + 1) { color: var(--shiro); opacity: .045; }
+@keyframes fxe-float {
+  from { transform: translateY(100%) rotate(var(--r0)); }
+  to { transform: translateY(calc(-100vh - 100%)) rotate(var(--r1)); }
+}
+
+/* ---------- pogoda ---------- */
+.fxe-weather { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 92; pointer-events: none; }
+
+/* ---------- złoty tytuł ---------- */
+.fx-foil :is(.ngnl-title, .brand-t, .fxe-intro-logo b) {
+  background: linear-gradient(100deg, var(--crown) 0%, #fff7d9 12%, var(--crown) 25%, color-mix(in srgb, var(--crown) 55%, var(--sora)) 50%, var(--crown) 75%, #fff7d9 88%, var(--crown) 100%) 0 0 / 200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none;
+  animation: fxe-foil 7s linear infinite;
+}
+.fx-foil .ngnl-title { filter: drop-shadow(2px 0 color-mix(in srgb, var(--sora) 55%, transparent)) drop-shadow(-2px 0 color-mix(in srgb, var(--shiro) 45%, transparent)); }
+@keyframes fxe-foil { to { background-position: 200% 0; } }
+
+/* ---------- glitch nagłówków ---------- */
+@media (hover: hover) {
+  .fx-glitch :is(.d-title, .ngnl-title, .page-title, .brand-t, .sec-head h2, .scan-title, .yr-teaser-y):hover { animation: fxe-glitch 2.2s steps(1) infinite; }
+}
+@keyframes fxe-glitch {
+  0% { transform: translate(2px, -1px); text-shadow: -3px 0 var(--sora), 3px 0 var(--shiro); clip-path: inset(0 0 55% 0); }
+  3% { transform: translate(-3px, 1px); text-shadow: 3px 0 var(--sora), -3px 0 var(--shiro); clip-path: inset(40% 0 0 0); }
+  6% { transform: translate(1px, 0); text-shadow: -2px 0 var(--sora), 2px 0 var(--shiro); clip-path: inset(20% 0 30% 0); }
+  9%, 100% { transform: none; clip-path: none; text-shadow: none; }
+}
