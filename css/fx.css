@@ -366,14 +366,19 @@ html.fx-cursor, html.fx-cursor body { cursor: var(--fxe-cursor), auto; }
    ========================================================================== */
 
 /* ---------- rzadkość kart: SR / SSR / UR ---------- */
-.fx-rarity :is(.acard-cover, .ecard-cover)[data-rar]::after {
+.fx-rarity :is(.acard-cover, .ecard-cover, .d-head)[data-rar]::after {
   content: attr(data-rar); position: absolute; right: 6px; bottom: 6px; z-index: 3; pointer-events: none;
   padding: 2px 6px; border-radius: 4px; font: 700 .625rem/1.4 var(--f-data); letter-spacing: .08em;
   color: #1d2430; background: linear-gradient(135deg, #f4f7fb, #9eb0c4 55%, #e6edf5); box-shadow: 0 2px 8px rgba(0, 0, 0, .45);
 }
 .fx-rarity .ecard-cover[data-rar]::after { right: 4px; bottom: 4px; padding: 1px 5px; font-size: .5625rem; }
-.fx-rarity :is(.acard-cover, .ecard-cover)[data-rar="SSR"]::after { color: #2a1700; background: linear-gradient(135deg, #fff1c2, #ffc65c 45%, #d98f1a 75%, #ffe39a); }
-.fx-rarity :is(.acard-cover, .ecard-cover)[data-rar="UR"]::after {
+/* strona anime: okładka i tytuły są wyrównane do dołu, więc dół nagłówka = dół okładki */
+.fx-rarity .d-head[data-rar]::after { --dcw: 112px; left: calc(var(--dcw) - 8px); right: auto; bottom: 8px; transform: translateX(-100%); padding: 3px 8px; font-size: .75rem; animation: fxe-pop-in .45s cubic-bezier(.2, 1.4, .3, 1); }
+@media (min-width: 900px) { .fx-rarity .d-head[data-rar]::after { --dcw: 210px; } }
+.fx-rarity .d-head[data-rar="UR"]::after { animation: fxe-pop-in .45s cubic-bezier(.2, 1.4, .3, 1), fxe-ur 4s linear infinite; }
+.fx-rarity .d-head[data-rar="UR"] .cover.lg { box-shadow: 0 0 0 2px color-mix(in srgb, var(--crown) 85%, transparent), 0 0 30px -6px var(--crown), 0 20px 50px rgba(0, 0, 0, .55); }
+.fx-rarity :is(.acard-cover, .ecard-cover, .d-head)[data-rar="SSR"]::after { color: #2a1700; background: linear-gradient(135deg, #fff1c2, #ffc65c 45%, #d98f1a 75%, #ffe39a); }
+.fx-rarity :is(.acard-cover, .ecard-cover, .d-head)[data-rar="UR"]::after {
   color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
   background: linear-gradient(110deg, #ff4f8b, #ffc65c, #7ee08a, #5fe3e0, #b98cff, #ff4f8b) 0 0 / 300% 100%;
   box-shadow: 0 0 12px -2px rgba(255, 198, 92, .8), 0 2px 8px rgba(0, 0, 0, .45);

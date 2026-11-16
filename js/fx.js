@@ -265,6 +265,10 @@ const FX = (() => {
     if (head) {
       const e = Lib.get(Number(routeInfo.params && routeInfo.params.id));
       head.classList.toggle('is-fav', !!(e && e.favorite));
+      // rzadkość na dużej okładce: zmiana oceny widać od razu
+      const sc = e && e.score != null ? e.score : null;
+      const rar = sc == null ? '' : sc >= 10 ? 'UR' : sc >= 9 ? 'SSR' : sc >= 8 ? 'SR' : '';
+      if (rar) head.setAttribute('data-rar', rar); else head.removeAttribute('data-rar');
     }
     const drop = () => { ['--sora', '--sora-hi', '--sora-ink'].forEach((p) => view && view.style.removeProperty(p)); };
     if (!valid || !(enabled('tint') || enabled('dyn'))) {
@@ -595,6 +599,7 @@ const FX = (() => {
     if (!e) { snap.delete(d.id); return; }
     const cur = snapOf(e);
     snap.set(d.id, cur);
+    if (master() && (!prev || prev.sc !== cur.sc || prev.fav !== cur.fav)) applyTint();
     if (!prev || !master()) return;
     if (cur.st === 'completed' && prev.st !== 'completed' && !S.settings.backfill && enabled('confetti')) {
       celebrateFinish(Object.values(S.entries).filter((x) => x.status === 'completed').length);

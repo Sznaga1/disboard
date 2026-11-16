@@ -39,8 +39,12 @@ self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
   if (e.request.method !== 'GET' || url.origin !== self.location.origin) return;
   if (url.pathname.endsWith('ngnl-feed.json')) return;
+  // cache: 'no-cache' — pytamy serwer o każdą wersję (zwykle krótkie 304), zamiast brać plik
+  // z pamięci HTTP przeglądarki: GitHub Pages trzyma pliki 10 min, więc po aktualizacji zwykłe F5
+  // potrafiło złożyć nowy index.html ze starym fx.js/fx.css. Nawigacji nie da się przepakować.
+  const req = e.request.mode === 'navigate' ? e.request : new Request(e.request, { cache: 'no-cache' });
   e.respondWith(
-    fetch(e.request)
+    fetch(req)
       .then((res) => {
         if (res.ok) {
           const copy = res.clone();
