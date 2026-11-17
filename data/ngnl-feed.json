@@ -1,31 +1,32 @@
 {
- "generatedAt": "2026-11-17T13:36:33.518Z",
+ "generatedAt": "2026-11-17T23:33:44.466Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 55,
-   "added": 40
+   "count": 56,
+   "added": 41
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
    "count": 56,
-   "added": 27
+   "added": 28
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
-   "ok": false,
-   "error": "HTTP 429"
+   "ok": true,
+   "count": 22,
+   "added": 14
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
-   "count": 54,
+   "count": 55,
    "added": 32
   },
   {
@@ -43,6 +44,30 @@
   }
  ],
  "items": [
+  {
+   "id": "8095c450a908a4ae",
+   "title": "『ノーゲーム・ノーライフ』ゆったりとくつろぐ白1／1スケールフィギュアの予約が受付中 販売価格は132万円（税込）",
+   "date": "2026-11-17T23:01:10.000Z",
+   "summary": "",
+   "source": "ラノベニュースオンライン",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5GRjg0aFI4TU9lZnk3bHR1dTlXSTBpWEI5Vkl2MDZma2hoc3BIbmVJRTNvbkYzTGxCcVphX0VfbTg5bVg3NXdWVXN5dw?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "0fbb07d7488f5e00",
+   "title": "Good Smile Company announces plush toys of Shiro, Jibril and Izuna from No Game No Life",
+   "date": "2026-11-17T14:54:49.000Z",
+   "summary": "",
+   "source": "Foro3D",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNSldYYzAwcy1SeWVnRVlwMjl0SUd1RkRUczlSU0FMRlpBd0tRS1NEQVUyRldtd21IZkd6VTBVZ1JaMUxjLW9MTHBveDlxNWR2RHBMdHo3OFZFXzFvcmNSTXlQV1A1LXFCblFyTEg3S05uc21wZ3drRjVETzFia3VvbTBHcWtLNFRHWUQ3N2FwcENfNVlFVGNKejdPUy1ZbkM5VkR3WjN3a1I2RTRRdUlPWEt3?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
   {
    "id": "3b3ad64b804daa8d",
    "title": "週末はイベントに行こう！：「『ノーゲーム・ノーライフ ゼロ』 POP UP SHOP in AMNIBUS STORE -white-」や「アニメ『デート・ア・ライブF Last Date』×カラオケの鉄人」など",
@@ -73,7 +98,7 @@
    "date": "2026-11-10T04:10:00.000Z",
    "summary": "",
    "source": "Comic Book Resources",
-   "via": "Google News (EN)",
+   "via": "Google News: merch (EN)",
    "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1sdno1SDBBdnpUWmhjdVA2ZXRlQkJzU0J5QXhvNmdfQjUtVG1ucXlZZ09vNkdUajlVUlF6TG5TZ0lSMnZqUkFlNWRZU3g0Rjc0SU9zUHNFeHNQa0NNSDhqQXNqaXBqdWx2LURGRms0RkxSOEU?oc=5",
    "image": null,
    "price": null,
@@ -421,7 +446,7 @@
    "date": "2026-06-27T07:00:00.000Z",
    "summary": "",
    "source": "Comic Book Resources",
-   "via": "Google News (EN)",
+   "via": "Google News: merch (EN)",
    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1DMkdUQXRGSGlQMmxXaXVBZnNuYlRtb1hyazE3Q3JiMkNleXMxdW9WMERycUZEbGFqMFNvRlNJZUU4SHh0NUU4em50S21JMzRNdmE0cURIWUhjR3RtNkpIQTJlZXlaVVlOM1NMbA?oc=5",
    "image": null,
    "price": null,
