@@ -43,15 +43,20 @@ self.addEventListener('fetch', (e) => {
   // z pamięci HTTP przeglądarki: GitHub Pages trzyma pliki 10 min, więc po aktualizacji zwykłe F5
   // potrafiło złożyć nowy index.html ze starym fx.js/fx.css. Nawigacji nie da się przepakować.
   const req = e.request.mode === 'navigate' ? e.request : new Request(e.request, { cache: 'no-cache' });
+  const nav = e.request.mode === 'navigate';
+  // kopia z pamięci; index.html tylko dla nawigacji (podany zamiast skryptu psuł całą stronę)
+  const fromCache = () => caches.match(e.request, { ignoreSearch: true }).then((r) => r || (nav ? caches.match('index.html') : undefined));
   e.respondWith(
     fetch(req)
       .then((res) => {
         if (res.ok) {
           const copy = res.clone();
           caches.open(CACHE).then((c) => c.put(e.request, copy));
+          return res;
         }
-        return res;
+        // chwilowy błąd serwera (np. 404/503 w trakcie publikacji na GitHub Pages): ostatnia dobra kopia, jeśli jest
+        return fromCache().then((r) => r || res);
       })
-      .catch(() => caches.match(e.request, { ignoreSearch: true }).then((r) => r || caches.match('index.html'))),
+      .catch(() => fromCache().then((r) => r || Response.error())),
   );
 });
