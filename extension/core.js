@@ -347,6 +347,7 @@ const ICON = {
   list: svgI('<path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1.2"/><circle cx="4" cy="12" r="1.2"/><circle cx="4" cy="18" r="1.2"/>'),
   search: svgI('<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/>'),
   calendar: svgI('<rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/>'),
+  wand: svgI('<path d="M4 20 15 9"/><path d="m14 4 .8 2.2L17 7l-2.2.8L14 10l-.8-2.2L11 7l2.2-.8zM19 11l.5 1.5L21 13l-1.5.5L19 15l-.5-1.5L17 13l1.5-.5zM8 3l.4 1.1L9.5 4.5l-1.1.4L8 6l-.4-1.1-1.1-.4 1.1-.4z"/>'),
   crown: svgI('<path d="M4 18h16l1-10-5 4-4-7-4 7-5-4z"/><path d="M4 21h16"/>'),
   chart: svgI('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'),
   history: svgI('<path d="M3.5 12a8.5 8.5 0 1 0 2.5-6"/><path d="M3 4v4h4M12 8v4.5l3 2"/>'),
@@ -549,6 +550,7 @@ function defaultState() {
       radarExtras: false,  // radar kontynuacji: także OVA, specjale i historie poboczne
       theme: 'disboard',   // motyw kolorystyczny (wszystkie ciemne)
       fx: { on: false, off: {}, rm: false }, // „Bajery”: przełącznik główny, wyłączone efekty, ignorowanie „ogranicz ruch”
+      lulu: { hidden: {} }, // centrum Lulu: emotki ukryte kliknięciem (id → 1)
     },
     meta: {
       createdAt: Date.now(),

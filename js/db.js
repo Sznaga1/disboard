@@ -119,6 +119,7 @@ function defaultState() {
       radarExtras: false,  // radar kontynuacji: także OVA, specjale i historie poboczne
       theme: 'disboard',   // motyw kolorystyczny (wszystkie ciemne)
       fx: { on: false, off: {}, rm: false }, // „Bajery”: przełącznik główny, wyłączone efekty, ignorowanie „ogranicz ruch”
+      lulu: { hidden: {} }, // centrum Lulu: emotki ukryte kliknięciem (id → 1)
     },
     meta: {
       createdAt: Date.now(),

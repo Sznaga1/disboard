@@ -1,0 +1,40 @@
+name: Centrum Lulu
+
+# Co 6 godzin sprawdza League of Legends (serwer główny i PBE w CommunityDragon,
+# notatki do patchy, Google News) i zapisuje wszystko o Lulu w data/lulu.json.
+# Commit powstaje tylko wtedy, gdy coś się zmieniło.
+on:
+  schedule:
+    - cron: '41 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lulu-feed
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Zbierz dane o Lulu
+        run: node tools/build-lulu.mjs
+      - name: Zapisz zmiany
+        run: |
+          git config user.name "lulu-feed-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/lulu.json
+          if git diff --staged --quiet; then
+            echo "Bez zmian."
+          else
+            git commit -m "Centrum Lulu: aktualizacja $(date -u +'%Y-%m-%d %H:%M') UTC"
+            git pull --rebase
+            git push
+          fi

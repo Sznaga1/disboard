@@ -140,6 +140,18 @@ Na stronie anime, w miejscu dawnej sekcji „Powiązane”, jest cała seria w k
 
 Na dole centrum NGNL jest oś czasu całej serii: 13 tomów light novel, manga (Mashiro Hiiragi i „Eastern Union”), spin-offy „Desu!” i „Practical War Game”, 12 odcinków i 6 mini OVA, film Zero, doujinshi autora „No Work No Life” oraz ważne zapowiedzi i wydania Blu-ray. Daty są japońskie, przy tomach także angielskie, a każda pozycja ma link do źródła. Dane sprawdziłem 30 września 2026. Zapowiedź 2. sezonu dopisze się sama z AniList, a Twoje obejrzenia z datą pojawiają się na osi jako „Ty”.
 
+## Centrum Lulu (League of Legends)
+
+Zakładka *Lulu* w menu po lewej. Pokazuje się tylko tam: nic nie trafia na stronę główną ani do powiadomień.
+
+- **Nowości**: co jest na PBE (serwer testowy, zwykle 2–3 tygodnie przed premierą) i co weszło do gry w ostatnich 30 dniach: skiny, chromy, ikony, totemy i emotki. Do tego ostatnie fragmenty notatek do patchy, w których pada imię Lulu, i wiadomości.
+- **Skiny i chromy**: wszystkie skiny z linią, rzadkością i opisem. Kliknięcie obrazka otwiera pełną grafikę, a kółko koloru otwiera chromę.
+- **Emotki**: wszystkie emotki z gry (ok. 2450). **Kliknięcie ukrywa emotkę**, w widoku „Ukryte” kliknięcie ją przywraca. Jest wyszukiwarka, „Ukryj pokazane” (np. wszystko poza wynikami wyszukiwania), „Cofnij” i Ctrl+Z. Nowe emotki zawsze się pokazują, nawet gdy resztę ukryjesz. Emotki przypisane do Lulu w grze mają fioletową ramkę. Wybór zapisuje się z listą (`settings.lulu.hidden`), więc synchronizuje się i trafia do kopii.
+- **Ikony i totemy**: wszystkie z Lulu w nazwie lub opisie.
+- **Patche i wiadomości**: fragmenty o Lulu z 12 ostatnich notatek do patchy (zmiany balansu, poprawki błędów, zapowiedzi skinów) oraz artykuły z Lulu w tytule.
+
+Dane zbiera workflow `.github/workflows/lulu-feed.yml` co 6 godzin (`tools/build-lulu.mjs` → `data/lulu.json`). Źródła: CommunityDragon (serwer główny i PBE), leagueoflegends.com i Google News. Skrypt zapamiętuje, kiedy pierwszy raz zobaczył każdą rzecz, i robi commit tylko wtedy, gdy coś się zmieniło. Ręcznie: *Actions → Centrum Lulu → Run workflow* albo `node tools/build-lulu.mjs`.
+
 ## Oceny szczegółowe
 
 Na stronie anime przycisk *Oceń szczegółowo* otwiera pięć suwaków: fabuła, postacie, animacja, muzyka i dźwięk, frajda (0,5–10). Ocena ogólna liczy się sama jako średnia ocenionych kategorii. Możesz ją też wybrać ręcznie: wtedy aplikacja pokazuje obok średnią kategorii i przycisk *Licz ze średniej*.
@@ -212,6 +224,8 @@ Wyszukiwarka domyślnie pokazuje też anime oznaczone w AniList jako 18+, z odzn
 | Archiwum newsów z RSS | `data/ngnl-feed.json` z GitHub Actions | opcjonalne; zbiera Google News, Anime News Network i Comic Natalie i trzyma historię do ~13 miesięcy |
 | Promo, zwiastuny, grafiki | AniList i MyAnimeList | wideo otwiera się w YouTube |
 | Zapowiedź 2. sezonu NGNL | AniList: relacja „sequel” i nowe wpisy serii | licznik sam przełączy się na „Zapowiedziano!” |
+| Lulu: skiny, chromy, ikony, totemy, emotki | CommunityDragon (serwer główny i PBE) przez `data/lulu.json` | co 6 godzin z GitHub Actions; obrazki prosto z CommunityDragon |
+| Lulu w notatkach do patchy i wiadomości | leagueoflegends.com i Google News | fragmenty, w których pada imię Lulu, z linkiem do oryginału |
 
 Dane odświeżają się same. Emitowane i zapowiedziane tytuły z listy aktualizują się co 45 minut, reszta raz w tygodniu, a newsy NGNL co 3 godziny, gdy aplikacja jest otwarta.
 
@@ -257,14 +271,16 @@ js/radar.js              radar kontynuacji
 js/fx.js                 motywy i bajery: przełączniki, przejścia, efekty, easter eggi
 js/ui.js                 komponenty (karty, sekcje, menu statusów)
 js/pages/                ekrany: common.js (wspólne), home, list, search, anime,
-                         upcoming, ngnl, stats (z historią), settings, lightbox
+                         upcoming, ngnl, lulu, stats (z historią), settings, lightbox
 js/app.js                routing, licznik oczekiwania, odświeżanie w tle
 sw.js, manifest          instalacja na telefonie i działanie bez sieci
 tools/build-feed.mjs     budowanie feedu RSS (Node 20, bez zależności)
+tools/build-lulu.mjs     dane centrum Lulu: CommunityDragon, notatki do patchy, Google News
 tools/test-browser.mjs   test w Chrome/Edge: zapis w IndexedDB, karty, wszystkie ekrany
 tests/                   testy logiki (node --test)
 .github/workflows/       harmonogram feedu w GitHub Actions
 data/ngnl-feed.json      feed (na start pusty; wypełnia go workflow)
+data/lulu.json           wszystko o Lulu (wypełnia workflow „Centrum Lulu”)
 ```
 
 ## Testy

@@ -173,7 +173,7 @@ async function main() {
     B.close();
 
     console.log('Ekrany');
-    const routes = ['#/', '#/lista', '#/lista/watching', '#/szukaj', '#/anime/100001', '#/premiery', '#/ngnl', '#/skaner', '#/statystyki', '#/statystyki/nerd', '#/statystyki/rok', '#/historia', '#/historia/100001', '#/ustawienia'];
+    const routes = ['#/', '#/lista', '#/lista/watching', '#/szukaj', '#/anime/100001', '#/premiery', '#/ngnl', '#/lulu', '#/lulu/skiny', '#/lulu/emotki', '#/lulu/ikony', '#/lulu/patche', '#/skaner', '#/statystyki', '#/statystyki/nerd', '#/statystyki/rok', '#/historia', '#/historia/100001', '#/ustawienia'];
     for (const r of routes) {
       const before = A.logs.length;
       await A.ev(`(location.hash = ${JSON.stringify(r)}, new Promise((res) => setTimeout(res, 700)))`);
@@ -181,7 +181,27 @@ async function main() {
       const filled = (await A.ev(`(document.getElementById('view') || document.body).innerText.trim().length`)) > 20;
       check(`ekran ${r}`, filled && !errs.length, errs.slice(0, 2).join(' | '));
     }
-    check('w Ustawieniach widać „zapis: IndexedDB”', (await A.ev(`(location.hash = '#/ustawienia', new Promise((r) => setTimeout(() => r(document.body.innerText.includes('zapis: IndexedDB')), 700)))`)));
+    console.log('Lulu: ukrywanie emotek');
+    await A.ev(`(location.hash = '#/lulu/emotki', new Promise((r) => setTimeout(r, 900)))`);
+    const emoBefore = await A.ev(`document.querySelectorAll('#lu-grid .lu-emo').length`);
+    const firstId = await A.ev(`(() => { const b = document.querySelector('#lu-grid .lu-emo'); b.click(); return Number(b.dataset.id); })()`);
+    await sleep(1500);
+    check('kliknięta emotka znika z siatki', (await A.ev(`document.querySelectorAll('#lu-grid .lu-emo').length`)) === emoBefore - 1 && !(await A.ev(`!!document.querySelector('#lu-grid .lu-emo[data-id="${firstId}"]')`)), `${emoBefore} → ${await A.ev("document.querySelectorAll('#lu-grid .lu-emo').length")}`);
+    check('ukrycie zapisane w ustawieniach', await A.ev(`S.settings.lulu.hidden[${firstId}] === 1`));
+    await A.ev('saveNow()');
+    await A.reload(); await A.ready();
+    await A.ev(`(location.hash = '#/lulu/emotki', new Promise((r) => setTimeout(r, 900)))`);
+    check('po odświeżeniu emotka dalej ukryta', !(await A.ev(`!!document.querySelector('#lu-grid .lu-emo[data-id="${firstId}"]')`)) && (await A.ev(`S.settings.lulu.hidden[${firstId}] === 1`)));
+    await A.ev(`(document.querySelector('[data-view="hidden"]').click(), new Promise((r) => setTimeout(r, 200)))`);
+    check('widok „Ukryte” pokazuje ukrytą emotkę', await A.ev(`!!document.querySelector('#lu-grid .lu-emo[data-id="${firstId}"]')`));
+    await A.ev(`(document.querySelector('#lu-grid .lu-emo[data-id="${firstId}"]').click(), new Promise((r) => setTimeout(r, 400)))`);
+    check('kliknięcie w „Ukryte” przywraca', await A.ev(`!S.settings.lulu.hidden[${firstId}]`));
+    await A.ev(`(document.querySelector('[data-view="visible"]').click(), document.getElementById('lu-bulk').click(), new Promise((r) => setTimeout(r, 300)))`);
+    const bulkHidden = await A.ev(`Object.keys(S.settings.lulu.hidden).length`);
+    await A.ev(`(document.getElementById('lu-undo').click(), new Promise((r) => setTimeout(r, 300)))`);
+    check(`„Ukryj pokazane” (${bulkHidden}) i „Cofnij”`, bulkHidden === emoBefore && (await A.ev(`Object.keys(S.settings.lulu.hidden).length`)) === 0 && (await A.ev(`document.querySelectorAll('#lu-grid .lu-emo').length`)) === emoBefore);
+
+    check('w Ustawieniach widać „zapis: IndexedDB”',(await A.ev(`(location.hash = '#/ustawienia', new Promise((r) => setTimeout(() => r(document.body.innerText.includes('zapis: IndexedDB')), 700)))`)));
 
     console.log('Lista ponad dawny limit localStorage');
     await A.ev(`(() => { const now = Date.now(); for (let i = 1; i <= 2000; i++) { const id = 200000 + i; const e = JSON.parse(JSON.stringify(S.entries[100001])); e.id = id; e.media.id = id; e.notes = ''; S.entries[id] = e; for (let ep = 1; ep <= 24; ep++) S.history.push({ id: 'g' + i + '_' + ep, t: now, k: 'ep', m: id, s: 0, ep, bulk: true, ti: 'Duże ' + i }); } return saveNow(); })()`);

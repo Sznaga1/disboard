@@ -235,13 +235,14 @@ const ROUTES = [
   [/^\/anime\/(\d+)$/, 'anime', ['id']],
   [/^\/premiery(?:\/(\w+))?$/, 'upcoming', ['tab']],
   [/^\/ngnl$/, 'ngnl', []],
+  [/^\/lulu(?:\/(\w+))?$/, 'lulu', ['tab']],
   [/^\/skaner$/, 'scanner', []],
   [/^\/statystyki(?:\/(\w+))?$/, 'stats', ['tab']],
   [/^\/osoba\/(\d+)$/, 'person', ['id']],
   [/^\/historia(?:\/(\d+))?$/, 'history', ['id']],
   [/^\/ustawienia$/, 'settings', []],
 ];
-const NAV_OF = { home: 'home', list: 'list', search: 'search', anime: 'search', upcoming: 'upcoming', ngnl: 'ngnl', scanner: 'scanner', stats: 'stats', person: 'search', history: 'history', settings: 'settings' };
+const NAV_OF = { home: 'home', list: 'list', search: 'search', anime: 'search', upcoming: 'upcoming', ngnl: 'ngnl', lulu: 'lulu', scanner: 'scanner', stats: 'stats', person: 'search', history: 'history', settings: 'settings' };
 
 let viewToken = 0;
 let viewCleanups = [];
