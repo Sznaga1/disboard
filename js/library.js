@@ -410,6 +410,8 @@ const Lib = (() => {
   function setScoreManual(id, v) {
     const e = get(id);
     if (!e) return;
+    // „brak” przy ustawionych suwakach = wróć do średniej kategorii (inaczej ocena ogólna znikała i przestawała się liczyć)
+    if (v == null && ratedCount(e) > 0) { e.scoreManual = false; applyAuto(e); touch(e); return; }
     e.score = v;
     e.scoreManual = v != null && ratedCount(e) > 0;
     event({ k: 'score', m: id, to: v });

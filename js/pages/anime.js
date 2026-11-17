@@ -144,6 +144,9 @@ function bindDetail(ctx, m, partial) {
       if (!root._trWait) { root._trWait = true; afterTyping(host, () => { root._trWait = false; if (ctx.alive()) renderTracker(); }); }
       return;
     }
+    // naprawa starszego stanu: suwaki ustawione, a ocena ogólna pusta i nieliczona (dawny błąd z „brak”)
+    const e0 = Lib.get(m.id);
+    if (e0 && !e0.scoreManual && e0.score == null && Lib.ratedCount(e0) > 0) Lib.setScoreAuto(m.id);
     const e = Lib.get(m.id);
     withFocusKept(() => { host.innerHTML = trackerHtml(e, root._m, root._rateOpen ?? (e ? Lib.ratedCount(e) > 0 : false)); });
   };
@@ -206,6 +209,17 @@ function communityCmp(score, m, { full = true } = {}) {
   </div>`;
 }
 
+// lista ocen co 0,5; średnia z suwaków (np. 8,7) dostaje własną pozycję, żeby pole nie pokazywało „brak”
+function scoreOpts(e) {
+  const vals = Array.from({ length: 20 }, (_, i) => (i + 1) / 2);
+  if (e.score != null && !vals.includes(e.score)) vals.push(e.score);
+  vals.sort((a, b) => a - b);
+  const auto = !e.scoreManual && Lib.ratedCount(e) > 0;
+  const opt = (v, label, on) => `<option value="${v}"${on ? ' selected' : ''}>${label}</option>`;
+  return opt('', auto ? 'ze średniej' : 'brak', e.score == null)
+    + vals.map((v) => opt(v, `${NF1.format(v)}${auto && v === e.score ? ' (średnia)' : ''}`, v === e.score)).join('');
+}
+
 function rateHtml(e, m, open) {
   const r = e.rating || {};
   const rated = Lib.ratedCount(e);
@@ -234,8 +248,6 @@ function trackerHtml(e, m = null, rateOpen = false) {
   const dur = Lib.epDur(e);
   const canInc = !total || Lib.lastEp(e) < total;
   const eps = Lib.totalEps(e);
-  const scores = ['', ...Array.from({ length: 20 }, (_, i) => (i + 1) / 2)];
-  if (e.score != null && !scores.includes(e.score)) { scores.push(e.score); scores.sort((a, b) => (a === '' ? -1 : b === '' ? 1 : a - b)); }
   const done = Lib.finishedCount(e);
   const sessions = e.sessions.map((s) => {
     const label = s.n === 0 ? 'Pierwsze obejrzenie' : `Rewatch #${s.n}`;
@@ -264,7 +276,7 @@ function trackerHtml(e, m = null, rateOpen = false) {
         </div>
         ${c.ranges ? `<small class="tr-ranges">Obejrzane odcinki: <b class="num">${esc(Lib.rangesText(c))}</b></small>` : ''}
       </div>
-      <label class="field"><span class="lbl">Ocena</span><select id="tr-score">${scores.map((v) => `<option value="${v}"${(v === '' ? e.score == null : e.score === v) ? ' selected' : ''}>${v === '' ? 'brak' : NF1.format(v)}</option>`).join('')}</select></label>
+      <label class="field"><span class="lbl">Ocena</span><select id="tr-score">${scoreOpts(e)}</select></label>
       <button class="fav-btn${e.favorite ? ' on' : ''}" type="button" id="tr-fav" aria-pressed="${e.favorite}">${ICON.star}<span>${e.favorite ? 'Ulubione' : 'Do ulubionych'}</span></button>
     </div>
     <div class="rate-bar">

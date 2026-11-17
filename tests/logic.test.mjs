@@ -229,3 +229,19 @@ test('zegar NGNL: zmiana czasu na zimowy nie przesuwa godzin', async () => {
   const anniv = diffCalendar(from, new Date(2026, 5, 25).getTime());
   assert.deepEqual([anniv.y, anniv.d, anniv.h], [12, 0, 0]);
 });
+
+test('ocena szczegółowa: „brak” w ocenie ogólnej wraca do średniej kategorii', async () => {
+  const { Lib } = await loadApp();
+  Lib.add(media(7), 'completed');
+  for (const [k, v] of [['plot', 9], ['chars', 10], ['anim', 9.5], ['music', 8.5], ['fun', 8]]) Lib.setRating(7, k, v);
+  const mean = Lib.ratingMean(Lib.get(7));
+  assert.equal(Lib.get(7).score, Math.round(mean * 10) / 10);
+  Lib.setScoreManual(7, 6);
+  assert.equal(Lib.get(7).score, 6);
+  assert.equal(Lib.get(7).scoreManual, true);
+  Lib.setScoreManual(7, null);
+  assert.equal(Lib.get(7).scoreManual, false);
+  assert.equal(Lib.get(7).score, Math.round(mean * 10) / 10);
+  Lib.setRating(7, 'fun', 10);
+  assert.equal(Lib.get(7).score, Math.round(Lib.ratingMean(Lib.get(7)) * 10) / 10);
+});
