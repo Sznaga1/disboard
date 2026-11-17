@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-11-17T02:58:38.587Z",
+ "generatedAt": "2026-11-17T13:36:33.518Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 54,
-   "added": 39
+   "count": 55,
+   "added": 40
   },
   {
    "id": "gnews-ja",
@@ -18,9 +18,8 @@
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
-   "ok": true,
-   "count": 20,
-   "added": 13
+   "ok": false,
+   "error": "HTTP 429"
   },
   {
    "id": "gnews-merch-ja",
@@ -74,7 +73,7 @@
    "date": "2026-11-10T04:10:00.000Z",
    "summary": "",
    "source": "Comic Book Resources",
-   "via": "Google News: merch (EN)",
+   "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1sdno1SDBBdnpUWmhjdVA2ZXRlQkJzU0J5QXhvNmdfQjUtVG1ucXlZZ09vNkdUajlVUlF6TG5TZ0lSMnZqUkFlNWRZU3g0Rjc0SU9zUHNFeHNQa0NNSDhqQXNqaXBqdWx2LURGRms0RkxSOEU?oc=5",
    "image": null,
    "price": null,
@@ -422,7 +421,7 @@
    "date": "2026-06-27T07:00:00.000Z",
    "summary": "",
    "source": "Comic Book Resources",
-   "via": "Google News: merch (EN)",
+   "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1DMkdUQXRGSGlQMmxXaXVBZnNuYlRtb1hyazE3Q3JiMkNleXMxdW9WMERycUZEbGFqMFNvRlNJZUU4SHh0NUU4em50S21JMzRNdmE0cURIWUhjR3RtNkpIQTJlZXlaVVlOM1NMbA?oc=5",
    "image": null,
    "price": null,
