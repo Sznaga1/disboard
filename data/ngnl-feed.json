@@ -1,19 +1,19 @@
 {
- "generatedAt": "2026-11-17T23:33:44.466Z",
+ "generatedAt": "2026-11-18T07:40:58.521Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 56,
-   "added": 41
+   "count": 55,
+   "added": 40
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 56,
-   "added": 28
+   "count": 55,
+   "added": 26
   },
   {
    "id": "gnews-merch-en",
@@ -26,7 +26,7 @@
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
-   "count": 55,
+   "count": 56,
    "added": 32
   },
   {
@@ -44,6 +44,18 @@
   }
  ],
  "items": [
+  {
+   "id": "f5da394da7700f06",
+   "title": "『ノーゲーム・ノーライフ』ゆったりとくつろぐ白1／1スケールフィギュアの予約が受付中 販売価格は132万円（税込）",
+   "date": "2026-11-17T23:02:24.000Z",
+   "summary": "",
+   "source": "千葉テレビ放送",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1MRGtZRlB3WThMczdPYTVDYV9XVmxpaGRMXzJVekx2NDdJQ3R6b2I5RGpsQm5wajFxWHZjangzcEVyRTl6TXF2YXhtbm0yVU1yTERRYlVrRFh5bXM2ZXgw?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
   {
    "id": "8095c450a908a4ae",
    "title": "『ノーゲーム・ノーライフ』ゆったりとくつろぐ白1／1スケールフィギュアの予約が受付中 販売価格は132万円（税込）",
@@ -95,7 +107,7 @@
   {
    "id": "c42c5d4143f47e34",
    "title": "No Game No Life Officially Reveals Massive New $8,000 Release",
-   "date": "2026-11-10T04:10:00.000Z",
+   "date": "2026-11-09T08:00:00.000Z",
    "summary": "",
    "source": "Comic Book Resources",
    "via": "Google News: merch (EN)",
@@ -311,7 +323,7 @@
   {
    "id": "00d9cc93435dc4da",
    "title": "『ノーゲーム・ノーライフ』バニーガール姿のジブリールがフィギュア化。余裕ある微笑みやしなやかなボディラインに見惚れる",
-   "date": "2026-10-21T07:00:00.000Z",
+   "date": "2026-10-22T07:00:00.000Z",
    "summary": "",
    "source": "電撃オンライン",
    "via": "Google News: グッズ (JP)",
@@ -513,18 +525,6 @@
    "kind": "merch"
   },
   {
-   "id": "ce5c2799deba02fb",
-   "title": "Artist Yuu Kamiya of \"No Game No Life\" Fame Declares: \"I'd Rather Quit Than Draw Pubic Hair!\" After Viral Suggestion to Avoid Bans",
-   "date": "2026-06-09T02:50:47.000Z",
-   "summary": "",
-   "source": "玩具人 TOY PEOPLE",
-   "via": "Google News (EN)",
-   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE0zRTRNaWgzdG1jcEZSMzU5cmRRMzBpa190QU1fc3hpSzNYLXpEczNzTW9zRFF2bFJQR0pJLWFJc0FWdnJPMFJ3aWZBQ2VRcktB?oc=5",
-   "image": null,
-   "price": null,
-   "kind": "news"
-  },
-  {
    "id": "cdeea2507b8cc5d0",
    "title": "「忍物語」や「ノーゲーム・ノーライフ」などグッスマ新作フィギュアのデコマスが展示【#グッドスマイルフェス】（HOBBY Watch）",
    "date": "2026-06-06T07:00:00.000Z",
@@ -712,6 +712,18 @@
    "source": "Comic Book Resources",
    "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1Ma2FYZ1VzQ0pQWWYzdmJxaVVlNjZsTDZlWjhSd3FTZmlpaloxanNVSzNWM0s5eHcxSWxHVnJrZE5pekpvZWdvMGFfelRFV3AyODlQdFNnU1FrNGFPMTdoTE42QVFvbndFWWViSVJ1dXNqNV9JMWliZlZTeVU?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "ce5c2799deba02fb",
+   "title": "Artist Yuu Kamiya of \"No Game No Life\" Fame Declares: \"I'd Rather Quit Than Draw Pubic Hair!\" After Viral Suggestion to Avoid Bans",
+   "date": "2026-03-27T07:00:00.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE0zRTRNaWgzdG1jcEZSMzU5cmRRMzBpa190QU1fc3hpSzNYLXpEczNzTW9zRFF2bFJQR0pJLWFJc0FWdnJPMFJ3aWZBQ2VRcktB?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
