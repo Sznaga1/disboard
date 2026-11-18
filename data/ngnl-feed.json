@@ -1,32 +1,32 @@
 {
- "generatedAt": "2026-11-18T07:40:58.521Z",
+ "generatedAt": "2026-11-18T17:20:42.757Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 55,
-   "added": 40
+   "count": 54,
+   "added": 39
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 55,
-   "added": 26
+   "count": 54,
+   "added": 25
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 22,
-   "added": 14
+   "count": 20,
+   "added": 13
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
-   "count": 56,
+   "count": 55,
    "added": 32
   },
   {
