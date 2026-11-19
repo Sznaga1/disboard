@@ -1,33 +1,33 @@
 {
- "generatedAt": "2026-11-19T01:55:05.638Z",
+ "generatedAt": "2026-11-19T13:28:31.960Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 55,
+   "count": 56,
    "added": 41
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 53,
-   "added": 25
+   "count": 52,
+   "added": 26
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 22,
-   "added": 14
+   "count": 23,
+   "added": 16
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
    "count": 55,
-   "added": 32
+   "added": 33
   },
   {
    "id": "ann",
@@ -242,7 +242,7 @@
    "date": "2026-11-06T08:00:00.000Z",
    "summary": "",
    "source": "hobby Watch",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1UYTkxTEZvZ2FqeGdTZVhEN2pJTnVPRXNEZ19YZ0t0WG5HX3pxWWRYT1dYNF9ONGFFNF84dWNfX0pvd1puUHh0MW5ha0lfQWtwcXYwRmxneTlic0ViTFNmOW5WU0RnUlk?oc=5",
    "image": null,
    "price": null,
