@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-11-19T13:28:31.960Z",
+ "generatedAt": "2026-11-19T23:06:02.724Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
    "count": 56,
-   "added": 41
+   "added": 42
   },
   {
    "id": "gnews-ja",
@@ -19,15 +19,15 @@
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 23,
+   "count": 25,
    "added": 16
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
-   "count": 55,
-   "added": 33
+   "count": 100,
+   "added": 68
   },
   {
    "id": "ann",
@@ -61,7 +61,7 @@
    "title": "『ノーゲーム・ノーライフ』ゆったりとくつろぐ白1／1スケールフィギュアの予約が受付中 販売価格は132万円（税込）",
    "date": "2026-11-17T23:02:24.000Z",
    "summary": "",
-   "source": "千葉テレビ放送",
+   "source": "千葉テレビ放送株式会社",
    "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1MRGtZRlB3WThMczdPYTVDYV9XVmxpaGRMXzJVekx2NDdJQ3R6b2I5RGpsQm5wajFxWHZjangzcEVyRTl6TXF2YXhtbm0yVU1yTERRYlVrRFh5bXM2ZXgw?oc=5",
    "image": null,
@@ -129,6 +129,30 @@
    "kind": "news"
   },
   {
+   "id": "3cd61280c2f78dfb",
+   "title": "『ノーゲーム・ノーライフ ゼロ』の描き下ろし チアver. 等身大タペストリーなどの受注を開始！！アニメ・漫画のオリジナルグッズを販売する「AMNIBUS」にて",
+   "date": "2026-11-09T01:31:52.000Z",
+   "summary": "",
+   "source": "Infoseek",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMickFVX3lxTFAtYl9ReXM5YUh0dHRqVXJETXR5ZGVjcGpaTHR1R3lCVmFkNnE1c3YzS3BjRi1fVFdmQ1lROVhWVTlObmxPbDE2SWoyNHlTTkFPMzNwT0l4RllfRTZ6aTJyWjhVSV80RjVpY1ZyVkpDZklxUQ?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "e2833dfa54c9d2bc",
+   "title": "カラフルな髪をなびかせ、宙を舞う！「ノーゲーム・ノーライフ ジブリール バニーVer.」【あみあみ展示撮り下ろし】",
+   "date": "2026-11-08T08:00:00.000Z",
+   "summary": "",
+   "source": "hobby Watch",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBxTXJPZmJ0YzQ4bmtscHNQU0tpRG5YMzlMMkw2V3NkRTVnaUYzN2l2SENxWGRrUHowa2c5aE11UEY3RXZ1NVRCT2hfNURkSk5YR2NValFjdDAxYmZ6R3BqeEc3dHFhLVk2eEVF?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "d3e618930db9ff2a",
    "title": "No Game No Life’s Shiro Gets Huge New $8,000 Life-Size Statue From Prime 1 Studio",
    "date": "2026-11-07T19:27:46.000Z",
@@ -136,18 +160,6 @@
    "source": "Essential Japan",
    "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNVmJUMXowQUtMSk91RVpDeF8yNVhtaFFxdkg5MTNLd05aVVZ4S0pfLTJOZzhwWjdLY0VVMllFVkM4LUVQaE9PS3Q3NElSRUdDYlpEOFBpdms2bHh2N2ZwNlJ5cFlZcE5UaF84U29OZkg1allQYWRDME5yRHl3ZUJPdTUwOXdlUWRkWURxel9xU1RxVlByZUtPSGlnREM5eHNYc3JVT0JnVGF2RDF3ckpmTV9R?oc=5",
-   "image": null,
-   "price": null,
-   "kind": "news"
-  },
-  {
-   "id": "e2833dfa54c9d2bc",
-   "title": "カラフルな髪をなびかせ、宙を舞う！「ノーゲーム・ノーライフ ジブリール バニーVer.」【あみあみ展示撮り下ろし】",
-   "date": "2026-11-07T15:00:00.000Z",
-   "summary": "",
-   "source": "hobby Watch",
-   "via": "Google News (JP)",
-   "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBxTXJPZmJ0YzQ4bmtscHNQU0tpRG5YMzlMMkw2V3NkRTVnaUYzN2l2SENxWGRrUHowa2c5aE11UEY3RXZ1NVRCT2hfNURkSk5YR2NValFjdDAxYmZ6R3BqeEc3dHFhLVk2eEVF?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
@@ -170,8 +182,20 @@
    "date": "2026-11-07T08:00:00.000Z",
    "summary": "",
    "source": "Yahoo!ニュース",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBNc2RLekpyZlcxeHE5ZVgtZVBIc0pZdG0zbi02QzdEOGpxZW9qQms2U3hVSW1lcXA5QlpMdlcyQnFnY0hOeDFHV2lod3RON2xZSTJNUlhGejE1Qi1uMWVWV3lpSFRZT3psUmtBVjJfYmpWd1lzTW95NTJoNW5JN3M?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "70e58d886a487bc1",
+   "title": "お値段132万円の迫力！『ノゲノラ』の“等身大”フィギュア登場、くつろぐ華奢な天才少女白を再現 重量50kg超え",
+   "date": "2026-11-07T08:00:00.000Z",
+   "summary": "",
+   "source": "Infoseek",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9VM3l1cm92R1ZtNGNPanlDbEwwWW55dERGbWpQem42U0VxRFFBWmowVFc5emQ2RXlWcGotc0kzd3gyc1FuakJJeklqUC1qd1p0YjVsZHN6bEh2VzdYRUhEWklR0gFnQVVfeXFMTzlkWnYtdmx2QmV0WXBRQk5BXy1IdXkzZTNVOU1KQmVXaXJTU05SNW1BcXN0ckdlXzl0Y0c5NEJ2SjlFR2g2am9LV3diYjRjZTdhU3NGeEtKUFl2dFE2WjQzTWFMTXpKYw?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
@@ -273,6 +297,78 @@
    "kind": "merch"
   },
   {
+   "id": "3e0bdb3caed20dd7",
+   "title": "ノーゲーム・ノーライフ＞白の等身大フィギュア ありのままの天才少女 132万円 (MANTANWEB)",
+   "date": "2026-11-06T08:00:00.000Z",
+   "summary": "",
+   "source": "Yahoo!ニュース",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNU1RaWGNjbldycmd4VDVRS1JBRXhnc2dkaEtQMnMxYkp5ZUxrdXQ0MUNQS2lfaUZ0QjlXQ0pmLVlKQkYyVFVmX0NlNXo4RWlXc3VpeVdfSnVIQUpfT2JTNFN0SmVLR2tFM0dPbUhGbWV6ZkRFakJkQ3Rkelk4QzBwODJTS0FHcXZsTmlVMHpn?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "0690b71340c6563d",
+   "title": "『ノーゲーム・ノーライフ』から、「白」の1/1スケールフィギュアが登場",
+   "date": "2026-11-06T08:00:00.000Z",
+   "summary": "",
+   "source": "アニメ！アニメ！",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1RX2xlSVNjY3h6cEFaVlV1SGV4bFNoSXUwMG0wcjFBWWFCYVd6bDhfSHFtWHl1UTFZbkprU0RVU1E1eFBfeXcxZVBLNjIzT2NMbkFQdzBqZmJBZHprS3J1MEN5YW1DMkpvWEE?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "4066e8b7ffcd8cf0",
+   "title": "【写真・画像 1/11枚】アニメ「ノーゲーム・ノーライフ」の白の等身大フィギュア「ライフスケールマスターライン ノーゲーム・ノーライフ 白」（C）2014 榎宮祐・株式会社KADOKAWA メディアファクトリー刊／ノーゲーム・ノーライフ全権代理委員会",
+   "date": "2026-11-06T08:00:00.000Z",
+   "summary": "",
+   "source": "Mantan Web",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBQc1kyVGd6RllBRXJPa2VpREp4emJjemVYV2Q0VVFmT1Q1cG5CUEdPQU0xSk9maWgzZmp1c2JXLTUxV3gtYjVmODRlNFNkYkJuLXM2dFQ5aEJaV1drRFdQVVRBeHNMci1PWDRXbGQxdHlwUTBQaUFmMkxXSFJQdw?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "5522ff96f833dcc3",
+   "title": "【写真・画像 9/11枚】ノーゲーム・ノーライフ：白の等身大フィギュア ありのままの天才少女 132万円",
+   "date": "2026-11-06T08:00:00.000Z",
+   "summary": "",
+   "source": "Mantan Web",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE55WUVtSGxfdnByYnVUU3B1Y2dXaUVoQUd6Tlg3M0d4ZWVpenUzVFR4SHlXT0lPT050ZU1uelhfblFYeE0zSzN4NFZLeU9RbVpFeVdzREJrMUlhYmpoSmx4b2tzMUJpajVMVVJfcUdHSG4wa0taV05Jc1hzUGFlUQ?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "5601f5b813d4584e",
+   "title": "【写真・画像 7/11枚】ノーゲーム・ノーライフ：白の等身大フィギュア ありのままの天才少女 132万円",
+   "date": "2026-11-06T08:00:00.000Z",
+   "summary": "",
+   "source": "Mantan Web",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE56QjRrRm9fbzYzV2w5RFZKQmhESFFkcGdZcDBVVDMtbzlIVHJZdGlodkNxazA5Z3BqYUpqRFBFQ3BlMGdoOG5VQWs3Z0pRREZxZTdzYTdhMjNsa0VoWkhoZnc5WEZNYk9aaG1PQmJqRHNwWEN6ZEcxd0NjQ19mUQ?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "81ab8ec6004723d0",
+   "title": "白の等身大フィギュア ありのままの天才少女 132万円 過去のおもちゃの関連記事も掲載",
+   "date": "2026-11-06T08:00:00.000Z",
+   "summary": "",
+   "source": "Mantan Web",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxQejJETVE5aHAwQjdGSnVCMDkxYWZMZ0txcVRKVTJNYUNjX1lhUnhNaHEzN0VOZnczTEFfODd2LU9qQTNYaUVJM1cwX3JtZDhUTDRWZ2VETmNOcEhYOE8tcGlFeElqR0tsZEkzT2pNSnUzbUJZWDJoLTRjSlV3OVhtbWN1cDJuYWl4MWJXS3F2SGVsdlJmTFk5TG1idGZ3bEMzbHNBQVNhWGRiSDVGSV9ZbzF4V3NsMlBfbDVhRnc0OU4yXzBoWng2OWV0SEdvUWtmS3R0MnUzZHVQY3NHNjdiVW9kSlRxV3RvdnFvOGF6Rk1nOWhlUGE4OFNB?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
    "id": "f61b81d905b9407b",
    "title": "全高72cm、全幅110cmの等身大サイズ！「ノーゲーム・ノーライフ」より「白」が1/1スケールスタチューで登場 (HOBBY Watch)",
    "date": "2026-11-06T07:51:00.000Z",
@@ -285,13 +381,13 @@
    "kind": "news"
   },
   {
-   "id": "3e0bdb3caed20dd7",
-   "title": "ノーゲーム・ノーライフ＞白の等身大フィギュア ありのままの天才少女 132万円 (MANTANWEB)",
-   "date": "2026-11-06T06:23:00.000Z",
+   "id": "b8baeefae94823ca",
+   "title": "『ノーゲーム・ノーライフ』水着ドレス姿の白のノンスケールフィギュアが2027年6月発売",
+   "date": "2026-11-04T23:01:10.000Z",
    "summary": "",
-   "source": "Yahoo!ニュース",
+   "source": "ラノベニュースオンライン",
    "via": "Google News: グッズ (JP)",
-   "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNU1RaWGNjbldycmd4VDVRS1JBRXhnc2dkaEtQMnMxYkp5ZUxrdXQ0MUNQS2lfaUZ0QjlXQ0pmLVlKQkYyVFVmX0NlNXo4RWlXc3VpeVdfSnVIQUpfT2JTNFN0SmVLR2tFM0dPbUhGbWV6ZkRFakJkQ3Rkelk4QzBwODJTS0FHcXZsTmlVMHpn?oc=5",
+   "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE9QbnVXcnlLSmU1OHI1Skl3TVRFY0VsaHR5MC1PWlV2RjQwMzVmV0pmVWU4VW9qWmlYNkpuN3ZzNk5QczFaVXhWVzR6Yw?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
@@ -309,6 +405,18 @@
    "kind": "news"
   },
   {
+   "id": "5ec2ab14d8090660",
+   "title": "「白」を高精細なフルカラープリント！『ノーゲーム・ノーライフ』より、「MA-1 ジャケット」と「コーチジャケット」が登場！【株式会社コスパ】",
+   "date": "2026-11-04T08:00:00.000Z",
+   "summary": "",
+   "source": "Koubo",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1WZ19ZUm9qSGlnNDVIRUdhaXRqeVVqZUUzb0dKXzFBQ21yNG84TFpqUE1WajRWaExhVnJ6aVZKWEphMFNfR1Y4MEEtOXFDYS0tZGp4TmwtOXlwZlN3RUptRg?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "4d0f76e686de7e0d",
    "title": "たわわバスト＆バニーコスチュームがセクシーすぎる！『ノゲノラ』『デアラV』『ウマ娘』のフィギュアが秋葉原で展示！",
    "date": "2026-10-31T07:00:00.000Z",
@@ -321,6 +429,18 @@
    "kind": "merch"
   },
   {
+   "id": "d81db766b584c25d",
+   "title": "『ノーゲーム・ノーライフ』バニーガール姿のジブリール1／6スケールフィギュアが2028年1月発売",
+   "date": "2026-10-25T07:00:00.000Z",
+   "summary": "",
+   "source": "ラノベニュースオンライン",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE9hbTM0dzh4VnBOUkJ2ZFdiYl9HUzVNTGRDREo5TTN6X203ZVJFekdHdWsyaDdmQkRUNklsZld1LXo3TEZNVk9NaDllSQ?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
    "id": "c4ebf72d38572404",
    "title": "Phat! NO GAME NO LIFE Jibril: Bunny Ver. 1/6 Scale Figure Brings the Summer School Festival Illustration to Life",
    "date": "2026-10-22T07:00:00.000Z",
@@ -328,6 +448,42 @@
    "source": "玩具人 TOY PEOPLE",
    "via": "Google News: merch (EN)",
    "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9iZElmMzdJVUp1MFM2d2UtWWVRZE1DMFROdGxqOVVuanBaT1p3SmprQzFJTnlnRF9PSDRKRVQzRWRvQlNBbWNUZzJHTTN0bGxw?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "9c8b5200b19ee0ac",
+   "title": "『ノーゲーム・ノーライフ』より、天翼種（フリューゲル）のジブリールが1/6スケールフィギュア化！華やかなバニーガール姿が魅力的！",
+   "date": "2026-10-22T07:00:00.000Z",
+   "summary": "",
+   "source": "電撃ホビーウェブ",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBLZkp6UkJZdzdGd0djLVBoT0ZwcWxvQXc1anp3OUdqLVdJQVZObTZqVWJmbVdzbkxKU2xDY2htY1p3MUgtTTZ4R0dMN0FzbENM?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "ec1982a189fe2992",
+   "title": "ファット・カンパニー『ノーゲーム・ノーライフ』ジブリール バニーVer. 1/6スケールフィギュア！「夏の学園祭2023」描き下ろしイラストを立体化",
+   "date": "2026-10-22T07:00:00.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE55Qld0N3hRYlBQa291ZmxyanNSSnBiZFlTSXdjZTNGWS12b09nOU9jMzB4SE5QeUFCZ1loeEdFVFNUVWljZUxTVzdJQkNwTG5t?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "a81cf1e483ec0dde",
+   "title": "「ノーゲーム・ノーライフ」より天翼種の「ジブリール」が華やかなバニーガール姿で1/6スケールフィギュア化！",
+   "date": "2026-10-22T07:00:00.000Z",
+   "summary": "",
+   "source": "hobby Watch",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBpcGZVSUhBREo0TDFMNXMxLXp1d0c4aHRoZDBOUkJ0TXRoNTNUbHlhT3lPMHc4bUVBWjlCazRnR0N0T3hSYWhBd0ZPRWplSTJmN21wVTFna2JCWFhPd3ZHNUlVa3IzT1E?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
@@ -350,11 +506,23 @@
    "date": "2026-10-09T07:00:00.000Z",
    "summary": "",
    "source": "PR TIMES",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1SYWxxNzRHUGFBZ0V5TkI4c3l0SVd3U2J5WFdtMUtHUDEtR0pSODlkNWdqUlBzSXBzandES01HekpZWWRvX2pXVjBELXgtRTBuajFqNjUweVZtVDAwZEREV2Q4R3pEVTJIVnc?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
+  },
+  {
+   "id": "109443669d3c202f",
+   "title": "ノゲノラ チア POP UP SHOP in 渋谷モディ 10月30日より開催!",
+   "date": "2026-10-07T07:00:00.000Z",
+   "summary": "",
+   "source": "コラボカフェ",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOblV3UmRsaFJaSUdsX2VYWVV0Z0JLcndlZmYwVTFJSjAyT2pmTERqWm85dl9BQmRndktPaGpfc2h3MWZCUEtyYUZfSzNha09Fd2JfWU9uYThEaEU3c01xSDhaWlZkRE42LWJzeEVHVHExeTNxYUNHaWQyM3lSYXpibUxaZDA5MEY3cHVNQQ?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
   },
   {
    "id": "8c7a045807f0c4ec",
@@ -364,6 +532,30 @@
    "source": "Rock Paper Shotgun",
    "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQREJfVjJxem41MTBNdzgtZXVMMXh3YUYxTHRFc3dmZW5rZm41UWx4ZDFqM1Z3azZzNXJBMUlMaWpRSTZIbGRHbVg2QUtmUzBubXhzRG5FSzU0dUFnQWJXdmNNSW40bHI2Y0puS0NYV25iSzVwZ2Fib2YyUmxuSU05b19QeFRtWG1rVkVqM0swTnBzMWp3RVF1LS1TVHZTdnpySTVYcnhvRmRBWnpHWGdrckFGdk1qdTZoanlMam9EVU9jYmZsTjdyaw?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "9b123acf187c988d",
+   "title": "『ノーゲーム・ノーライフ』より初瀬いづなのコスプレ特集",
+   "date": "2026-09-28T20:12:39.000Z",
+   "summary": "",
+   "source": "アニメイトタイムズ",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5ZclllbGdfazhXREwzeGRJaTFOUElEb3RrQ1VnWnpfTHNLRmdfdUVVaVpLYm1mb2lrZTRYRDBpejJFSDBXZlZCdFp6U3dJZk9OVmpPQU9zN2QxMlRWQ2lzeS15bk5HaFJ0S3cwMXNRVmg?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "c1117702e02febe2",
+   "title": "「ノーゲーム・ノーライフ」の「白」がTENITOL TALLに登場！ 可愛らしい水着ドレス姿で立体化",
+   "date": "2026-09-27T07:00:00.000Z",
+   "summary": "",
+   "source": "hobby Watch",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5Ta3hpUV83VGQtSkloTGJwTDh1U05KUFdGMjNCS19PcTRGN2JWRlZWdTVZNTIxdlVINk02Wmx5N0FNMHR6VHFpVUpLZGsxbkNIbk5GbjdvOWxma3BtQ1pnaVZDblBhbk0?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
@@ -393,6 +585,18 @@
    "kind": "news"
   },
   {
+   "id": "d22ca9ae0fa81552",
+   "title": "ノゲノラ 描き下ろしボンテージver.ゲーマーズ先行グッズ11月発売",
+   "date": "2026-09-09T07:00:00.000Z",
+   "summary": "",
+   "source": "コラボカフェ",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQTEl3WmJZX2RNX29IQm1PVklJdVhWR2tINjJITHg1ak00TXA2NHZ1RG5Ld0E5SE9jNUQtSHpYMW80MGZEUTJmalFhalJBLXUyU2NGY2swcUo4aXBIRFVFTEFxVU5zQnZyOHRGdFdaZm4wTkZHNUZMTzNzb05kelF6Y1RqLWdOempTT1VPZ25pSjVrUGZ1NUE0RUxreWJ6blE?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
    "id": "50aa5ea6ea8148b2",
    "title": "ノーゲーム・ノーライフ #1〜12【無料ビデオ2週間】",
    "date": "2026-09-07T07:00:00.000Z",
@@ -417,6 +621,18 @@
    "kind": "news"
   },
   {
+   "id": "a61aff4bfb0df0ff",
+   "title": "ノゲノラ ポップアップストア in ボークス秋葉原 8月28日より開催!",
+   "date": "2026-08-21T07:00:00.000Z",
+   "summary": "",
+   "source": "コラボカフェ",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNR0NITTlqaHg4WXM1S2UzbGd6dkk2Yzhsa0NnVmlEOHd0cHBvS3g3WU1LQ3dOdDNLbE1VazFPMHNsU2VsUHlncGFUYkRyMW5jeVJ0NFh0M1dKRUZWM0lNZ1FaQl83RWVDbHVzSllsNDhvek1FWDYzSXN3WlVlbGlpQi1zRzJvOW_SAY8BQVVfeXFMT1kwM09tN3F6YWNtNUJqRDY5VVJ0dWFvZVU5eFI5T2dNV2VBTm5KWUNSY0ZoRkhWc3pNdkdkdzVvajF4cERpZlZBd20zUmtsVnRXVThwZkRWbVpoQ2ZTWUVCdGdtV2c3QUhtUUJwQWZjckpaQmdoVnN0ZDZSN0loc1g2cVU1ak9hblQ1OTBQOUE?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
    "id": "b70f0268d94dfe67",
    "title": "『ノーゲーム・ノーライフ』11巻に登場する「ブラックしろ」がフィギュアとなって蠱惑的な笑みを見せる／『STEINS;GATE』牧瀬紅莉栖がプラモデル化など、グッドスマイルカンパニー新作アイテム",
    "date": "2026-07-30T03:03:52.000Z",
@@ -424,6 +640,18 @@
    "source": "Hobby JAPAN Web",
    "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE9KZWlWdW9VM2xrLXBHQm1jX3ByeGlpZ0lmQUYzNElkRFZ5RHYzTkZOa21uZGIxQXdNTC16TWNtSVlDSDlLYzZNVw?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "e7b43ad2041ce7f7",
+   "title": "ノゲノラ ボンテージver. ストア in ゲーマーズ 8月1日より開催!",
+   "date": "2026-07-21T07:00:00.000Z",
+   "summary": "",
+   "source": "コラボカフェ",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPM3d6WWtkSUFBYThBQTdjLTVVaVFpM1VtRkFOSjFybHZUNjVrUlhYVTVzS2s5cURmSUJ1RjlHMUI4MkU3cVJMRWZzWTg3WURkNTdBYUNYMDFBMFFRcF9KTTRiRkhHbDBCd09IakVKa1c2VGxYTWtweDFtMjdwaDlidkdaYXdvcDJtTFY4Wkc1SF9GQlZqMGFkQVE0cw?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
@@ -451,6 +679,18 @@
    "image": null,
    "price": null,
    "kind": "news"
+  },
+  {
+   "id": "638525b6e6121035",
+   "title": "FWENCLUBから『ピーナッツ』の「“Chill” as Snoopy 2021 野球Ver.」1/1スケールフィギュアが登場！世界限定1,000体で予約開始！",
+   "date": "2026-07-06T06:14:25.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5JM0dfRmxwcEVHYkRTa1ZpSS1UWndGcFJnZ255Nk4wZ0dWY0RiZnZWR2JrTmhUeWV6YU8yVGNpM1dHVXY3S09YTnV3cHdDcE0?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
   },
   {
    "id": "b37f8faec8c71676",
@@ -513,6 +753,30 @@
    "kind": "merch"
   },
   {
+   "id": "29b560271f0b80fc",
+   "title": "「ノーゲーム・ノーライフ」より「ブラックしろ」2027年6月発売。ダークな雰囲気に鮮やかな彩色",
+   "date": "2026-06-23T07:00:00.000Z",
+   "summary": "",
+   "source": "hobby Watch",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE40X3pEbE1Ya0pMVFE5NnNmYm1MXzZDUGFMcU1INGhxTGVfbS1hdW1pVWJuWmpCRy1DdngwVVJCeTFsUUhrVS1Jb2Z0RXdXb2xwMmt1alhZRFc4S1VvTHFFbUNXU3E1d3c?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "aee36159214ada78",
+   "title": "『ノーゲーム・ノーライフ』ブラックしろがフィギュア化。セーラー服（？）に身を包み蠱惑的な笑みを浮かべる姿にゾクゾク",
+   "date": "2026-06-23T07:00:00.000Z",
+   "summary": "",
+   "source": "電撃オンライン",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBlWGVsYjNEamU1Rk1BamFudkJDdTd0ODhKVGhPRHVjclhZOWpNRFAybnZkS3NLNjNoSzBDNWNlXzQzeUFldF9TT0pJTjVVdXNQRllTejRQZ2FPTDRTOTRoVXpEVmVHSndqUDRmMQ?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
    "id": "a3c853bb2f47f510",
    "title": "ノーゲーム・ノーライフ ギャル制服 ver. 描き下ろしグッズ 発売!",
    "date": "2026-06-17T07:00:00.000Z",
@@ -537,6 +801,30 @@
    "kind": "merch"
   },
   {
+   "id": "9e4fdfecbed7b697",
+   "title": "『ノーゲーム・ノーライフ ゼロ』の描き下ろし ギャル制服ver. トレーディンググリッター缶バッジなどの受注を開始！！アニメ・漫画のオリジナルグッズを販売する「AMNIBUS」にて",
+   "date": "2026-06-15T07:00:00.000Z",
+   "summary": "",
+   "source": "毎日キレイ",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE04dUFFTVN4UmtmeGZieVNqczljNi1aeF85amg5S0RhYmVoMjhEN1ZRakFQMHpBbEp3OHFwZFROem1BbjZ3bFE0VnA0VnFpbHlkQkxvY0gwSUdTLVU3MHByNHlyZUJ0WTY0aEtyNGNXVmc5eXc3T3BTVnRR?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "be9c7abcfb6597f3",
+   "title": "ノゲノラ PALE TONE series サイバーバニー姿の新作グッズ 発売!",
+   "date": "2026-06-09T07:00:00.000Z",
+   "summary": "",
+   "source": "コラボカフェ",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQTHlBdTRudl9BcDFHUGtpT25Rbm5kZUtwYV9tRFZKTUQ0TmR0MDMxMTV1VS1CZGMwc29QQ0dVb0NEdUFRUkFMa19QZ3NKamhRblQ3MVJsTGM5OFl6UWRwbDlkQTBsOWxpdDFBNEtORGlDQUIxQ0VIaFlrV1EyLWpGYjBablJhRllxOGs1bWxQQkRzQTNlQjd0WEw4V1p0R0hBNjR0YXNkck8zYUNTMlN3dHRR?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
    "id": "ce5c2799deba02fb",
    "title": "Artist Yuu Kamiya of \"No Game No Life\" Fame Declares: \"I'd Rather Quit Than Draw Pubic Hair!\" After Viral Suggestion to Avoid Bans",
    "date": "2026-06-09T02:50:47.000Z",
@@ -547,6 +835,18 @@
    "image": null,
    "price": null,
    "kind": "news"
+  },
+  {
+   "id": "f9f2c4d135ded0b2",
+   "title": "【スマイルフェス2026】スケールフィギュア編①：『初音ミク』『勝利の女神：NIKKE』『ブルーアーカイブ』など新作アイテムが多数公開！",
+   "date": "2026-06-08T07:00:00.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBaVjM1SHBwMXVIRnZjcXdMVHJGRm1VaDE3cFJuVDdvQ3p1emwyT1NZRE4wTU9CY3NuOXpPNWdZU25mMFlCUHgyRE4tRGdMYnJt?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
   },
   {
    "id": "cdeea2507b8cc5d0",
@@ -561,13 +861,37 @@
    "kind": "merch"
   },
   {
+   "id": "514398b661078906",
+   "title": "『忍物語』表紙イラストを再現した忍野忍や『魔女の旅々』イレイナ、『俺ガイル』一色いろは、『オーバーロード』ルプスレギナ＆ユリのフィギュア彩色見本などを初展示！【グッドスマイルフェス2026東京速報レポート】ラノベ作品編",
+   "date": "2026-06-06T07:00:00.000Z",
+   "summary": "",
+   "source": "電撃ホビーウェブ",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBQZ254YUU2MjE4cTlTcXFXemE1TWFmQndXdlRzUXJLelNLRVRrbWhQeEs1QU5HcWhrMU82SUItaWhhdnR1cXZLdWRRU0FXd0x4Wnc?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
    "id": "53a7facbbea9c774",
    "title": "ノーゲーム・ノーライフ ゼロ ギャル制服 ストア in 上野 5月29日より開催!",
    "date": "2026-05-29T07:00:00.000Z",
    "summary": "",
    "source": "コラボカフェ",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNc3dvb2w1eFVMWk9pLUJfSGFUaHpFM1FaaHVsSlA0M2VhQTJMT29lVkRpRENaUEkwWHdoTTNyRzlWbmpHcTdDNHhjMmRMSXEwczlQUzQzWHQ4RFlhRkRWRnJJcTJsbUlCS24tT3NXM2lLZGpKdTZFUkpJaS1RU0VHSElKa2lVeGNmY21R?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "77064a36b27d7782",
+   "title": "『ノーゲーム・ノーライフ』白 -榎宮祐 Art Works- 1/7スケールフィギュアが登場！原画の躍動美と鮮やかな色彩を再現！",
+   "date": "2026-05-28T18:10:29.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBjYlFDZ0lpeVJnekcydzEtcHZpcVRsRWRMZ1hPcW9IdkxkbF9MelF1OWgxdVp2UmNHOGtXSFlVdnJxUHlCSlZJYWpDTnpXRms?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
@@ -578,7 +902,7 @@
    "date": "2026-05-14T07:00:00.000Z",
    "summary": "",
    "source": "PR TIMES",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9LYzUyVWNwcUF3WmVyMWJwT0N3SUV1alJMcGFpQzNpS0IyVVRoWHhxeGVFbHJFOEVLcUZhZUtoXzFpcDJJek52eENlS0FqQTgyVDlhYVo3WlpPQ0FzdWFYNG1keHJIbG5vbnc?oc=5",
    "image": null,
    "price": null,
@@ -602,8 +926,20 @@
    "date": "2026-05-08T07:00:00.000Z",
    "summary": "",
    "source": "電撃ホビーウェブ",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE4taUl1TkhJWFM1U1U3dXJqUC1lUXo5SUxkWi0ycTBnVmJSV1pjNVhaQUNqMFAtYnFMazlHbTZTcWUtanlaRUZUM1NyWmpqUkZD?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "db8c178ebd5fb114",
+   "title": "「「ノーゲーム・ノーライフ」PALE TONE series ポップアップストア」が開催中［今日のアニメイト池袋本店］",
+   "date": "2026-05-01T07:00:00.000Z",
+   "summary": "",
+   "source": "アニメイトタイムズ",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBCUGZDV0pDYm5FWTEyTVpkXy1oVG9vREhyTl9qZjZMa1JoT0R0bW90N2ZKSWloMzBXT2pPM2k3SFI4OWZoOHcxcWdwcGtVSTNWNTRfOGlhaUhQQkRjcXFmMXlHbnVjcW8zMkpB?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
@@ -645,6 +981,18 @@
    "kind": "news"
   },
   {
+   "id": "fc555dbe1e7f30c3",
+   "title": "『ノーゲーム・ノーライフ』の描き下ろし 踊り子ver. トレーディングアクリルカードなどの受注を開始！！アニメ・漫画のオリジナルグッズを販売する「AMNIBUS」にて",
+   "date": "2026-04-23T07:00:00.000Z",
+   "summary": "",
+   "source": "PR TIMES",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE50dWJUV0RjYXFIaVFhbmxQOVhYUjd3ZlktbklTZUtUQVBzdE9QNThkcm5GRVJYbW5wQktQNTg2bGVNMlhmdExiMTZCRG16M1lSY2RxV09FNWV5cFVpZFZpTzJlUWJvbVMwV0E?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
    "id": "5439c6e39370db62",
    "title": "ノーゲーム・ノーライフ サイバーメイドの描き下ろしグッズ 発売!",
    "date": "2026-04-21T07:00:00.000Z",
@@ -662,11 +1010,23 @@
    "date": "2026-04-20T07:00:00.000Z",
    "summary": "",
    "source": "コラボカフェ",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOQmRxdVJvbVloekNMa0tFQXJCQktIcEJ6NlVGZ1RlMDMtRWd2c3VhTWw0VWt5SlJVTEpJSWV5UDR0eEV2NnBGM3ROYk10VzE2UHJ0Y1VYYkNiTUVzUXNINlhuSHJCUzlLd1oxWkxpbHVyT0VLNGgwS1hEcXplV3lFMXc2U252b3doYTJNTHY1LV9xSVFEUUpPQlJBUHJuSUw1?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
+  },
+  {
+   "id": "cd27847f5cf77a62",
+   "title": "『ノーゲーム・ノーライフ』第3話より先行場面カット到着",
+   "date": "2026-04-14T21:23:21.000Z",
+   "summary": "",
+   "source": "アニメイトタイムズ",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9HdWplaTVnM0pQODY1T0dVM0tpSHNRQmtPb1NXZ1RfX0UwN2xBcFR4RUFUMW4yc3FyakRlYkFFbFRrbDVzN1F2cEdZbVlRVk43WnBpRF9pd1l2MlNVZHMtcGJvOHhTb3JiaE1z?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
   },
   {
    "id": "4feafbffc64f3836",
@@ -686,8 +1046,20 @@
    "date": "2026-04-09T07:00:00.000Z",
    "summary": "",
    "source": "PR TIMES",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1vNlp2TzNXcHB3US1xUWFyMVpWcHluS2I0UnJnQW9DbFFLeDBtNUt5MTNXckprUzZYTVhjV3pVejJHUnljcGtMNTcya0lEQzZUTU10V25IZ2lzMXBnNmNkTUxKOGJHTkZRYUE?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "c67aacfa8686a997",
+   "title": "『ノーゲーム・ノーライフ』の腕時計の受注を開始！！アニメ・漫画のオリジナルグッズを販売する「AMNIBUS」にて",
+   "date": "2026-04-09T07:00:00.000Z",
+   "summary": "",
+   "source": "インサイド",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE5aXzM4d1ZaaWZ0eVNJTThHd3VzSzJNWUZORWRiYVNTN055Z09SMWREaHFDdGZkNk0xbkdZSXNrbXpseTh1S2NBZU55MGJDOXVQMjlzVVQ2SmVfai0zTGc0NWJfSVpsaW9qX09jUERPSW9LQQ?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
@@ -770,7 +1142,7 @@
    "date": "2026-03-26T07:00:00.000Z",
    "summary": "",
    "source": "PR TIMES",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1nd2RnajJfZEdfcWdhcW4xcXYzOEctVHh3alVrdzhrTFFBMElwOW5MZlBmVEZFOTdMRzBYRnJWUTFHckk4bUhtMWcxd2RZSHA5N0FpY25JQWt1NWpZTC1WdUx2cVB5Z2NhaGc?oc=5",
    "image": null,
    "price": null,
@@ -784,6 +1156,18 @@
    "source": "PR TIMES",
    "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1sMDdSR0F1YWdVVVBsZG9jMVJqLXZYdlNtRHl4a2FLLUlyT0tjOUVsMkxLM2dSLVZKYUNzY1V3QkdsSHVrM3FmeHVXVV82WWlxNF9NUm8wd0ptMEtJNUpuMU01OVBjU2dacVE?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "da820add6e405e26",
+   "title": "『ノーゲーム・ノーライフ ゼロ』のヒロインが可動フィギュア化！「figma シュヴィ」12月発売予定！",
+   "date": "2026-03-12T19:01:05.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5nS3o3aXUxc1ZJOVdiZHNZS3FzMkk5aVplVmhNZHZVSHlZTUxPbzVnVWRXSFZpXzJhRkNobG42ZzBaTVdGRFJUVmlSd0tnU28?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
@@ -818,7 +1202,7 @@
    "date": "2026-02-26T08:00:00.000Z",
    "summary": "",
    "source": "PR TIMES",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5PeTJfcFp1cmZVbnJZdHpNT3lJNmtDSjZFbVVTRi1xNjZ3aTIxb3FkTmFGRUo4NFUxeDBXSWtDZUZaaENBQmVuUl9EQVFLZ0ZnMi1mTS0xbi1VQnpoM19WbDF4T29kdlJKNUE?oc=5",
    "image": null,
    "price": null,
@@ -861,6 +1245,42 @@
    "kind": "news"
   },
   {
+   "id": "f105cd583250ec20",
+   "title": "「ノゲノラ」セーラー風水着姿の白がフィギュア化！髪のグラデーションを色鮮やかに表現して元イラストの空気感を再現",
+   "date": "2026-02-09T08:00:00.000Z",
+   "summary": "",
+   "source": "アニメ！アニメ！",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBlVG9UR0N3cHJjU2FFcXZ6MC1CSU55eGo4aTl5T2hNYnB5XzNFd1lqN1ZjN2ZUTm9QNElpNE9LRkFudVdwbnpnbkRYTHkzTkE4dmJORkdFRXZHMWw1cTM3ag?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "e612cc08ec022250",
+   "title": "プライム1スタジオ最新フィギュア『アリス・ギア・アイギス』 兼志谷 シタラ、『プリズマ☆イリヤ』イリヤ、美遊、『ノーゲーム・ノーライフ』白が初公開！【あみあみホビーキャンプ／ワンフェス2026[冬]】",
+   "date": "2026-02-08T01:25:12.000Z",
+   "summary": "",
+   "source": "Hobby JAPAN Web",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE5jZFZXX1BxbkNxcTJiQ3cxdHVnNFRpbkRNakpsZ1E2dWdYbFBseF9pTzVBTjAteURXc3BqSXpuWGxvelQtN3ZiZQ?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "cc6ceb33d15d099d",
+   "title": "ノーゲーム・ノーライフ \"玉座\" ストア in ボークス秋葉原 2月7日より開催!",
+   "date": "2026-02-03T08:00:00.000Z",
+   "summary": "",
+   "source": "コラボカフェ",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQMVRjOUNSYmRkUWhvQUZETnBmSGJYX0h1bUoxOXZBNWgzZUZRMVlGVUpobG0xMHM1a0syVWhTMWxGSXZzamtRRVFGeW1Yd3hKcERpMHdnRG9IVXltZ0VPOG1hS3lybjRiNmNDajNYemtSX1ZsYjMxdFV6Ni10blNOYXFqRHR0dm15aFV6c2J1ZFh6cFk?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
    "id": "19f2ac298ffe7a64",
    "title": "ノーゲーム・ノーライフ ゼロ：映画・アニメ",
    "date": "2026-01-30T00:33:58.000Z",
@@ -871,6 +1291,18 @@
    "image": null,
    "price": null,
    "kind": "news"
+  },
+  {
+   "id": "1dff93182144bcf4",
+   "title": "「ノーゲーム・ノーライフ」よりセーラー風水着姿の「白」がスケールフィギュア化。2027年1月に発売",
+   "date": "2026-01-16T08:00:00.000Z",
+   "summary": "",
+   "source": "hobby Watch",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5mSHJMVlpSbFItUmRFWFQxeXNUc1hNX0pqVTFfMWhVSHlLejE3NkI4Y05pT25qNTNRQlZ5ZnU1OS1hWi1jTkRCdVg2LWM3TnlJVjRtR1JaOVpNMlctNWNLZnBtNnVPZXc?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
   },
   {
    "id": "90e08edd03c9db2b",
@@ -890,7 +1322,7 @@
    "date": "2025-12-31T08:00:00.000Z",
    "summary": "",
    "source": "コラボカフェ",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPaS1sUXZpcDAwUEVXS0lNUVFTQ0N0Y3JlVVVUR0ZqQ0Nyd095YTVQUU5pM1FNanpqNUJDeDNYMnFwdmdaUE9nQUxGM09DLW9TUmtuNS1fOG5BaWRGUkUwTnFkZ2hJSlJGMEt0ZFVodmVXM3kzOEVIZUE3MkpNX2dJRE5udTQzc0RCOEVGWVZrWXRRMl9KeWdlNFhtWdIBowFBVV95cUxOY2x1RTlMZnpUSnZNZ3RKdXMwODZPeV9ZbkVVS20tQm1VNG0yNi1zRS05a1AxU1BzZ2RFS3BOMGJVbE53SVZoSWdRMlo3VWl0djFnemNBeGY3Sm9vVjlqelRkSmptNjRndTNtYldjbzk5QTFDaEphd2VaV0tweVhyX0Q0Z2w0blhZTy1CUjJCdVRBT1BMajE2ZGNXMEF5bGNhYUNB?oc=5",
    "image": null,
    "price": null,
