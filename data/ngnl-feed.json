@@ -1,26 +1,26 @@
 {
- "generatedAt": "2026-11-18T17:20:42.757Z",
+ "generatedAt": "2026-11-19T01:55:05.638Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 54,
-   "added": 39
+   "count": 55,
+   "added": 41
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 54,
+   "count": 53,
    "added": 25
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 20,
-   "added": 13
+   "count": 22,
+   "added": 14
   },
   {
    "id": "gnews-merch-ja",
@@ -44,6 +44,18 @@
   }
  ],
  "items": [
+  {
+   "id": "70306895c31f87c2",
+   "title": "Hunter x Hunter Studio’s Best Isekai Anime Officially Loses to GTA 6 After 12 Years",
+   "date": "2026-11-18T23:02:01.000Z",
+   "summary": "",
+   "source": "FandomWire",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5CSTJqOVNLX1VTNXl2RldELVFMRmpZR1JVUkJrSUk0UUdnTm0tLW5JRGpYSlZmZklhQ2EwUVVpR05pbDhkcW4wOV9OZ1hPbTZDdDQzaEdzVlFZZWxWdkVIanBrcUVlWnNRQVVVOEdFcw?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
   {
    "id": "f5da394da7700f06",
    "title": "『ノーゲーム・ノーライフ』ゆったりとくつろぐ白1／1スケールフィギュアの予約が受付中 販売価格は132万円（税込）",
@@ -323,7 +335,7 @@
   {
    "id": "00d9cc93435dc4da",
    "title": "『ノーゲーム・ノーライフ』バニーガール姿のジブリールがフィギュア化。余裕ある微笑みやしなやかなボディラインに見惚れる",
-   "date": "2026-10-22T07:00:00.000Z",
+   "date": "2026-10-21T07:00:00.000Z",
    "summary": "",
    "source": "電撃オンライン",
    "via": "Google News: グッズ (JP)",
@@ -525,6 +537,18 @@
    "kind": "merch"
   },
   {
+   "id": "ce5c2799deba02fb",
+   "title": "Artist Yuu Kamiya of \"No Game No Life\" Fame Declares: \"I'd Rather Quit Than Draw Pubic Hair!\" After Viral Suggestion to Avoid Bans",
+   "date": "2026-06-09T02:50:47.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE0zRTRNaWgzdG1jcEZSMzU5cmRRMzBpa190QU1fc3hpSzNYLXpEczNzTW9zRFF2bFJQR0pJLWFJc0FWdnJPMFJ3aWZBQ2VRcktB?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "cdeea2507b8cc5d0",
    "title": "「忍物語」や「ノーゲーム・ノーライフ」などグッスマ新作フィギュアのデコマスが展示【#グッドスマイルフェス】（HOBBY Watch）",
    "date": "2026-06-06T07:00:00.000Z",
@@ -712,18 +736,6 @@
    "source": "Comic Book Resources",
    "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1Ma2FYZ1VzQ0pQWWYzdmJxaVVlNjZsTDZlWjhSd3FTZmlpaloxanNVSzNWM0s5eHcxSWxHVnJrZE5pekpvZWdvMGFfelRFV3AyODlQdFNnU1FrNGFPMTdoTE42QVFvbndFWWViSVJ1dXNqNV9JMWliZlZTeVU?oc=5",
-   "image": null,
-   "price": null,
-   "kind": "news"
-  },
-  {
-   "id": "ce5c2799deba02fb",
-   "title": "Artist Yuu Kamiya of \"No Game No Life\" Fame Declares: \"I'd Rather Quit Than Draw Pubic Hair!\" After Viral Suggestion to Avoid Bans",
-   "date": "2026-03-27T07:00:00.000Z",
-   "summary": "",
-   "source": "玩具人 TOY PEOPLE",
-   "via": "Google News (EN)",
-   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE0zRTRNaWgzdG1jcEZSMzU5cmRRMzBpa190QU1fc3hpSzNYLXpEczNzTW9zRFF2bFJQR0pJLWFJc0FWdnJPMFJ3aWZBQ2VRcktB?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
