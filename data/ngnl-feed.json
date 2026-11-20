@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-11-19T23:06:02.724Z",
+ "generatedAt": "2026-11-20T07:28:46.984Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 56,
-   "added": 42
+   "count": 58,
+   "added": 44
   },
   {
    "id": "gnews-ja",
@@ -20,14 +20,14 @@
    "name": "Google News: merch (EN)",
    "ok": true,
    "count": 25,
-   "added": 16
+   "added": 15
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
-   "count": 100,
-   "added": 68
+   "count": 54,
+   "added": 32
   },
   {
    "id": "ann",
@@ -44,6 +44,30 @@
   }
  ],
  "items": [
+  {
+   "id": "6e4ea552f723bb52",
+   "title": "NO GAME NO LIFE Assistant Rejected by Printer Because Their Art Looked \"Too Similar\" to the Original; Yuu Kamiya Jokes, \"Did I Teach Them Too Well?\"",
+   "date": "2026-11-19T23:27:03.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1fb1VvZ2tabnJRSlZHVzI0aTRQZm1ITnNBTXdRZXoycWp6eTJUSFVhR1RZYzQyTVU1LUZSSy0tRUlxYmI4ckNMLWRUaHlacjl1?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "e9ce1283bb2e28fe",
+   "title": "『ノーゲーム・ノーライフ』榎宮祐さんのアシスタント、「原作と絵柄が似すぎ」で海賊版を疑われ印刷を断られる 教え方がうますぎた…？",
+   "date": "2026-11-19T23:27:03.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE01Nmo4cFZxQVd1TFFtbjhab0psNGlvdHlWWWpNMThDNERydmRzVE4zM2d0ejFnOUxaSGxZbVVCRVJWOVRJVEZaTVdZWnpiQ054?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
   {
    "id": "70306895c31f87c2",
    "title": "Hunter x Hunter Studio’s Best Isekai Anime Officially Loses to GTA 6 After 12 Years",
@@ -182,7 +206,7 @@
    "date": "2026-11-07T08:00:00.000Z",
    "summary": "",
    "source": "Yahoo!ニュース",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBNc2RLekpyZlcxeHE5ZVgtZVBIc0pZdG0zbi02QzdEOGpxZW9qQms2U3hVSW1lcXA5QlpMdlcyQnFnY0hOeDFHV2lod3RON2xZSTJNUlhGejE1Qi1uMWVWV3lpSFRZT3psUmtBVjJfYmpWd1lzTW95NTJoNW5JN3M?oc=5",
    "image": null,
    "price": null,
@@ -506,7 +530,7 @@
    "date": "2026-10-09T07:00:00.000Z",
    "summary": "",
    "source": "PR TIMES",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1SYWxxNzRHUGFBZ0V5TkI4c3l0SVd3U2J5WFdtMUtHUDEtR0pSODlkNWdqUlBzSXBzandES01HekpZWWRvX2pXVjBELXgtRTBuajFqNjUweVZtVDAwZEREV2Q4R3pEVTJIVnc?oc=5",
    "image": null,
    "price": null,
@@ -878,7 +902,7 @@
    "date": "2026-05-29T07:00:00.000Z",
    "summary": "",
    "source": "コラボカフェ",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNc3dvb2w1eFVMWk9pLUJfSGFUaHpFM1FaaHVsSlA0M2VhQTJMT29lVkRpRENaUEkwWHdoTTNyRzlWbmpHcTdDNHhjMmRMSXEwczlQUzQzWHQ4RFlhRkRWRnJJcTJsbUlCS24tT3NXM2lLZGpKdTZFUkpJaS1RU0VHSElKa2lVeGNmY21R?oc=5",
    "image": null,
    "price": null,
@@ -926,7 +950,7 @@
    "date": "2026-05-08T07:00:00.000Z",
    "summary": "",
    "source": "電撃ホビーウェブ",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE4taUl1TkhJWFM1U1U3dXJqUC1lUXo5SUxkWi0ycTBnVmJSV1pjNVhaQUNqMFAtYnFMazlHbTZTcWUtanlaRUZUM1NyWmpqUkZD?oc=5",
    "image": null,
    "price": null,
@@ -1010,7 +1034,7 @@
    "date": "2026-04-20T07:00:00.000Z",
    "summary": "",
    "source": "コラボカフェ",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOQmRxdVJvbVloekNMa0tFQXJCQktIcEJ6NlVGZ1RlMDMtRWd2c3VhTWw0VWt5SlJVTEpJSWV5UDR0eEV2NnBGM3ROYk10VzE2UHJ0Y1VYYkNiTUVzUXNINlhuSHJCUzlLd1oxWkxpbHVyT0VLNGgwS1hEcXplV3lFMXc2U252b3doYTJNTHY1LV9xSVFEUUpPQlJBUHJuSUw1?oc=5",
    "image": null,
    "price": null,
@@ -1046,7 +1070,7 @@
    "date": "2026-04-09T07:00:00.000Z",
    "summary": "",
    "source": "PR TIMES",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1vNlp2TzNXcHB3US1xUWFyMVpWcHluS2I0UnJnQW9DbFFLeDBtNUt5MTNXckprUzZYTVhjV3pVejJHUnljcGtMNTcya0lEQzZUTU10V25IZ2lzMXBnNmNkTUxKOGJHTkZRYUE?oc=5",
    "image": null,
    "price": null,
@@ -1142,7 +1166,7 @@
    "date": "2026-03-26T07:00:00.000Z",
    "summary": "",
    "source": "PR TIMES",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1nd2RnajJfZEdfcWdhcW4xcXYzOEctVHh3alVrdzhrTFFBMElwOW5MZlBmVEZFOTdMRzBYRnJWUTFHckk4bUhtMWcxd2RZSHA5N0FpY25JQWt1NWpZTC1WdUx2cVB5Z2NhaGc?oc=5",
    "image": null,
    "price": null,
@@ -1202,7 +1226,7 @@
    "date": "2026-02-26T08:00:00.000Z",
    "summary": "",
    "source": "PR TIMES",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5PeTJfcFp1cmZVbnJZdHpNT3lJNmtDSjZFbVVTRi1xNjZ3aTIxb3FkTmFGRUo4NFUxeDBXSWtDZUZaaENBQmVuUl9EQVFLZ0ZnMi1mTS0xbi1VQnpoM19WbDF4T29kdlJKNUE?oc=5",
    "image": null,
    "price": null,
@@ -1322,7 +1346,7 @@
    "date": "2025-12-31T08:00:00.000Z",
    "summary": "",
    "source": "コラボカフェ",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPaS1sUXZpcDAwUEVXS0lNUVFTQ0N0Y3JlVVVUR0ZqQ0Nyd095YTVQUU5pM1FNanpqNUJDeDNYMnFwdmdaUE9nQUxGM09DLW9TUmtuNS1fOG5BaWRGUkUwTnFkZ2hJSlJGMEt0ZFVodmVXM3kzOEVIZUE3MkpNX2dJRE5udTQzc0RCOEVGWVZrWXRRMl9KeWdlNFhtWdIBowFBVV95cUxOY2x1RTlMZnpUSnZNZ3RKdXMwODZPeV9ZbkVVS20tQm1VNG0yNi1zRS05a1AxU1BzZ2RFS3BOMGJVbE53SVZoSWdRMlo3VWl0djFnemNBeGY3Sm9vVjlqelRkSmptNjRndTNtYldjbzk5QTFDaEphd2VaV0tweVhyX0Q0Z2w0blhZTy1CUjJCdVRBT1BMajE2ZGNXMEF5bGNhYUNB?oc=5",
    "image": null,
    "price": null,
