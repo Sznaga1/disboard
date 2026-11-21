@@ -724,13 +724,18 @@ td.num, th.num { text-align: right; }
 .filters { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 22px; }
 @media (min-width: 760px) { .filters { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 .searchbar .s-fbtn { display: none; }
+.searchbar .s-rand { min-height: 52px; padding-inline: 16px; border-radius: var(--r); }
+.s-rand:disabled { opacity: .6; cursor: progress; }
 @media (max-width: 759px) {
   .searchbar .s-fbtn { display: inline-flex; min-height: 52px; border-radius: var(--r); }
   .filters { display: none; }
   .filters.open { display: grid; animation: rise .18s var(--ease); }
 }
-@media (max-width: 400px) { .s-fbtn span { display: none; } }
-
+@media (max-width: 400px) { .s-fbtn span, .s-rand span { display: none; } .searchbar .s-rand { padding-inline: 14px; } }
+/* linijka nad wynikami: wyniki · perełki · „Pokaż je / Ukryj je” */
+.sub-h + .s-sum { margin-top: -4px; }
+.s-mine { background: none; border: 0; padding: 0; font: inherit; color: var(--text-2); cursor: pointer; text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 3px; }
+@media (hover: hover) { .s-mine:hover { color: var(--shiro); text-decoration-color: currentColor; } }
 /* ---------- premiery ---------- */
 .seasons { margin-bottom: 18px; }
 .day { margin-bottom: 20px; }

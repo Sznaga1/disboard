@@ -75,6 +75,12 @@ Lista „Oglądam” pod ikoną obok paska adresu, bez otwierania strony. Klikni
 
 Na komputerze wystarczy zacząć pisać tytuł na dowolnej stronie: aplikacja sama przeniesie Cię do wyszukiwarki z wpisanymi literami, nawet przy szybkim pisaniu. Jeśli pole wyszukiwania nie jest aktywne (np. po dodaniu anime z wyników), nowe pisanie zaczyna wyszukiwanie od zera. Klawisz „/” otwiera pustą wyszukiwarkę. Lupa dalej działa. Pisanie w innych polach, skróty z Ctrl i Alt+U działają po staremu.
 
+## Szukanie czegoś nowego
+
+- **Bez tytułów z Twojej listy.** Kiedy przeglądasz bez wpisanego tytułu (same filtry albo sortowanie), wyszukiwarka pomija wszystko, co już masz na liście, w każdym statusie. Dzięki temu „Popularność” i „Ocena AniList” pokazują rzeczy, których jeszcze nie znasz. Szara linijka nad wynikami mówi, ile tytułów pominięto, a „Pokaż je / Ukryj je” to przełącza (zapisuje się w ustawieniach). Po wpisaniu tytułu widać zawsze wszystko.
+- **Sortowanie „Ukryte perełki”.** Średnia od 75%, od 2 do 50 tys. widzów w AniList, bez kontynuacji, dodatków, filmów-skrótów serialu i teledysków. Kontynuacje to ok. 4/5 takich wyników w AniList, więc perełki są pobierane porcjami po 50 i dociągane do pełnego rzędu kart. Działa razem z filtrami (np. gatunek albo rok).
+- **„Losuj” (kostka obok pola wyszukiwania).** Losuje tytuł spoza Twojej listy z tego, co pasuje do filtrów i sortowania: z pierwszych ok. 240 wyników, z perełek albo, gdy wpisany jest tytuł, z najlepszych trafień. Nie trafia dwa razy z rzędu w to samo.
+
 ## Szybkie dodawanie z kart
 
 - **Klik w „+”** na okładce dodaje do Planuję, a w trybie uzupełniania do Obejrzanych.

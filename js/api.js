@@ -163,9 +163,13 @@ const F_MEDIA_FULL = `${F_MEDIA_CARD}
   rankings{rank type allTime season year format context}`;
 
 const Q = {
-  search: `query($q:String,$page:Int,$format:[MediaFormat],$status:MediaStatus,$year:Int,$genre:String,$sort:[MediaSort],$adult:Boolean){
-    Page(page:$page,perPage:24){pageInfo{hasNextPage total}
-      media(search:$q,type:ANIME,isAdult:$adult,format_in:$format,status:$status,seasonYear:$year,genre:$genre,sort:$sort){${F_MEDIA_CARD}}}}`,
+  // $notIds: pomijanie tytułów z listy; $scoreMin/$popMin/$popMax i $rel: tryb „Ukryte perełki”
+  search: `query($q:String,$page:Int,$format:[MediaFormat],$status:MediaStatus,$year:Int,$genre:String,$sort:[MediaSort],$adult:Boolean,
+    $notIds:[Int],$scoreMin:Int,$popMin:Int,$popMax:Int,$rel:Boolean=false,$per:Int=24){
+    Page(page:$page,perPage:$per){pageInfo{hasNextPage total}
+      media(search:$q,type:ANIME,isAdult:$adult,format_in:$format,status:$status,seasonYear:$year,genre:$genre,sort:$sort,
+        id_not_in:$notIds,averageScore_greater:$scoreMin,popularity_greater:$popMin,popularity_lesser:$popMax){${F_MEDIA_CARD}
+        relations @include(if:$rel){edges{relationType(version:2)}}}}}`,
   media: `query($id:Int){Media(id:$id,type:ANIME){${F_MEDIA_FULL}}}`,
   byIds: `query($ids:[Int],$page:Int){Page(page:$page,perPage:50){pageInfo{hasNextPage}
       media(id_in:$ids,type:ANIME){${F_MEDIA_CARD}}}}`,
@@ -260,21 +264,38 @@ async function diagnoseApis(onStep) {
   };
 }
 
+// „Ukryte perełki”: wysoka średnia, mało widzów, bez kontynuacji i dodatków.
+// Kontynuacje to ok. 4/5 wyników AniList, więc perełki idą porcjami po 50 (per)
+const GEMS = { scoreMin: 74, popMin: 2000, popMax: 50000, per: 50, formats: ['TV', 'TV_SHORT', 'MOVIE', 'OVA', 'ONA'] };
+
 const Ani = {
   async search(params) {
+    const gems = params.sort === 'GEMS';
     const vars = {
       q: params.q || null,
       page: params.page || 1,
-      format: params.format ? [params.format] : null,
+      format: params.format ? [params.format] : gems ? GEMS.formats : null,
       status: params.status || null,
       year: params.year ? Number(params.year) : null,
       genre: params.genre || null,
-      sort: [params.sort || (params.q ? 'SEARCH_MATCH' : 'POPULARITY_DESC')],
+      sort: [gems ? 'SCORE_DESC' : params.sort || (params.q ? 'SEARCH_MATCH' : 'POPULARITY_DESC')],
       // 18+: przy włączonym przełączniku filtr pomijamy całkiem (zwraca obie grupy)
       adult: S.settings.adult ? null : false,
+      notIds: params.notIds && params.notIds.length ? [...params.notIds].sort((a, b) => a - b) : null,
+      scoreMin: gems ? GEMS.scoreMin : null,
+      popMin: gems ? GEMS.popMin : null,
+      popMax: gems ? GEMS.popMax : null,
+      rel: gems,
+      per: gems ? GEMS.per : 24,
     };
     const r = await gql(Q.search, vars, { ttl: 6 * 3600e3 });
-    return { ...r, items: (r.data.Page.media || []).filter((m) => S.settings.adult || !m.isAdult), pageInfo: r.data.Page.pageInfo };
+    // perełki: kontynuacja, dodatek albo film-skrót serialu nie jest „nowym” anime, gdy nie znasz pierwszej części
+    const isSequel = (m) => ((m.relations && m.relations.edges) || []).some((x) => x.relationType === 'PREQUEL' || x.relationType === 'PARENT'
+      || (m.format === 'MOVIE' && x.relationType === 'ALTERNATIVE'))
+      || (m.episodes === 1 && m.duration && m.duration < 15); // teledysk albo krótki klip, nie seria
+    const items = (r.data.Page.media || []).filter((m) => (S.settings.adult || !m.isAdult) && !(gems && isSequel(m)));
+    items.forEach((m) => { delete m.relations; });
+    return { ...r, items, pageInfo: r.data.Page.pageInfo };
   },
   async media(id, opts = {}) {
     const r = await gql(Q.media, { id: Number(id) }, { ttl: 6 * 3600e3, key: 'media:' + id, ...opts });

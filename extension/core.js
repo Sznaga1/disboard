@@ -593,6 +593,7 @@ function defaultState() {
       hideSpoilers: true,
       backfill: false,  // tryb uzupełniania listy (Alt+U)
       adult: true,      // pozycje 18+ w wyszukiwarce i na liście
+      searchHideMine: true, // wyszukiwarka bez wpisanego tytułu pomija anime z listy
       translate: true,  // tłumaczenie japońskich wiadomości NGNL na angielski
       statsTab: 'summary', // zakładka statystyk: podsumowanie albo „dla nerda”
       skipFiller: false,   // plusik przeskakuje fillery i recapy (Alt+P)
