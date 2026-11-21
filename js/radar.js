@@ -68,7 +68,7 @@ const Radar = (() => {
         if (!announce || r.hidden[c.id] || (c.extra && !S.settings.radarExtras) || (m.isAdult && !S.settings.adult)) continue;
         const name = titleOf(m);
         const fromName = S.entries[c.from[0]] ? titleOf(S.entries[c.from[0]].media) : '';
-        const link = `#/anime/${c.id}`;
+        const link = `${animeHref(c.id)}`;
         if (!old) {
           Lib.notify({
             kind: 'sequel', key: `rd:new:${c.id}`, link,
@@ -171,7 +171,7 @@ const Radar = (() => {
     const body = list.length ? groups.filter((g) => g[2].length).map(([k, l, arr]) => UI.section(`${l} <span class="count">${arr.length}</span>`, `<div class="grid-cards rd-grid">${arr.map((x) => card(x, ref)).join('')}</div>`, { cls: `rd-sec rd-${k}` })).join('')
       : UI.empty('Brak kontynuacji do pokazania', 'Wszystkie znane kontynuacje Twoich anime są już na liście albo schowane. Radar sprawdza raz dziennie.');
     const hidden = hid.length ? `<details class="rd-hidden"><summary>Schowane <span class="count">${hid.length}</span></summary>
-        <ul>${hid.map((x) => `<li><a href="#/anime/${x.id}">${esc(titleOf(x.m))}</a><button class="btn ghost sm" type="button" data-runhide="${x.id}">Przywróć</button></li>`).join('')}</ul></details>` : '';
+        <ul>${hid.map((x) => `<li><a href="${animeHref(x.id)}">${esc(titleOf(x.m))}</a><button class="btn ghost sm" type="button" data-runhide="${x.id}">Przywróć</button></li>`).join('')}</ul></details>` : '';
     return head + body + hidden;
   }
 

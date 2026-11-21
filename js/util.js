@@ -15,6 +15,30 @@ function esc(s) {
   ));
 }
 
+/* Adres do href: tylko http(s) albo link bez schematu (#/…, względny). Inne
+   schematy (javascript:, data:, vbscript:…) zamieniamy na „#”, bo linki
+   przychodzą też z RSS i AniList. Przeglądarka ignoruje w schemacie tabulatory
+   i entery („java\nscript:”), więc sprawdzamy adres bez nich. */
+function safeUrl(u) {
+  const s = String(u ?? '').trim();
+  const probe = s.replace(/[\u0000- \u007f]/g, '');
+  const m = /^([a-z][a-z0-9+.-]*):/i.exec(probe);
+  return !m || /^https?$/i.test(m[1]) ? s : '#';
+}
+const escUrl = (u) => esc(safeUrl(u));
+
+/* Krótkie adresy stron anime. Numer w linku to zwykle numer AniList, z dwoma
+   wyjątkami: #/anime/1 = No Game No Life (AniList 19815), a Cowboy Bebop
+   (AniList 1, którego numer zajęło NGNL) mieszka pod #/anime/2 (w AniList
+   wolny). Dotyczy TYLKO adresów: w danych, liście i chmurze zostają prawdziwe
+   numery AniList. Stary adres #/anime/19815 dalej działa (router poprawia go na
+   #/anime/1). Kopia tej mapy: extension/popup.js. */
+const ANIME_URL_TO_ID = { 1: 19815, 2: 1 };  // numer w adresie → numer AniList
+const ANIME_ID_TO_URL = { 19815: 1, 1: 2 };  // numer AniList → numer w adresie
+const animeUrlNum = (id) => ANIME_ID_TO_URL[id] ?? Number(id);
+const animeIdFromUrl = (n) => ANIME_URL_TO_ID[n] ?? Number(n);
+const animeHref = (id) => `#/anime/${animeUrlNum(id)}`;
+
 function uid() {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
 }

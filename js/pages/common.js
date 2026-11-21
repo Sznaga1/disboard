@@ -122,9 +122,9 @@ function malCard(a) {
   const year = a.year || (a.aired && a.aired.prop && a.aired.prop.from && a.aired.prop.from.year);
   const meta = [year, a.type, a.episodes ? nUnit(a.episodes, 'episode') : null, JIKAN_STATUS_PL[a.status] || a.status].filter(Boolean).join(' · ');
   return `<article class="acard">
-    <a class="acard-cover" href="${esc(a.url)}" target="_blank" rel="noopener" aria-label="${esc(titleOf(pm))} w MyAnimeList">${UI.cover(pm)}${a.type ? `<span class="acard-format">${esc(a.type)}</span>` : ''}</a>
+    <a class="acard-cover" href="${escUrl(a.url)}" target="_blank" rel="noopener" aria-label="${esc(titleOf(pm))} w MyAnimeList">${UI.cover(pm)}${a.type ? `<span class="acard-format">${esc(a.type)}</span>` : ''}</a>
     <button class="acard-add" type="button" data-add-mal="${Number(a.mal_id)}" title="Dodaj do listy: Planuję" aria-label="Dodaj ${esc(titleOf(pm))} do listy">${ICON.plus}</button>
-    <div class="acard-body"><a class="acard-title" href="${esc(a.url)}" target="_blank" rel="noopener">${esc(titleOf(pm))}</a>
+    <div class="acard-body"><a class="acard-title" href="${escUrl(a.url)}" target="_blank" rel="noopener">${esc(titleOf(pm))}</a>
       <div class="acard-meta">${esc(meta)}</div><div class="acard-extra mal">MyAnimeList ${ICON.ext}</div></div>
   </article>`;
 }
@@ -152,16 +152,16 @@ function sequelHtml(s) {
     const exact = fuzzyPrecision(m.startDate) === 'day';
     const at = m.nextAiringEpisode ? m.nextAiringEpisode.airingAt : (exact ? Math.floor(fuzzyTs(m.startDate) / 1000) : null);
     return `<div class="seq seq-yes"><span class="seq-label">Zapowiedziano!</span>
-      <a href="#/anime/${m.id}"><b>${name}</b></a>
+      <a href="${animeHref(m.id)}"><b>${name}</b></a>
       <small>${d ? `Premiera: ${esc(d)}` : 'Data premiery: jeszcze nieustalona'}${at ? ` · za ${UI.countdownTo(at, { short: true })}` : ''}</small></div>`;
   }
   if (m.status === 'RELEASING') {
     const n = m.nextAiringEpisode;
     return `<div class="seq seq-yes"><span class="seq-label">Emitowane teraz</span>
-      <a href="#/anime/${m.id}"><b>${name}</b></a>
+      <a href="${animeHref(m.id)}"><b>${name}</b></a>
       <small>${n ? `Odcinek ${n.episode} za ${UI.countdownTo(n.airingAt, { short: true })}` : 'Trwa emisja'}</small></div>`;
   }
-  return `<div class="seq seq-yes"><span class="seq-label">Kontynuacja</span><a href="#/anime/${m.id}"><b>${name}</b></a><small>${esc(MSTATUS_PL[m.status] || '')}</small></div>`;
+  return `<div class="seq seq-yes"><span class="seq-label">Kontynuacja</span><a href="${animeHref(m.id)}"><b>${name}</b></a><small>${esc(MSTATUS_PL[m.status] || '')}</small></div>`;
 }
 
 function ngnlMineHtml(main) {
@@ -185,7 +185,7 @@ function ngnlMineHtml(main) {
     <div class="mine-actions">
       ${canInc ? `<button class="btn sm" type="button" data-inc="${e.id}">${ICON.plus}Kolejny odcinek</button>` : ''}
       ${e.status === 'completed' ? `<button class="btn sm" type="button" data-rewatch="${e.id}">${ICON.repeat}Rozpocznij rewatch</button>` : ''}
-      <a class="btn ghost sm" href="#/anime/${e.id}">Szczegóły</a>
+      <a class="btn ghost sm" href="${animeHref(e.id)}">Szczegóły</a>
     </div></div>`;
 }
 

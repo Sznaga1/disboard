@@ -103,13 +103,13 @@ const NgnlTimeline = (() => {
     if (seq && seq.media) {
       const m = seq.media;
       const st = fuzzyTs(m.startDate);
-      items.push({ d: st ? null : '', ts: st || Infinity, fd: fuzzyDate(m.startDate), k: 'anime', t: `${titleOf(m)}${m.status === 'NOT_YET_RELEASED' ? ' · zapowiedź' : ''}`, x: m.status === 'NOT_YET_RELEASED' ? `data: ${fuzzyDate(m.startDate) || 'jeszcze nieustalona'} · z AniList` : 'z AniList', href: `#/anime/${m.id}`, live: true });
+      items.push({ d: st ? null : '', ts: st || Infinity, fd: fuzzyDate(m.startDate), k: 'anime', t: `${titleOf(m)}${m.status === 'NOT_YET_RELEASED' ? ' · zapowiedź' : ''}`, x: m.status === 'NOT_YET_RELEASED' ? `data: ${fuzzyDate(m.startDate) || 'jeszcze nieustalona'} · z AniList` : 'z AniList', href: `${animeHref(m.id)}`, live: true });
     }
     for (const e of Object.values(S.entries)) {
       if (!/no game no life/i.test(`${e.media.title.romaji || ''} ${e.media.title.english || ''}`)) continue;
       e.sessions.forEach((s) => {
         if (!s.finishedAt) return;
-        items.push({ ts: s.finishedAt, d: null, k: 'you', t: `${s.n ? `Twój rewatch #${s.n}` : 'Obejrzałeś'}: ${titleOf(e.media)}`, href: `#/anime/${e.id}` });
+        items.push({ ts: s.finishedAt, d: null, k: 'you', t: `${s.n ? `Twój rewatch #${s.n}` : 'Obejrzałeś'}: ${titleOf(e.media)}`, href: `${animeHref(e.id)}` });
       });
     }
     return items.sort((a, b) => a.ts - b.ts);
@@ -151,12 +151,12 @@ const NgnlTimeline = (() => {
         const g = NGNL_TIMELINE.filter((z) => z.g === x.g);
         rows += `<li class="tl-it" style="--k:${kc}"><time class="num">${esc(MON(tsOf(g[0].d)))}</time><i class="tl-dot" aria-hidden="true"></i>
           <div class="tl-b"><span class="tl-k">${kl}</span><b>${GROUPS[x.g]}</b>
-          <span class="tl-x">${esc(MON(tsOf(g[0].d)))} – ${esc(fmtDate(tsOf(g[g.length - 1].d)))} · ${x.g === 'tv' ? 'co tydzień, w środy' : 'co miesiąc, z kolejnymi tomami Blu-ray/DVD'} <a class="tl-src" href="${esc(g[0].src)}" target="_blank" rel="noopener">${esc(host(g[0].src))}${ICON.ext}</a></span>
+          <span class="tl-x">${esc(MON(tsOf(g[0].d)))} – ${esc(fmtDate(tsOf(g[g.length - 1].d)))} · ${x.g === 'tv' ? 'co tydzień, w środy' : 'co miesiąc, z kolejnymi tomami Blu-ray/DVD'} <a class="tl-src" href="${escUrl(g[0].src)}" target="_blank" rel="noopener">${esc(host(g[0].src))}${ICON.ext}</a></span>
           <button class="btn ghost sm tl-more" type="button" data-tl-open="${x.g}">Pokaż ${g.length} ${x.g === 'tv' ? 'odcinków' : 'dodatków'} osobno</button></div></li>`;
         continue;
       }
       const date = x.d && x.d.length === 4 ? `${x.d}` : Number.isFinite(x.ts) ? MON(x.ts) : '?';
-      const title = x.href ? `<a href="${esc(x.href)}">${esc(x.t)}</a>` : esc(x.t);
+      const title = x.href ? `<a href="${escUrl(x.href)}">${esc(x.t)}</a>` : esc(x.t);
       if (x.g) {
         // odcinki i mini OVA: jedna zwarta linia, źródło raz w nagłówku grupy
         rows += `<li class="tl-it small" style="--k:${kc}"><time class="num">${esc(date)}</time><i class="tl-dot" aria-hidden="true"></i>
@@ -166,7 +166,7 @@ const NgnlTimeline = (() => {
       rows += `<li class="tl-it${x.g ? ' small' : ''}${x.k === 'you' ? ' you' : ''}${x.live ? ' live' : ''}" style="--k:${kc}">
         <time class="num"${x.c === 'u' ? ' title="Dokładna data nieznana"' : ''}>${esc(date)}${x.c === 'u' ? ' ≈' : ''}</time><i class="tl-dot" aria-hidden="true"></i>
         <div class="tl-b"><span class="tl-k">${kl}</span><b>${title}</b>${x.ja ? `<span class="tl-ja" lang="ja">${esc(x.ja)}</span>` : ''}
-          ${x.x || x.en || x.src ? `<span class="tl-x">${[x.x ? esc(x.x) : '', x.en ? `po angielsku: ${esc(fmtDate(tsOf(x.en)))}` : '', x.c === 's' ? 'potwierdzone w jednym źródle' : ''].filter(Boolean).join(' · ')}${x.src ? ` <a class="tl-src" href="${esc(x.src)}" target="_blank" rel="noopener" title="Źródło: ${esc(host(x.src))}">${esc(host(x.src))}${ICON.ext}</a>` : ''}</span>` : ''}
+          ${x.x || x.en || x.src ? `<span class="tl-x">${[x.x ? esc(x.x) : '', x.en ? `po angielsku: ${esc(fmtDate(tsOf(x.en)))}` : '', x.c === 's' ? 'potwierdzone w jednym źródle' : ''].filter(Boolean).join(' · ')}${x.src ? ` <a class="tl-src" href="${escUrl(x.src)}" target="_blank" rel="noopener" title="Źródło: ${esc(host(x.src))}">${esc(host(x.src))}${ICON.ext}</a>` : ''}</span>` : ''}
         </div></li>`;
     }
 

@@ -176,7 +176,8 @@ Pages.settings = (ctx) => {
         <div id="fb-host"></div>
         <h3 class="sub-h">Automatyczne kopie w przeglądarce</h3>
         <p class="card-sub">Raz na godzinę, do 7 dni wstecz. Chronią przed pomyłką, nie przed wyczyszczeniem danych przeglądarki.</p>
-        ${backups.length ? `<ul class="backups">${backups.map((b) => `<li><span>${esc(fmtDateTime(b.t))}${b.label ? ` · ${esc(b.label)}` : ""}</span><span>${nUnit(b.count, 'title')}</span><button class="btn ghost sm" type="button" data-restore="${esc(b.key)}">Przywróć</button></li>`).join('')}</ul>` : '<p class="muted">Jeszcze brak kopii.</p>'}
+        ${backups.some((b) => b.ram) ? '<p class="card-sub"><b>Baza kopii w przeglądarce nie odpowiada.</b> Kopie oznaczone „tylko w tej karcie” znikną po jej zamknięciu. Zrób eksport JSON albo kopię do folderu. Aplikacja co chwilę próbuje bazy ponownie.</p>' : ''}
+        ${backups.length ? `<ul class="backups">${backups.map((b) => `<li><span>${esc(fmtDateTime(b.t))}${b.label ? ` · ${esc(b.label)}` : ""}${b.ram ? ' · <b>tylko w tej karcie</b>' : ''}</span><span>${nUnit(b.count, 'title')}</span><button class="btn ghost sm" type="button" data-restore="${esc(b.key)}">Przywróć</button></li>`).join('')}</ul>` : '<p class="muted">Jeszcze brak kopii.</p>'}
         <div id="restore-confirm" hidden class="confirm">Przywrócić kopię z <b id="rc-date"></b>? Obecna lista zostanie zastąpiona. <button class="btn danger sm" type="button" id="rc-yes">Przywróć</button> <button class="btn ghost sm" type="button" id="rc-no">Anuluj</button></div>
         <p class="card-sub">Trwała pamięć przeglądarki: <b>${persisted ? 'włączona' : 'niepotwierdzona'}</b>${persisted ? '' : ' <button class="btn ghost sm" type="button" id="persist">Poproś o trwałą pamięć</button>'}</p>
       </section>
@@ -289,7 +290,7 @@ Pages.settings = (ctx) => {
     const err = s.error ? `<p class="card-sub cl-err">${esc(s.error)}</p>` : '';
     if (s.phase === 'unsupported') {
       host.innerHTML = `<p class="card-sub">Logowanie i ta sama lista na każdym komputerze i telefonie działają w wersji pod adresem
-          <a href="${esc(Cloud.SITE)}" target="_blank" rel="noopener">${esc(Cloud.SITE.replace('https://', ''))}</a>.
+          <a href="${escUrl(Cloud.SITE)}" target="_blank" rel="noopener">${esc(Cloud.SITE.replace('https://', ''))}</a>.
           Ta wersja jest otwarta z pliku na dysku, więc lista zapisuje się tylko w tej przeglądarce.</p>
         <ol class="card-sub fb-steps">
           <li>Kliknij „Pobierz listę do przeniesienia”: zapisze się plik JSON z całą listą.</li>
@@ -298,7 +299,7 @@ Pages.settings = (ctx) => {
         </ol>
         <div class="btn-row">
           <button class="btn" type="button" id="cl-export">${ICON.download}Pobierz listę do przeniesienia</button>
-          <a class="btn ghost" href="${esc(Cloud.SITE)}" target="_blank" rel="noopener">${ICON.ext}Otwórz wersję z logowaniem</a>
+          <a class="btn ghost" href="${escUrl(Cloud.SITE)}" target="_blank" rel="noopener">${ICON.ext}Otwórz wersję z logowaniem</a>
         </div>`;
       $('#cl-export', host).addEventListener('click', () => { IO.exportJSON(); toast('Zapisano plik z listą. Zaimportuj go w wersji z logowaniem.', { kind: 'ok', ms: 7000 }); });
       return;
@@ -524,7 +525,8 @@ Pages.settings = (ctx) => {
       const state = st.permission !== 'granted'
         ? '<b>czeka na Twoją zgodę</b> (po restarcie przeglądarki może zapytać ponownie)'
         : st.lastAt ? `ostatnia kopia: <b>${esc(fmtDateTime(st.lastAt))}</b> (${esc(st.lastFile)})` : 'jeszcze bez kopii';
-      host.innerHTML = `<p class="card-sub">Folder: <b>${esc(where)}</b> · ${state}. Trzymam ${st.keep} ostatnich dni, starsze pliki usuwam sama. Przywracasz je przez Import → Kopia Disboard (JSON).${st.lastError ? `<br>Ostatni błąd: ${esc(st.lastError)}` : ''}</p>
+      const side = st.sideFile ? `<br><b>Dziś z listy zniknęło sporo tytułów.</b> Plik ${esc(st.lastFile)} trzyma wcześniejszą wersję (${nUnit(st.lastCount, 'title')}), a najnowsza leży obok w ${esc(st.sideFile)}.` : '';
+      host.innerHTML = `<p class="card-sub">Folder: <b>${esc(where)}</b> · ${state}. Trzymam ${st.keep} ostatnich dni, starsze pliki usuwam sama. Przywracasz je przez Import → Kopia Disboard (JSON).${side}${st.lastError ? `<br>Ostatni błąd: ${esc(st.lastError)}` : ''}</p>
         <div class="btn-row">
           <button class="btn" type="button" id="fb-now">${ICON.download}${st.permission !== 'granted' ? 'Zezwól i zapisz kopię' : 'Zrób kopię teraz'}</button>
           <button class="btn ghost" type="button" id="fb-choose">Zmień folder…</button>

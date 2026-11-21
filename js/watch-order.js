@@ -124,9 +124,9 @@ const WatchOrder = (() => {
     const e = Lib.get(m.id);
     return `<div class="wo-row${here ? ' here' : ''}${seenIt(e) ? ' seen' : ''}${small ? ' small' : ''}">
       ${n != null ? `<span class="wo-n num" aria-hidden="true">${n}</span>` : '<span class="wo-n sub" aria-hidden="true"></span>'}
-      <a class="wo-cover" href="#/anime/${m.id}" tabindex="-1" aria-hidden="true">${UI.cover(m, 'xs')}</a>
+      <a class="wo-cover" href="${animeHref(m.id)}" tabindex="-1" aria-hidden="true">${UI.cover(m, 'xs')}</a>
       <div class="wo-main">
-        ${here ? `<span class="wo-t">${esc(titleOf(m))}</span>` : `<a class="wo-t" href="#/anime/${m.id}">${esc(titleOf(m))}</a>`}
+        ${here ? `<span class="wo-t">${esc(titleOf(m))}</span>` : `<a class="wo-t" href="${animeHref(m.id)}">${esc(titleOf(m))}</a>`}
         <small>${here ? '<b class="wo-here">tu jesteś</b> · ' : ''}${meta(m, note)}</small>
       </div>
       <div class="wo-s">${statusBtn(m)}</div>
@@ -167,7 +167,7 @@ const WatchOrder = (() => {
       </div>
       <ol class="wo-list">${list}</ol>
       ${d.alts.length ? `<h3 class="sub-h">Inne wersje i spin-offy</h3><div class="wo-alts">${d.alts.map((a) => `<div class="wo-alt"><span class="lbl">${esc(RELATION_PL[a.rel] || a.rel)}</span>${row(a.n, { root: d.root, small: true })}</div>`).join('')}</div>` : ''}
-      ${d.sources.length ? `<h3 class="sub-h">Manga i light novel</h3><div class="chips wo-src">${d.sources.map((x) => `<a class="chip link" href="${esc(x.n.siteUrl || `https://anilist.co/manga/${x.n.id}`)}" target="_blank" rel="noopener">${esc(titleOf(x.n))} <small>${esc([RELATION_PL[x.rel] || x.rel, FORMAT_PL[x.n.format] || x.n.format, x.n.startDate && x.n.startDate.year].filter(Boolean).join(' · '))}</small>${ICON.ext}</a>`).join('')}</div>` : ''}
+      ${d.sources.length ? `<h3 class="sub-h">Manga i light novel</h3><div class="chips wo-src">${d.sources.map((x) => `<a class="chip link" href="${escUrl(x.n.siteUrl || `https://anilist.co/manga/${x.n.id}`)}" target="_blank" rel="noopener">${esc(titleOf(x.n))} <small>${esc([RELATION_PL[x.rel] || x.rel, FORMAT_PL[x.n.format] || x.n.format, x.n.startDate && x.n.startDate.year].filter(Boolean).join(' · '))}</small>${ICON.ext}</a>`).join('')}</div>` : ''}
       <p class="src-note">Kolejność premier z relacji AniList. Sezony i filmy są ponumerowane, OVA i specjale wiszą pod sezonem, po którym wyszły. Chronologia fabuły może się różnić, a gdy się rozjeżdża, piszę o tym przy pozycji.${d.truncated ? ' Seria jest bardzo duża, więc pokazuję jej pierwsze ' + d.count + ' pozycji.' : ''}</p>`,
     { sub: `${nUnit(s.items.length, 'item')} w serii · według dat premier` });
   }

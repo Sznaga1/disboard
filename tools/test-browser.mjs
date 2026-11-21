@@ -181,6 +181,10 @@ async function main() {
       const filled = (await A.ev(`(document.getElementById('view') || document.body).innerText.trim().length`)) > 20;
       check(`ekran ${r}`, filled && !errs.length, errs.slice(0, 2).join(' | '));
     }
+    // krótkie adresy anime: #/anime/1 = NGNL (19815), #/anime/2 = Cowboy Bebop (1)
+    await A.ev(`(location.hash = '#/anime/19815', new Promise((res) => setTimeout(res, 700)))`);
+    check('stary adres NGNL #/anime/19815 poprawiony na #/anime/1', (await A.ev('location.hash')) === '#/anime/1', await A.ev('location.hash'));
+    check('karta na liście prowadzi pod krótki adres', await A.ev(`animeHref(19815) === '#/anime/1' && animeHref(1) === '#/anime/2' && animeHref(100001) === '#/anime/100001'`));
     console.log('Lulu: ukrywanie emotek');
     await A.ev(`(location.hash = '#/lulu/emotki', new Promise((r) => setTimeout(r, 900)))`);
     const emoBefore = await A.ev(`document.querySelectorAll('#lu-grid .lu-emo').length`);
@@ -273,6 +277,13 @@ async function main() {
     const after = await A.ev(files(['disboard', 'Disboard - kopie listy']));
     check('zostaje 30 ostatnich kopii, najnowsza też', after.filter((n) => /^disboard-\d{4}-\d\d-\d\d\.json$/.test(n)).length === 30 && after.includes(today), JSON.stringify(after.slice(0, 3)));
     check('obce pliki w folderze kopii nietknięte', after.includes('moje-notatki.txt') && after.includes('CO-TO-JEST.txt'));
+    // lista nagle mniejsza (600 → 500): dzisiejszy plik zostaje, nowa kopia idzie obok
+    const sh = await A.ev(`(async () => { const keep = S.entries; S.entries = Object.fromEntries(Object.entries(keep).slice(0, 500)); try { return await FolderBackup.backupNow({ auto: true }); } finally { S.entries = keep; } })()`);
+    const sideName = today.replace('.json', '-mniejsza.json');
+    check('skurczona lista: kopia obok, z dopiskiem „-mniejsza”', sh && sh.shrunk === true && sh.file === sideName, JSON.stringify(sh));
+    check('…a dzisiejszy plik dalej ma 600 pozycji', (await A.ev(`${readBackup}.then((j) => Object.keys(j.state.entries).length)`)) === 600);
+    check('…i oba pliki są w folderze', (await A.ev(files(['disboard', 'Disboard - kopie listy']))).includes(sideName));
+    check('pełna lista znowu zapisuje się do zwykłego pliku', (await A.ev(`FolderBackup.backupNow({ auto: true })`)).file === today);
     await A.reload(); await A.ready();
     const st = await A.ev(`FolderBackup.status()`);
     check('ustawienie przetrwało przeładowanie', st.on && st.rootName === 'disboard' && st.lastFile === today, JSON.stringify(st));

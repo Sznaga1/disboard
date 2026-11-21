@@ -245,3 +245,63 @@ test('ocena szczegółowa: „brak” w ocenie ogólnej wraca do średniej kateg
   Lib.setRating(7, 'fun', 10);
   assert.equal(Lib.get(7).score, Math.round(Lib.ratingMean(Lib.get(7)) * 10) / 10);
 });
+
+/* ---------- linki i kopie zapasowe ---------- */
+test('linki: przechodzą tylko http(s) i linki wewnętrzne', async () => {
+  const { fn } = await loadApp();
+  const safeUrl = fn('safeUrl');
+  for (const ok of ['https://anilist.co/anime/1', 'HTTP://example.com', '#/anime/5', 'data/lulu.json', './x', '']) assert.equal(safeUrl(ok), ok.trim());
+  for (const bad of ['javascript:alert(1)', ' JavaScript:alert(1)', 'java\nscript:alert(1)', 'java\tscript:x', 'data:text/html,<b>x', 'vbscript:x']) assert.equal(safeUrl(bad), '#', bad);
+  assert.equal(fn('escUrl')('https://a.pl/?a=1&b="2"'), 'https://a.pl/?a=1&amp;b=&quot;2&quot;');
+});
+
+test('kopie: „wyraźnie mniej tytułów” to co najmniej 5 i 5% listy', async () => {
+  const { fn } = await loadApp();
+  const shrunk = fn('backupShrunk');
+  assert.equal(shrunk(null, 0), false);   // brak wcześniejszej kopii
+  assert.equal(shrunk(100, 98), false);   // usunięte 2 tytuły: zwykłe porządki
+  assert.equal(shrunk(100, 95), true);
+  assert.equal(shrunk(600, 580), false);  // 20 z 600 to mniej niż 5%
+  assert.equal(shrunk(600, 570), true);
+  assert.equal(shrunk(3, 0), true);       // mała lista wyczyszczona do zera
+  assert.equal(shrunk(3, 2), false);
+  assert.equal(shrunk(10, 12), false);    // lista urosła
+});
+
+test('kopie w przeglądarce: skurczona lista nie nadpisuje dzisiejszej kopii', async () => {
+  const { Lib, fn, run, toasts } = await loadApp();
+  for (let i = 1; i <= 10; i++) Lib.add(media(i), 'planning');
+  await fn('maybeBackup')(true);
+  const today = run('dayKey(Date.now())');
+  for (let i = 1; i <= 8; i++) Lib.remove(i);
+  await fn('maybeBackup')(true);
+  const list = await fn('listBackups')();
+  const main = list.find((b) => b.key === today);
+  const side = list.find((b) => b.key === today + '-mniejsza');
+  assert.equal(main.count, 10, 'dzisiejsza kopia z pełną listą nietknięta');
+  assert.equal(side.count, 2);
+  assert.match(side.label, /10 → 2/);
+  assert.equal(toasts.filter((t) => /wyraźnie mniej tytułów/.test(t.msg)).length, 1);
+  // lista wraca do pełnej wielkości: zwykła kopia dnia znowu się aktualizuje
+  for (let i = 1; i <= 8; i++) Lib.add(media(i), 'planning');
+  Lib.add(media(11), 'planning');
+  await fn('maybeBackup')(true);
+  assert.equal((await fn('IDB').get('backups', today)).count, 11);
+  // w testach nie ma IndexedDB: kopie są tylko w pamięci karty i lista to pokazuje
+  assert.ok((await fn('listBackups')()).every((b) => b.ram));
+});
+
+test('krótkie adresy anime: 1 = No Game No Life, 2 = Cowboy Bebop, reszta bez zmian', async () => {
+  const { fn } = await loadApp();
+  const href = fn('animeHref'), fromUrl = fn('animeIdFromUrl');
+  assert.equal(href(19815), '#/anime/1');
+  assert.equal(href('19815'), '#/anime/1');
+  assert.equal(href(1), '#/anime/2');
+  assert.equal(href(21), '#/anime/21');
+  assert.equal(fromUrl('1'), 19815);
+  assert.equal(fromUrl('2'), 1);
+  assert.equal(fromUrl('19815'), 19815); // stary adres dalej prowadzi do NGNL
+  assert.equal(fromUrl('21'), 21);
+  // w obie strony bez zgubienia żadnego anime
+  for (const id of [1, 5, 21, 19815, 100001]) assert.equal(fromUrl(String(href(id).split('/').pop())), id);
+});

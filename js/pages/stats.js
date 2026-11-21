@@ -50,7 +50,7 @@ Pages.stats = (ctx) => {
         </dl>
       </section>
       ${st.missingDur.length ? `<div class="warnbox"><b>${st.missingDur.length} ${plural(st.missingDur.length, 'anime nie ma', 'anime nie mają', 'anime nie ma')} długości odcinka w AniList</b>, więc ich odcinki nie wliczają się do czasu:
-        ${st.missingDur.map((e) => `<a href="#/anime/${e.id}">${esc(titleOf(e.media))}</a>`).join(', ')}. Ustaw długość ręcznie na stronie anime.</div>` : ''}
+        ${st.missingDur.map((e) => `<a href="${animeHref(e.id)}">${esc(titleOf(e.media))}</a>`).join(', ')}. Ustaw długość ręcznie na stronie anime.</div>` : ''}
       <div class="stats-grid">
         <section class="card span2">
           <header class="card-head"><h2 class="card-h">Czas oglądania miesięcznie</h2>
@@ -66,14 +66,14 @@ Pages.stats = (ctx) => {
       </div>
       ${UI.section('Czas dla każdego anime', allRows.length ? `<div class="table-wrap"><table class="ptable">
         <thead><tr><th scope="col">Anime</th><th scope="col" class="num">Obejrzenia</th><th scope="col" class="num">Odcinki</th><th scope="col" class="num">Długość odc.</th><th scope="col" class="num">Czas</th></tr></thead>
-        <tbody>${allRows.map((p) => `<tr><th scope="row"><a href="#/anime/${p.e.id}">${esc(titleOf(p.e.media))}</a></th><td class="num">${p.sessions > 1 ? `${p.watches} (${p.sessions - 1} rew.)` : p.watches}</td><td class="num">${NF.format(p.eps)}</td><td class="num">${Lib.epDur(p.e) ? `${Lib.epDur(p.e)} min` : '<span class="warn-txt">brak</span>'}</td><td class="num">${esc(fmtDuration(p.min, { short: true }))}</td></tr>`).join('')}</tbody></table></div>`
+        <tbody>${allRows.map((p) => `<tr><th scope="row"><a href="${animeHref(p.e.id)}">${esc(titleOf(p.e.media))}</a></th><td class="num">${p.sessions > 1 ? `${p.watches} (${p.sessions - 1} rew.)` : p.watches}</td><td class="num">${NF.format(p.eps)}</td><td class="num">${Lib.epDur(p.e) ? `${Lib.epDur(p.e)} min` : '<span class="warn-txt">brak</span>'}</td><td class="num">${esc(fmtDuration(p.min, { short: true }))}</td></tr>`).join('')}</tbody></table></div>`
         : UI.empty('Brak obejrzanych odcinków', 'Statystyki wypełnią się, gdy zaczniesz oznaczać odcinki.'))}
     </div>`;
 
     Charts.columns($('#c-month'), { data: monthData, format: (v) => `${NF1.format(v)} godz.`, axisFormat: (v) => NF1.format(v), unitLabel: 'Czas oglądania (godz.)', color: 'var(--viz-1)', empty: 'Brak obejrzanych odcinków z datą w tym okresie.' });
     Charts.columns($('#c-year'), { data: yearData, format: (v) => `${NF1.format(v)} godz.`, axisFormat: (v) => NF1.format(v), unitLabel: 'Czas (godz.)', color: 'var(--viz-1)', height: 160, empty: 'Brak danych z datą.' });
     Charts.stack($('#c-status'), { data: LIST_STATUSES.map((s) => ({ label: LSTATUS_PL[s], value: st.byStatus[s] || 0, color: statusColors[s] })) });
-    Charts.hbars($('#c-top'), { data: top.map((p) => ({ label: titleOf(p.e.media), value: p.min || p.eps, text: p.min ? `${fmtDuration(p.min, { short: true })}${p.sessions > 1 ? ` · ${p.sessions}×` : ''}` : `${p.eps} odc.`, href: `#/anime/${p.e.id}` })), color: 'var(--viz-2)', header: ['Anime', 'Czas'], empty: 'Jeszcze nic nie obejrzano.' });
+    Charts.hbars($('#c-top'), { data: top.map((p) => ({ label: titleOf(p.e.media), value: p.min || p.eps, text: p.min ? `${fmtDuration(p.min, { short: true })}${p.sessions > 1 ? ` · ${p.sessions}×` : ''}` : `${p.eps} odc.`, href: `${animeHref(p.e.id)}` })), color: 'var(--viz-2)', header: ['Anime', 'Czas'], empty: 'Jeszcze nic nie obejrzano.' });
     Charts.hbars($('#c-genre'), { data: genres.map(([g, v]) => ({ label: g, value: v, text: fmtDuration(v, { short: true }) })), color: 'var(--viz-1)', header: ['Gatunek', 'Czas'], empty: 'Brak danych o gatunkach.' });
     $$('[data-range]', ctx.el).forEach((b) => b.addEventListener('click', () => { range = Number(b.dataset.range); render(); }));
   };
@@ -96,7 +96,7 @@ Pages.history = (ctx) => {
     groups.slice(0, limit).forEach((g) => { const k = dayKey(g.t); if (!byDay.has(k)) byDay.set(k, []); byDay.get(k).push(g); });
     const e = only ? S.entries[only] : null;
     const summary = e ? `<section class="card hist-sum">
-        <div class="hist-sum-head">${UI.cover(e.media, 'sm')}<div><h2><a href="#/anime/${e.id}">${esc(titleOf(e.media))}</a></h2>
+        <div class="hist-sum-head">${UI.cover(e.media, 'sm')}<div><h2><a href="${animeHref(e.id)}">${esc(titleOf(e.media))}</a></h2>
         <p>Obejrzane ${nUnit(Lib.finishedCount(e), 'time')} · ${NF.format(Lib.totalEps(e))} odcinków · ${esc(fmtDuration(Lib.entryMinutes(e)))}</p></div></div>
         <ol class="hist-sessions">${e.sessions.map((s) => `<li><b>${s.n === 0 ? 'Pierwsze obejrzenie' : `Rewatch #${s.n}`}</b><span>${s.progress}/${Lib.epTotal(e) || '?'} odc.</span><span>${s.startedAt ? `od ${esc(fmtDate(s.startedAt))}` : 'początek bez daty'}</span><span>${s.finishedAt ? `do ${esc(fmtDate(s.finishedAt))}` : (s === Lib.cur(e) && e.status === 'watching' ? 'w trakcie' : Lib.sessionDone(e, s) ? 'ukończone, bez daty' : 'bez daty zakończenia')}</span></li>`).join('')}</ol>
       </section>` : '';
@@ -107,7 +107,7 @@ Pages.history = (ctx) => {
         <label class="field"><span class="lbl">Rodzaj</span><select id="h-kind"><option value="all">Wszystko</option><option value="ep"${kind === 'ep' ? ' selected' : ''}>Odcinki</option><option value="session"${kind === 'session' ? ' selected' : ''}>Rozpoczęcia, zakończenia, rewatche</option><option value="other"${kind === 'other' ? ' selected' : ''}>Statusy, oceny, lista</option></select></label>
       </div>
       ${groups.length ? [...byDay.entries()].map(([k, arr]) => `<section class="day"><h3 class="day-h">${esc(DF.weekday.format(new Date(arr[0].t)))} ${new Date(arr[0].t).getFullYear() !== new Date().getFullYear() ? new Date(arr[0].t).getFullYear() : ''}</h3>
-        <ul class="timeline">${arr.map((h) => `<li class="k-${historyKind(h)}"><time class="num">${esc(fmtTime(h.t))}</time>${only ? '' : `<a href="#/anime/${h.m}">${esc(titleForEvent(h))}</a>`}<span>${esc(historyText(h))}</span></li>`).join('')}</ul></section>`).join('')
+        <ul class="timeline">${arr.map((h) => `<li class="k-${historyKind(h)}"><time class="num">${esc(fmtTime(h.t))}</time>${only ? '' : `<a href="${animeHref(h.m)}">${esc(titleForEvent(h))}</a>`}<span>${esc(historyText(h))}</span></li>`).join('')}</ul></section>`).join('')
         + (groups.length > limit ? '<div class="more-row"><button class="btn ghost" type="button" id="h-more">Pokaż starsze</button></div>' : '')
         : UI.empty('Brak zdarzeń', 'Historia zapisuje się sama: dodanie anime, każdy odcinek, zmiany statusu, rozpoczęcia i zakończenia rewatchy.')}
     </div>`;

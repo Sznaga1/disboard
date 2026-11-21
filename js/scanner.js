@@ -253,7 +253,7 @@ Pages.scanner = (ctx) => {
       : `<button class="btn" type="button" data-add="${h.m.id}" data-status="planning" data-quick="1" aria-haspopup="menu" title="Klik: ${esc(LSTATUS_PL[UI.quickStatus('planning')])} · najedź: wybierz status">${ICON.plus}Dodaj do listy</button>`;
     return `${h.full ? add : ''}
       ${canWatch && h.full ? `<button class="btn ghost" type="button" data-hit-watch="${h.m.id}" data-ep="${h.ep}">${ICON.play}Oglądam od odc. ${h.ep}</button>` : ''}
-      <a class="btn ghost" href="#/anime/${h.m.id}">Szczegóły ${ICON.chevron}</a>`;
+      <a class="btn ghost" href="${animeHref(h.m.id)}">Szczegóły ${ICON.chevron}</a>`;
   }
 
   function heroHtml(h) {
@@ -269,7 +269,7 @@ Pages.scanner = (ctx) => {
         <div class="hit-score"><b class="num">${NF1.format(h.sim * 100)}%</b><span class="hit-tier">${tl}</span></div>
         <div class="hit-bar"><i style="width:${Math.max(2, h.sim * 100)}%"></i></div>
         <div class="hit-id">${UI.cover(m, 'sm')}<div>
-          <a class="hit-title" href="#/anime/${m.id}">${esc(titleOf(m))}${m.isAdult ? ' <b class="adult">18+</b>' : ''}</a>
+          <a class="hit-title" href="${animeHref(m.id)}">${esc(titleOf(m))}${m.isAdult ? ' <b class="adult">18+</b>' : ''}</a>
           ${m.title && m.title.native && m.title.native !== titleOf(m) ? `<p class="hit-native" lang="ja">${esc(m.title.native)}</p>` : ''}
           ${meta ? `<p class="hit-meta">${esc(meta)}</p>` : ''}
         </div></div>
@@ -284,7 +284,7 @@ Pages.scanner = (ctx) => {
     const [tc] = tier(h.sim);
     return `<li class="hit-row tier-${tc}">
       ${h.image ? `<img class="hit-thumb" src="${esc(h.image)}" alt="" loading="lazy" onerror="this.remove()">` : '<span class="hit-thumb"></span>'}
-      <div class="hit-row-main"><a href="#/anime/${h.m.id}">${esc(titleOf(h.m))}${h.m.isAdult ? ' <b class="adult">18+</b>' : ''}</a><small>${h.ep != null ? `odc. ${h.ep} · ` : ''}${fmtT(h.at ?? h.from)}</small></div>
+      <div class="hit-row-main"><a href="${animeHref(h.m.id)}">${esc(titleOf(h.m))}${h.m.isAdult ? ' <b class="adult">18+</b>' : ''}</a><small>${h.ep != null ? `odc. ${h.ep} · ` : ''}${fmtT(h.at ?? h.from)}</small></div>
       <b class="num hit-row-sim">${NF1.format(h.sim * 100)}%</b>
       <div class="hit-row-act">${actions(h)}</div>
     </li>`;

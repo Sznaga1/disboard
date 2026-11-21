@@ -35,7 +35,7 @@ Pages.anime = (ctx) => {
       $('#d-root').insertAdjacentHTML('afterbegin', `<p class="stale">${esc(err.message)} Pokazuję dane zapisane przy wpisie.</p>`);
     } else {
       $('#d-root').innerHTML = UI.errorBox(err, 'd-retry');
-      $('#d-retry').addEventListener('click', () => { location.hash = `#/anime/${id}?r=${Date.now()}`; });
+      $('#d-retry').addEventListener('click', () => { location.hash = `${animeHref(id)}?r=${Date.now()}`; });
     }
   });
 };
@@ -92,12 +92,12 @@ function detailHtml(m, { partial = false } = {}) {
         ${m.description ? `<section class="sec"><header class="sec-head"><h2>Opis</h2></header><div class="d-desc">${sanitizeHtml(m.description)}</div><p class="src-note">Opis: AniList (po angielsku)</p></section>` : (partial ? '' : '<section class="sec"><header class="sec-head"><h2>Opis</h2></header><p class="muted">Brak danych.</p></section>')}
         <div id="d-order">${rels.length ? `<section class="sec"><header class="sec-head"><h2>Powiązane</h2></header><div class="rels">${rels.map((r) => {
           const n = r.node;
-          const href = n.type === 'ANIME' ? `#/anime/${n.id}` : (n.siteUrl || `https://anilist.co/manga/${n.id}`);
+          const href = n.type === 'ANIME' ? `${animeHref(n.id)}` : (n.siteUrl || `https://anilist.co/manga/${n.id}`);
           const ext = n.type !== 'ANIME';
-          return `<a class="rel" href="${esc(href)}"${ext ? ' target="_blank" rel="noopener"' : ''}>${UI.cover(n, 'xs')}<span class="rel-t"><small>${esc(RELATION_PL[r.relationType] || r.relationType)} · ${esc(FORMAT_PL[n.format] || n.format || '')}</small><b>${esc(titleOf(n))}</b><small>${esc([n.startDate && n.startDate.year, MSTATUS_PL[n.status]].filter(Boolean).join(' · '))}</small></span>${ext ? ICON.ext : ''}</a>`;
+          return `<a class="rel" href="${escUrl(href)}"${ext ? ' target="_blank" rel="noopener"' : ''}>${UI.cover(n, 'xs')}<span class="rel-t"><small>${esc(RELATION_PL[r.relationType] || r.relationType)} · ${esc(FORMAT_PL[n.format] || n.format || '')}</small><b>${esc(titleOf(n))}</b><small>${esc([n.startDate && n.startDate.year, MSTATUS_PL[n.status]].filter(Boolean).join(' · '))}</small></span>${ext ? ICON.ext : ''}</a>`;
         }).join('')}</div></section>` : ''}</div>
         ${m.trailer && m.trailer.id ? `<section class="sec"><header class="sec-head"><h2>Zwiastun</h2></header>${trailerHtml(m.trailer)}</section>` : ''}
-        ${m.streamingEpisodes && m.streamingEpisodes.length ? `<section class="sec"><header class="sec-head"><h2>Odcinki w serwisach</h2><p class="sec-sub">Linki udostępnione przez AniList</p></header><div class="stream">${m.streamingEpisodes.slice(0, 12).map((s) => `<a href="${esc(s.url)}" target="_blank" rel="noopener"><img src="${esc(s.thumbnail)}" alt="" loading="lazy" onerror="this.remove()"><span>${esc(s.title)}</span><small>${esc(s.site)}</small></a>`).join('')}</div></section>` : ''}
+        ${m.streamingEpisodes && m.streamingEpisodes.length ? `<section class="sec"><header class="sec-head"><h2>Odcinki w serwisach</h2><p class="sec-sub">Linki udostępnione przez AniList</p></header><div class="stream">${m.streamingEpisodes.slice(0, 12).map((s) => `<a href="${escUrl(s.url)}" target="_blank" rel="noopener"><img src="${esc(s.thumbnail)}" alt="" loading="lazy" onerror="this.remove()"><span>${esc(s.title)}</span><small>${esc(s.site)}</small></a>`).join('')}</div></section>` : ''}
         <div id="d-people"></div>
         <div id="d-history"></div>
       </div>
@@ -112,7 +112,7 @@ function detailHtml(m, { partial = false } = {}) {
         ${tags.length ? `<section class="card"><h2 class="card-h">Tagi</h2><div class="chips">${tags.map((x) => `<span class="chip${x.isMediaSpoiler ? ' spoiler' : ''}"${x.isMediaSpoiler && hideSp ? ' hidden' : ''} title="${esc(x.category || '')} · ${x.rank}%">${esc(x.name)}</span>`).join('')}</div>
           ${tags.some((x) => x.isMediaSpoiler) && hideSp ? '<button class="btn ghost sm" type="button" id="d-spoil">Pokaż tagi ze spoilerami</button>' : ''}</section>` : ''}
         ${alt.length ? `<section class="card"><h2 class="card-h">Inne tytuły</h2><ul class="alt">${alt.map((a) => `<li>${esc(a)}</li>`).join('')}</ul></section>` : ''}
-        <section class="card"><h2 class="card-h">Linki</h2><ul class="links">${links.map(([l, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}${ICON.ext}</a></li>`).join('')}</ul></section>
+        <section class="card"><h2 class="card-h">Linki</h2><ul class="links">${links.map(([l, u]) => `<li><a href="${escUrl(u)}" target="_blank" rel="noopener">${esc(l)}${ICON.ext}</a></li>`).join('')}</ul></section>
       </aside>
     </div>`;
 }
@@ -384,7 +384,7 @@ function charCard(edge, media, cmap) {
   return `<article class="pc">
     <div class="pc-char">
       ${c.image && c.image.medium ? `<img src="${esc(c.image.medium)}" alt="" loading="lazy" onerror="this.remove()">` : '<span class="pc-noimg"></span>'}
-      <div class="pc-t"><a href="${esc(c.siteUrl || `https://anilist.co/character/${c.id}`)}" target="_blank" rel="noopener">${esc(c.name.full || c.name.native || '?')}</a><small>${esc(CHAR_ROLE_PL[edge.role] || '')}</small></div>
+      <div class="pc-t"><a href="${escUrl(c.siteUrl || `https://anilist.co/character/${c.id}`)}" target="_blank" rel="noopener">${esc(c.name.full || c.name.native || '?')}</a><small>${esc(CHAR_ROLE_PL[edge.role] || '')}</small></div>
       <button type="button" class="pc-fav${fav ? ' on' : ''}" data-favchar="${c.id}" aria-pressed="${fav}" title="${fav ? 'Usuń z ulubionych postaci' : 'Dodaj do ulubionych postaci'}">${ICON.heart}</button>
     </div>
     ${va ? `<a class="pc-va" href="#/osoba/${va.id}">

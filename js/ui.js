@@ -75,7 +75,7 @@ const UI = (() => {
   // okładka karty z przyciskiem „+” albo odznaką statusu (obie otwierają menu statusów)
   function cardMedia(m, addStatus = 'planning') {
     const e = Lib.get(m.id);
-    return `<a class="acard-cover${e && e.favorite ? ' is-fav' : ''}"${rarAttr(e)} href="#/anime/${m.id}" aria-label="${esc(titleOf(m))}">
+    return `<a class="acard-cover${e && e.favorite ? ' is-fav' : ''}"${rarAttr(e)} href="${animeHref(m.id)}" aria-label="${esc(titleOf(m))}">
         ${cover(m)}
         ${m.format || m.isAdult ? `<span class="acard-format">${esc(FORMAT_PL[m.format] || m.format || '')}${m.isAdult ? `${m.format ? ' · ' : ''}<b class="adult">18+</b>` : ''}</span>` : ''}
       </a>
@@ -89,7 +89,7 @@ const UI = (() => {
     return `<article class="acard" data-id="${m.id}" data-add-status="${addStatus}">
       <div class="acard-media">${cardMedia(m, addStatus)}</div>
       <div class="acard-body">
-        <a class="acard-title" href="#/anime/${m.id}">${esc(titleOf(m))}</a>
+        <a class="acard-title" href="${animeHref(m.id)}">${esc(titleOf(m))}</a>
         <div class="acard-meta">${metaLine(m)}</div>
         ${extra ? `<div class="acard-extra">${extra}</div>` : ''}
       </div>
@@ -133,13 +133,13 @@ const UI = (() => {
     const last = Lib.lastEp(e);
     const behind = aired != null && !m.isAdult && aired > last && e.status === 'watching' ? aired - last : 0;
     return `<article class="ecard st-${e.status}" data-id="${e.id}">
-      <a class="ecard-cover"${rarAttr(e)} href="#/anime/${e.id}" aria-label="${esc(titleOf(m))}">
+      <a class="ecard-cover"${rarAttr(e)} href="${animeHref(e.id)}" aria-label="${esc(titleOf(m))}">
         ${cover(m)}
         ${e.favorite ? `<span class="ecard-fav" title="Ulubione">${ICON.star}</span>` : ''}
         ${behind ? `<span class="ecard-behind" title="Wyemitowane, a nieobejrzane">+${behind}</span>` : ''}
       </a>
       <div class="ecard-body">
-        <a class="ecard-title" href="#/anime/${e.id}">${esc(titleOf(m))}</a>
+        <a class="ecard-title" href="${animeHref(e.id)}">${esc(titleOf(m))}</a>
         <div class="ecard-row">${statusChip(e.status, e)}${e.score != null ? `<span class="score">${ICON.star}${NF1.format(e.score)}</span>` : ''}</div>
         ${sortBadge(opts)}
         <div class="ecard-prog">
@@ -160,9 +160,9 @@ const UI = (() => {
     const total = Lib.epTotal(e);
     const canInc = e.status !== 'completed' && (!total || c.progress < total);
     return `<div class="erow st-${e.status}" data-id="${e.id}" role="row">
-      <a class="erow-cover" href="#/anime/${e.id}" tabindex="-1" aria-hidden="true">${cover(m, 'sm')}</a>
+      <a class="erow-cover" href="${animeHref(e.id)}" tabindex="-1" aria-hidden="true">${cover(m, 'sm')}</a>
       <div class="erow-main" role="cell">
-        <a class="erow-title" href="#/anime/${e.id}">${esc(titleOf(m))}</a>
+        <a class="erow-title" href="${animeHref(e.id)}">${esc(titleOf(m))}</a>
         <div class="erow-meta">${sortBadge(opts)}${metaLine(m)}${e.tags.length ? ' · ' + e.tags.map((t) => `<span class="tag">#${esc(t)}</span>`).join(' ') : ''}</div>
       </div>
       <div class="erow-status" role="cell">${statusChip(e.status, e)}</div>
@@ -209,7 +209,7 @@ const UI = (() => {
     const summary = tr && tr.summary ? tr.summary : it.summary;
     const waiting = S.settings.translate && !tr && Tr.isJa(it.title);
     return `<article class="news${isNew ? ' is-new' : ''}${compact ? ' compact' : ''}">
-      ${!compact && it.image ? `<a class="news-img" href="${esc(it.url)}" target="_blank" rel="noopener" data-news="${esc(it.id)}" tabindex="-1" aria-hidden="true"><img src="${esc(it.image)}" alt="" loading="lazy" onerror="this.parentNode.remove()"></a>` : ''}
+      ${!compact && it.image ? `<a class="news-img" href="${escUrl(it.url)}" target="_blank" rel="noopener" data-news="${esc(it.id)}" tabindex="-1" aria-hidden="true"><img src="${esc(it.image)}" alt="" loading="lazy" onerror="this.parentNode.remove()"></a>` : ''}
       <div class="news-body">
         <div class="news-top">
           ${isNew ? '<span class="badge-new">NOWE</span>' : ''}
@@ -217,11 +217,11 @@ const UI = (() => {
           <time>${it.date ? esc(fmtDateShort(it.date)) : 'data nieznana'}</time>
           ${tr ? `<span class="tr-chip" title="Przetłumaczono z japońskiego: ${esc(Tr.engineLabel(tr.engine))}">JP → EN</span>` : waiting ? '<span class="tr-chip wait">tłumaczę…</span>' : ''}
         </div>
-        <a class="news-title" href="${esc(it.url)}" target="_blank" rel="noopener" data-news="${esc(it.id)}"${tr && tr.title ? ' lang="en"' : ''}>${esc(title)}</a>
+        <a class="news-title" href="${escUrl(it.url)}" target="_blank" rel="noopener" data-news="${esc(it.id)}"${tr && tr.title ? ' lang="en"' : ''}>${esc(title)}</a>
         ${tr && tr.title && !compact ? `<p class="tr-orig" lang="ja">${esc(it.title)}</p>` : ''}
         ${!compact && summary ? `<p class="news-sum">${esc(summary)}</p>` : ''}
         <div class="news-src">${esc(it.source)}${it.author ? ` · ${esc(it.author)}` : ''} ${ICON.ext}
-          ${!compact && (tr || Tr.isJa(it.title)) ? `<a class="tr-page" href="${esc(Tr.pageUrl(it.url))}" target="_blank" rel="noopener">Czytaj artykuł po angielsku ${ICON.ext}</a>` : ''}</div>
+          ${!compact && (tr || Tr.isJa(it.title)) ? `<a class="tr-page" href="${escUrl(Tr.pageUrl(it.url))}" target="_blank" rel="noopener">Czytaj artykuł po angielsku ${ICON.ext}</a>` : ''}</div>
       </div>
     </article>`;
   }

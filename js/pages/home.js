@@ -44,10 +44,10 @@ Pages.home = (ctx) => {
     const backlog = backlogEntries();
     const rows = items.map((x, i) => `
       <li class="nx${i === 0 ? ' nearest' : ''}">
-        <a class="nx-cover" href="#/anime/${x.e.id}" tabindex="-1" aria-hidden="true">${UI.cover(x.e.media, 'xs')}</a>
+        <a class="nx-cover" href="${animeHref(x.e.id)}" tabindex="-1" aria-hidden="true">${UI.cover(x.e.media, 'xs')}</a>
         <div class="nx-main">
           ${i === 0 ? '<span class="nx-flag">Najbliższy odcinek</span>' : ''}
-          <a href="#/anime/${x.e.id}" class="nx-title">${esc(titleOf(x.e.media))}</a>
+          <a href="${animeHref(x.e.id)}" class="nx-title">${esc(titleOf(x.e.media))}</a>
           <span class="nx-ep">Odcinek ${x.n.episode}${x.e.media.episodes ? ` z ${x.e.media.episodes}` : ''} · ${esc(DF.wdTime.format(new Date(x.n.airingAt * 1000)))}</span>
         </div>
         <div class="nx-cd num">${UI.countdownTo(x.n.airingAt, { short: i !== 0 })}</div>
@@ -55,7 +55,7 @@ Pages.home = (ctx) => {
     const back = backlog.length ? `<div class="backlog"><h3>Do nadrobienia</h3><ul>${backlog.map((e) => {
       const aired = Lib.airedEpisodes(e.media);
       const p = Lib.lastEp(e);
-      return `<li><a href="#/anime/${e.id}">${esc(titleOf(e.media))}</a><span class="num">${aired - p === 1 ? `odc. ${aired}` : `odc. ${p + 1}–${aired}`}</span><button class="icon-btn sm" type="button" data-inc="${e.id}" aria-label="Obejrzałem kolejny odcinek">${ICON.plus}</button></li>`;
+      return `<li><a href="${animeHref(e.id)}">${esc(titleOf(e.media))}</a><span class="num">${aired - p === 1 ? `odc. ${aired}` : `odc. ${p + 1}–${aired}`}</span><button class="icon-btn sm" type="button" data-inc="${e.id}" aria-label="Obejrzałem kolejny odcinek">${ICON.plus}</button></li>`;
     }).join('')}</ul></div>` : '';
     $('#h-next').innerHTML = UI.section('Następne odcinki',
       (rows ? `<ol class="nx-list">${rows}</ol>` : UI.empty('Brak zaplanowanych odcinków', 'Emitowane anime ze statusem „Oglądam” lub „Planuję” pokażą tu odliczanie do kolejnego odcinka.')) + back,
@@ -100,14 +100,14 @@ Pages.home = (ctx) => {
     const evs = S.history.filter((h) => h.k === 'ep').slice(-300).reverse();
     const groups = groupEpisodeEvents(evs).slice(0, 8);
     $('#h-recent').innerHTML = UI.section('Ostatnio obejrzane odcinki', groups.length ? `<ul class="feed">${groups.map((g) => `
-      <li><a href="#/anime/${g.m}">${esc(titleForEvent(g))}</a><span>${esc(historyText(g))}</span><time>${esc(relTime(g.t))}</time></li>`).join('')}</ul>`
+      <li><a href="${animeHref(g.m)}">${esc(titleForEvent(g))}</a><span>${esc(historyText(g))}</span><time>${esc(relTime(g.t))}</time></li>`).join('')}</ul>`
       : UI.empty('Historia jest pusta', 'Każde kliknięcie „+1” zapisuje datę obejrzenia odcinka.'), { more: '#/historia', moreLabel: 'Historia' });
   };
 
   const renderUpdates = () => {
     const list = S.notifs.filter((n) => S.settings.notifyKinds[n.kind] !== false).slice(0, 6);
     $('#h-updates').innerHTML = UI.section('Najważniejsze aktualizacje', list.length ? `<ul class="feed updates">${list.map((n) => `
-      <li class="${n.read ? '' : 'unread'}"><a href="${esc(n.link || '#/')}">${esc(n.title)}</a><span>${esc(n.body)}</span><time>${esc(relTime(n.t))}</time></li>`).join('')}</ul>`
+      <li class="${n.read ? '' : 'unread'}"><a href="${escUrl(n.link || '#/')}">${esc(n.title)}</a><span>${esc(n.body)}</span><time>${esc(relTime(n.t))}</time></li>`).join('')}</ul>`
       : UI.empty('Na razie spokojnie', 'Tu trafią nowe odcinki, premiery, zmiany dat i nowe informacje o No Game No Life.'));
   };
 
@@ -119,7 +119,7 @@ Pages.home = (ctx) => {
     finished.sort((a, b) => b.s.finishedAt - a.s.finishedAt);
     const rewatch = all.filter((e) => e.sessions.length > 1)
       .sort((a, b) => (Lib.isRewatch(b) && b.status === 'watching') - (Lib.isRewatch(a) && a.status === 'watching') || b.updatedAt - a.updatedAt).slice(0, 5);
-    const mini = (e, right) => `<li><a class="mini-cover" href="#/anime/${e.id}" tabindex="-1" aria-hidden="true">${UI.cover(e.media, 'xs')}</a><a href="#/anime/${e.id}" class="mini-t">${esc(titleOf(e.media))}</a><span class="mini-r">${right}</span></li>`;
+    const mini = (e, right) => `<li><a class="mini-cover" href="${animeHref(e.id)}" tabindex="-1" aria-hidden="true">${UI.cover(e.media, 'xs')}</a><a href="${animeHref(e.id)}" class="mini-t">${esc(titleOf(e.media))}</a><span class="mini-r">${right}</span></li>`;
     $('#h-added').innerHTML = UI.section('Ostatnio dodane', added.length ? `<ul class="mini">${added.map((e) => mini(e, esc(relTime(e.addedAt)))).join('')}</ul>` : UI.empty('Pusto', 'Dodane anime pojawią się tutaj.'));
     $('#h-finished').innerHTML = UI.section('Ostatnio zakończone', finished.length ? `<ul class="mini">${finished.slice(0, 5).map(({ e, s }) => mini(e, `${s.n ? `rewatch #${s.n} · ` : ''}${esc(fmtDateShort(s.finishedAt))}`)).join('')}</ul>` : UI.empty('Jeszcze nic', 'Ukończone serie i rewatche trafią tutaj.'));
     $('#h-rewatch').innerHTML = UI.section('Rewatche', rewatch.length ? `<ul class="mini">${rewatch.map((e) => mini(e, Lib.isRewatch(e) && e.status === 'watching' ? `<b>w trakcie #${Lib.cur(e).n}</b> ${UI.progressText(e)}` : `${nUnit(Lib.finishedCount(e), 'time')}`)).join('')}</ul>` : UI.empty('Brak rewatchy', 'Przy obejrzanym anime kliknij „Rozpocznij rewatch”.'));

@@ -529,7 +529,7 @@ const Lib = (() => {
     const old = e.media || {};
     const fresh = snapshot(m);
     const name = titleOf(fresh);
-    const link = `#/anime/${e.id}`;
+    const link = `${animeHref(e.id)}`;
     // premiery i emisje pozycji 18+ nie generują powiadomień
     const notify = fresh.isAdult ? () => false : notifyRaw;
 
@@ -596,9 +596,9 @@ const Lib = (() => {
       if ((e.status === 'watching' || e.status === 'planning') && n.episode > (e.lastAiredNotified ?? 0) && n.episode > cur(e).progress) {
         const name = titleOf(e.media);
         if (n.episode === 1 && e.status === 'planning') {
-          notify({ kind: 'premiere', key: `prem:${e.id}`, title: `Premiera: ${name}`, body: 'Pierwszy odcinek jest już po emisji.', link: `#/anime/${e.id}` });
+          notify({ kind: 'premiere', key: `prem:${e.id}`, title: `Premiera: ${name}`, body: 'Pierwszy odcinek jest już po emisji.', link: `${animeHref(e.id)}` });
         } else {
-          notify({ kind: 'episode', key: `ep:${e.id}:${n.episode}`, title: `Nowy odcinek: ${name}`, body: `Odcinek ${n.episode} jest już po emisji.`, link: `#/anime/${e.id}` });
+          notify({ kind: 'episode', key: `ep:${e.id}:${n.episode}`, title: `Nowy odcinek: ${name}`, body: `Odcinek ${n.episode} jest już po emisji.`, link: `${animeHref(e.id)}` });
         }
         e.lastAiredNotified = n.episode;
         save();

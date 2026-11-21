@@ -299,7 +299,7 @@ const YearRecap = (() => {
           ${tile('Rekordowy miesiąc', R.recordMonth ? `<b>${MONTH_CAP[R.recordMonth.i]}</b>` : none, R.recordMonth ? `${esc(fmtDuration(R.recordMonth.min, { short: true }))} · ${nUnit(R.recordMonth.eps, 'episode')}` : '')}
           ${tile('Rekordowy dzień', R.recordDay ? `<b class="num">${esc(fmtDuration(R.recordDay.min, { short: true }))}</b>` : none, R.recordDay ? `${dShort(R.recordDay.k)} · ${nUnit(R.recordDay.eps, 'episode')}` : '')}
           ${tile('Najczęściej oglądasz', R.favWd != null ? `<b>${WD_IN[R.favWd]}</b>` : none)}
-          ${tile('Najwyżej ocenione ukończone', R.best ? `<a href="#/anime/${R.best.e.id}">${esc(titleOf(R.best.e.media))}</a>` : none, R.best ? `ocena ${NF1.format(R.best.e.score)}` : 'Oceń ukończone tytuły, a pojawi się tutaj.')}
+          ${tile('Najwyżej ocenione ukończone', R.best ? `<a href="${animeHref(R.best.e.id)}">${esc(titleOf(R.best.e.media))}</a>` : none, R.best ? `ocena ${NF1.format(R.best.e.score)}` : 'Oceń ukończone tytuły, a pojawi się tutaj.')}
           ${tile('Studio roku', R.studios[0] ? `<b>${esc(R.studios[0].n)}</b>` : `<span class="nt-none">${xs.state === 'run' ? 'pobieram…' : 'brak danych'}</span>`, R.studios[0] ? `${esc(fmtDuration(R.studios[0].min, { short: true }))} · ${nUnit(R.studios[0].c, 'title')}` : '')}
         </div>
         <div class="stats-grid">
@@ -316,7 +316,7 @@ const YearRecap = (() => {
       </div>`;
 
       Charts.columns($('#y-month'), { data: R.months.map((m, i) => ({ label: `${MONTH_CAP[i]} ${year}`, short: MONTHS_SHORT[i], value: m.min / 60, tip: `${fmtDuration(m.min) || '0 minut'} · ${NF.format(m.eps)} odc.`, hl: R.recordMonth && R.recordMonth.i === i })), format: (x) => `${NF1.format(x)} godz.`, axisFormat: (x) => NF1.format(x), unitLabel: 'Czas oglądania (godz.)', color: 'var(--viz-1)', empty: 'Brak danych.' });
-      Charts.hbars($('#y-top'), { data: R.top.slice(0, 8).map((p) => ({ label: titleOf(p.e.media), value: p.min || p.eps, text: p.min ? fmtDuration(p.min, { short: true }) : `${p.eps} odc.`, href: `#/anime/${p.e.id}` })), color: 'var(--viz-2)', header: ['Anime', 'Czas'], empty: 'Brak danych.' });
+      Charts.hbars($('#y-top'), { data: R.top.slice(0, 8).map((p) => ({ label: titleOf(p.e.media), value: p.min || p.eps, text: p.min ? fmtDuration(p.min, { short: true }) : `${p.eps} odc.`, href: `${animeHref(p.e.id)}` })), color: 'var(--viz-2)', header: ['Anime', 'Czas'], empty: 'Brak danych.' });
       Charts.hbars($('#y-genre'), { data: R.genres.slice(0, 8).map(([gn, m]) => ({ label: gn, value: m, text: fmtDuration(m, { short: true }) })), color: 'var(--viz-1)', header: ['Gatunek', 'Czas'], empty: 'Brak danych o gatunkach.' });
       Charts.hbars($('#y-studio'), { data: R.studios.slice(0, 6).map((s) => ({ label: s.n, value: s.min, text: `${fmtDuration(s.min, { short: true })} · ${nUnit(s.c, 'title')}` })), color: 'var(--viz-2)', header: ['Studio', 'Czas'], empty: xs.state === 'run' ? 'Pobieram dane z AniList…' : 'Brak danych o studiach.' });
       bindYears();

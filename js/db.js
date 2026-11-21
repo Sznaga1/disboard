@@ -12,15 +12,20 @@ const on = (name, fn) => {
   return () => bus.removeEventListener(name, h);
 };
 
-/* ---------- IndexedDB z awaryjną pamięcią w RAM ---------- */
+/* ---------- IndexedDB z awaryjną pamięcią w RAM ----------
+   Gdy baza nie odpowiada, zapis trafia do pamięci karty (zniknie po jej
+   zamknięciu). Po 30 s próbujemy bazy znowu, zamiast poddawać się do końca
+   sesji. Wpisy, które leżą tylko w RAM, widać przez volatileKeys(): Ustawienia
+   ostrzegają wtedy, że część kopii nie jest trwała. */
 const IDB = (() => {
   const mem = { cache: new Map(), backups: new Map() };
+  const RETRY = 30e3;
   let dbp = null;
-  let broken = false;
+  let failedAt = 0;
 
   function open() {
-    if (broken) return Promise.reject(new Error('idb-broken'));
     if (dbp) return dbp;
+    if (failedAt && Date.now() - failedAt < RETRY) return Promise.reject(new Error('idb-unavailable'));
     dbp = new Promise((res, rej) => {
       try {
         const r = indexedDB.open('disboard', 1);
@@ -29,19 +34,31 @@ const IDB = (() => {
           if (!d.objectStoreNames.contains('cache')) d.createObjectStore('cache');
           if (!d.objectStoreNames.contains('backups')) d.createObjectStore('backups');
         };
-        r.onsuccess = () => res(r.result);
+        r.onsuccess = () => {
+          const d = r.result;
+          // przeglądarka zamknęła połączenie albo inna karta podnosi wersję: następnym razem otwieramy od nowa
+          d.onversionchange = () => { d.close(); dbp = null; };
+          d.onclose = () => { dbp = null; };
+          failedAt = 0;
+          res(d);
+        };
         r.onerror = () => rej(r.error);
         r.onblocked = () => rej(new Error('blocked'));
       } catch (e) { rej(e); }
     });
-    dbp.catch(() => { broken = true; dbp = null; });
+    dbp.catch(() => { failedAt = Date.now(); dbp = null; });
     return dbp;
   }
 
   async function run(store, mode, fn) {
     const d = await open();
     return new Promise((res, rej) => {
-      const t = d.transaction(store, mode);
+      let t;
+      try { t = d.transaction(store, mode); } catch (e) {
+        if (e && e.name === 'InvalidStateError') dbp = null; // połączenie zamknięte w międzyczasie
+        rej(e);
+        return;
+      }
       const req = fn(t.objectStore(store));
       let out;
       if (req) req.onsuccess = () => { out = req.result; };
@@ -53,20 +70,28 @@ const IDB = (() => {
 
   return {
     async get(store, key) {
-      try { return await run(store, 'readonly', (s) => s.get(key)); } catch { return mem[store].get(key); }
+      // wpis zapisany w RAM podczas awarii bazy dalej da się odczytać (np. przywrócić kopię)
+      if (mem[store].has(key)) return mem[store].get(key);
+      try { return await run(store, 'readonly', (s) => s.get(key)); } catch { return undefined; }
     },
     async set(store, key, val) {
-      try { await run(store, 'readwrite', (s) => s.put(val, key)); } catch { mem[store].set(key, val); }
+      try { await run(store, 'readwrite', (s) => s.put(val, key)); mem[store].delete(key); } catch { mem[store].set(key, val); }
     },
     async del(store, key) {
-      try { await run(store, 'readwrite', (s) => s.delete(key)); } catch { mem[store].delete(key); }
+      mem[store].delete(key);
+      try { await run(store, 'readwrite', (s) => s.delete(key)); } catch { /* w bazie i tak go nie ma */ }
     },
     async keys(store) {
-      try { return (await run(store, 'readonly', (s) => s.getAllKeys())) || []; } catch { return [...mem[store].keys()]; }
+      let out = [];
+      try { out = (await run(store, 'readonly', (s) => s.getAllKeys())) || []; } catch { /* zostają klucze z RAM */ }
+      return [...new Set([...out, ...mem[store].keys()])];
     },
     async clear(store) {
-      try { await run(store, 'readwrite', (s) => s.clear()); } catch { mem[store].clear(); }
+      mem[store].clear();
+      try { await run(store, 'readwrite', (s) => s.clear()); } catch { /* baza niedostępna */ }
     },
+    // klucze, które leżą tylko w pamięci tej karty (baza nie przyjęła zapisu)
+    volatileKeys: (store) => new Set(mem[store].keys()),
     // usuwa wpisy, dla których drop(klucz, wartość) zwraca true; zwraca ich liczbę
     async prune(store, drop) {
       let n = 0;
@@ -542,6 +567,29 @@ function replaceState(next) {
   return p;
 }
 
+/* ---------- ochrona kopii przed nadpisaniem zepsutą listą ----------
+   Kopie (w przeglądarce i w folderze) to jeden plik na dzień, nadpisywany przy
+   kolejnych zapisach. Gdyby lista nagle się wyczyściła albo mocno skurczyła,
+   po chwili dzisiejsza kopia też byłaby zepsuta. Dlatego gdy w liście jest
+   wyraźnie mniej tytułów niż w dzisiejszej kopii, nowa kopia idzie obok
+   (z dopiskiem „-mniejsza”), a dzisiejsza zostaje nietknięta. */
+const SHRUNK_SUFFIX = '-mniejsza';
+// „wyraźnie mniej”: co najmniej 5 tytułów i 5% listy (przy małej liście: wszystkie)
+function backupShrunk(prevCount, count) {
+  if (!(prevCount > 0)) return false;
+  const lost = prevCount - (count || 0);
+  return lost >= Math.max(Math.min(5, prevCount), prevCount * 0.05);
+}
+let shrinkWarnedDay = null;
+function warnShrunk(prevCount, count) {
+  const d = dayKey(Date.now());
+  if (shrinkWarnedDay === d) return; // jedno ostrzeżenie dziennie wystarczy
+  shrinkWarnedDay = d;
+  toast(`Na liście jest wyraźnie mniej tytułów niż w dzisiejszej kopii (${prevCount} → ${count}). Tamta kopia zostaje nietknięta, a nowa zapisała się obok. Jeśli to pomyłka, przywrócisz listę w Ustawieniach i kopie.`, {
+    kind: 'warn', ms: 15000, action: { label: 'Ustawienia', fn: () => { location.hash = '#/ustawienia'; } },
+  });
+}
+
 /* ---------- automatyczne kopie zapasowe (IndexedDB, 7 dni) ---------- */
 async function maybeBackup(force = false) {
   if (!loaded) return;
@@ -552,18 +600,29 @@ async function maybeBackup(force = false) {
   // migawka od razu, zanim ktokolwiek zmieni listę (np. import tuż po kopii)
   const snap = { t: now, count: Object.keys(S.entries).length, json: JSON.stringify(S) };
   queueWrite().catch(() => { /* zapis główny zgłosi błąd */ });
-  await IDB.set('backups', dayKey(now), snap);
-  // kopia sprzed przeniesienia do IndexedDB nie wlicza się do 7 dziennych
-  const keys = (await IDB.keys('backups')).filter((k) => k !== MIGRATION_BACKUP).sort();
-  while (keys.length > 7) await IDB.del('backups', keys.shift());
+  const key = dayKey(now);
+  const prev = await IDB.get('backups', key);
+  const shrunk = !!prev && backupShrunk(prev.count, snap.count);
+  if (shrunk) {
+    snap.label = `mniej tytułów niż we wcześniejszej kopii z tego dnia (${prev.count} → ${snap.count})`;
+    warnShrunk(prev.count, snap.count);
+  }
+  await IDB.set('backups', shrunk ? key + SHRUNK_SUFFIX : key, snap);
+  // trzymamy 7 ostatnich dni (dzień może mieć dwie kopie: zwykłą i „-mniejsza”);
+  // kopia sprzed przeniesienia do IndexedDB nie wlicza się do tych 7
+  const keys = (await IDB.keys('backups')).filter((k) => k !== MIGRATION_BACKUP);
+  const days = [...new Set(keys.map((k) => String(k).slice(0, 10)))].sort();
+  const dropDays = new Set(days.slice(0, Math.max(0, days.length - 7)));
+  for (const k of keys) if (dropDays.has(String(k).slice(0, 10))) await IDB.del('backups', k);
 }
 
 async function listBackups() {
   const keys = (await IDB.keys('backups')).sort().reverse();
+  const ram = IDB.volatileKeys('backups');
   const out = [];
   for (const k of keys) {
     const b = await IDB.get('backups', k);
-    if (b) out.push({ key: k, t: b.t, count: b.count, label: b.label || '' });
+    if (b) out.push({ key: k, t: b.t, count: b.count, label: b.label || '', ram: ram.has(k) });
   }
   return out;
 }

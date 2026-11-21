@@ -288,7 +288,7 @@ function luIcons(ctx, d, out) {
 /* ---------- Patche i wiadomości ---------- */
 function luPatch(p) {
   return `<article class="lu-patch">
-    <header><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)} ${ICON.ext}</a>${p.date ? ` <time class="num">${esc(fmtDateShort(Date.parse(p.date)))}</time>` : ''}</header>
+    <header><a href="${escUrl(p.url)}" target="_blank" rel="noopener">${esc(p.title)} ${ICON.ext}</a>${p.date ? ` <time class="num">${esc(fmtDateShort(Date.parse(p.date)))}</time>` : ''}</header>
     ${p.mentions.map((m) => `<div class="lu-mention${m.kind === 'balance' ? ' bal' : ''}">
       <p class="lu-mention-h">${m.kind === 'balance' ? 'Zmiany Lulu' : 'Wzmianka'}${m.section ? ` · ${esc(m.section)}` : ''}</p>
       <ul>${m.lines.map((l) => `<li class="${/^•/.test(l) ? 'pt' : /^[QWER] - |^Passive - |^Base Stats/i.test(l) ? 'ab' : ''}">${esc(l.replace(/^•\s*/, ''))}</li>`).join('')}</ul>
@@ -299,7 +299,7 @@ function luPatch(p) {
 function luNewsItem(n) {
   return `<article class="news compact"><div class="news-body">
     <div class="news-top">${n.date ? `<time>${esc(fmtDateShort(Date.parse(n.date)))}</time>` : ''}<span class="news-cat">${esc(n.source || '')}</span></div>
-    <a class="news-title" href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.title)}</a>
+    <a class="news-title" href="${escUrl(n.url)}" target="_blank" rel="noopener">${esc(n.title)}</a>
   </div></article>`;
 }
 
@@ -307,7 +307,7 @@ function luPatches(ctx, d, out) {
   const withLulu = (d.patches || []).filter((p) => p.mentions.length);
   const without = (d.patches || []).filter((p) => !p.mentions.length);
   out.innerHTML = UI.section('Lulu w notatkach do patchy', (withLulu.length ? withLulu.map(luPatch).join('') : UI.empty('W ostatnich patchach nie ma nic o Lulu'))
-      + (without.length ? `<p class="list-sum lu-nolulu">Bez Lulu: ${without.map((p) => `<a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.patch || p.title)}</a>`).join(', ')}</p>` : ''),
+      + (without.length ? `<p class="list-sum lu-nolulu">Bez Lulu: ${without.map((p) => `<a href="${escUrl(p.url)}" target="_blank" rel="noopener">${esc(p.patch || p.title)}</a>`).join(', ')}</p>` : ''),
     { sub: `Ostatnie ${(d.patches || []).length} notatek z leagueoflegends.com: zmiany balansu, poprawki błędów i zapowiedzi skinów` })
     + UI.section(`Wiadomości <span class="count">${(d.news || []).length}</span>`, (d.news || []).length ? `<div class="news-list">${d.news.map(luNewsItem).join('')}</div>` : UI.empty('Brak wiadomości'), { sub: 'Artykuły z Lulu w tytule: Google News i leagueoflegends.com' });
 }

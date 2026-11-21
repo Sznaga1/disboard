@@ -31,8 +31,8 @@ function upSchedule(ctx, out) {
     const items = upcomingEpisodes();
     $('#u-mine').innerHTML = UI.section('Twoje najbliższe odcinki', items.length ? `<ol class="nx-list big">${items.slice(0, 10).map((x, i) => `
       <li class="nx${i === 0 ? ' nearest' : ''}">
-        <a class="nx-cover" href="#/anime/${x.e.id}" tabindex="-1" aria-hidden="true">${UI.cover(x.e.media, 'xs')}</a>
-        <div class="nx-main">${i === 0 ? '<span class="nx-flag">Najbliższy</span>' : ''}<a class="nx-title" href="#/anime/${x.e.id}">${esc(titleOf(x.e.media))}</a>
+        <a class="nx-cover" href="${animeHref(x.e.id)}" tabindex="-1" aria-hidden="true">${UI.cover(x.e.media, 'xs')}</a>
+        <div class="nx-main">${i === 0 ? '<span class="nx-flag">Najbliższy</span>' : ''}<a class="nx-title" href="${animeHref(x.e.id)}">${esc(titleOf(x.e.media))}</a>
           <span class="nx-ep">Odcinek ${x.n.episode}${x.e.media.episodes ? ` z ${x.e.media.episodes}` : ''} · ${esc(DF.wdTime.format(new Date(x.n.airingAt * 1000)))}</span></div>
         <div class="nx-cd num">${UI.countdownTo(x.n.airingAt, { short: i !== 0 })}</div></li>`).join('')}</ol>`
       : UI.empty('Brak zaplanowanych odcinków z Twojej listy', 'Emitowane anime ze statusem „Oglądam” lub „Planuję” pojawią się tutaj.'));
@@ -52,8 +52,8 @@ function upSchedule(ctx, out) {
         const past = x.airingAt * 1000 < Date.now();
         return `<li class="${mine ? 'mine' : ''}${past ? ' past' : ''}">
           <time class="num">${esc(fmtTime(x.airingAt * 1000))}</time>
-          <a class="sched-cover" href="#/anime/${x.media.id}" tabindex="-1" aria-hidden="true">${UI.cover(x.media, 'xs')}</a>
-          <div class="sched-main"><a href="#/anime/${x.media.id}">${esc(titleOf(x.media))}</a>
+          <a class="sched-cover" href="${animeHref(x.media.id)}" tabindex="-1" aria-hidden="true">${UI.cover(x.media, 'xs')}</a>
+          <div class="sched-main"><a href="${animeHref(x.media.id)}">${esc(titleOf(x.media))}</a>
             <small>Odcinek ${x.episode}${x.media.episodes ? ` z ${x.media.episodes}` : ''} · ${esc(FORMAT_PL[x.media.format] || x.media.format || '')}${mine ? ` · ${esc(LSTATUS_PL[mine.status])}` : ''}</small></div>
           <span class="sched-cd num">${past ? 'po emisji' : UI.countdownTo(x.airingAt, { short: true })}</span>
           ${mine ? '' : `<button class="icon-btn sm" type="button" data-add="${x.media.id}" data-status="planning" aria-label="Dodaj do Planuję">${ICON.plus}</button>`}

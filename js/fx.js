@@ -192,7 +192,7 @@ const FX = (() => {
     const holder = a.querySelector('.cover') ? a : a.closest('article, li, .erow, .wo-row, .nx, .hit');
     const cov = holder && holder.querySelector('.cover');
     const m = a.getAttribute('href').match(/^#\/anime\/(\d+)/);
-    morphFrom = cov && m && inView(cov) ? { el: cov, id: Number(m[1]) } : null;
+    morphFrom = cov && m && inView(cov) ? { el: cov, id: animeIdFromUrl(m[1]) } : null;
   }, true);
 
   function clearNames() { $$('[style*="view-transition-name"]').forEach((x) => { x.style.viewTransitionName = ''; }); }

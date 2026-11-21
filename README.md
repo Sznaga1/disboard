@@ -36,8 +36,10 @@ Kliknij dwukrotnie `index.html`. Tracker, wyszukiwarka, premiery, statystyki i n
 - **Logowanie przez Google = ta sama lista na każdym urządzeniu.** Pod adresem https://sznaga1.github.io/disboard/ kliknij „Zaloguj” w górnym pasku. Lista zostaje lokalnie (działa bez internetu), a jej lustro leży w projekcie Firebase, do którego dostęp ma tylko Twoje konto (reguły Firestore: `users/{uid}`). Zmiany przechodzą między urządzeniami w kilka sekund, a zmiany z dwóch urządzeń łączą się tytuł po tytule. Z pliku otwartego z dysku logowanie nie działa (Google wymaga adresu https); karta „Konto i synchronizacja” w Ustawieniach pokazuje, jak przenieść listę. Kod: `js/cloud.js`, testy: `tests/cloud.test.mjs`.
 - Lista leży w bazie IndexedDB przeglądarki, więc nie ma limitu ok. 5 MB z localStorage. Starsze wersje trzymały ją w localStorage: przy pierwszym uruchomieniu nowej wersji lista przenosi się sama, stara kopia zostaje nietknięta, a w *Ustawienia i kopie* pojawia się kopia „Sprzed przeniesienia do IndexedDB”. W sekcji „O aplikacji” widać, gdzie lista jest zapisana.
 - **Bez logowania telefon i komputer mają osobne listy.** Przenosisz je wtedy eksportem JSON na jednym urządzeniu i importem na drugim (*Ustawienia i kopie*).
-- **Kopia do folderu na dysku** (Chrome i Edge na komputerze): w *Ustawienia i kopie* kliknij „Wybierz folder…” i wskaż np. `D:\App\disboard`. Aplikacja utworzy w nim folder „Disboard - kopie listy” i sama zapisuje tam pełną kopię JSON po zmianach (najpóźniej po 2 minutach) i co godzinę. Zapisuje jeden plik na dzień i trzyma 30 ostatnich. Kopia przetrwa wyczyszczenie danych przeglądarki. Przywracasz ją przez Import → Kopia Disboard (JSON). Folderu z kodem aplikacji aplikacja nie przyjmie, żeby kopie nie trafiły do repozytorium.
-- Aplikacja sama robi kopię w przeglądarce raz na godzinę i trzyma ją 7 dni. To chroni przed pomyłką, ale nie przed wyczyszczeniem danych przeglądarki.
+- **Kopia do folderu na dysku** (Chrome i Edge na komputerze): w *Ustawienia i kopie* kliknij „Wybierz folder…” i wskaż np. `D:\App\disboard`. Aplikacja utworzy w nim folder „Disboard - kopie listy” i sama zapisuje tam pełną kopię JSON po zmianach (najpóźniej po 2 minutach) i co godzinę. Zapisuje jeden plik na dzień i trzyma 30 ostatnich dni. Kopia przetrwa wyczyszczenie danych przeglądarki. Przywracasz ją przez Import → Kopia Disboard (JSON). Folderu z kodem aplikacji aplikacja nie przyjmie, żeby kopie nie trafiły do repozytorium.
+- Aplikacja sama robi kopię w przeglądarce raz na godzinę i trzyma ją 7 dni. To chroni przed pomyłką, ale nie przed wyczyszczeniem danych przeglądarki. Gdy baza kopii nie odpowiada, kopia zostaje tylko w pamięci karty: Ustawienia oznaczają ją wtedy „tylko w tej karcie”, a aplikacja co 30 sekund próbuje bazy ponownie.
+- **Zepsuta lista nie nadpisze dzisiejszej kopii.** Obie kopie, w przeglądarce i w folderze, to jeden plik na dzień, aktualizowany w ciągu dnia. Jeśli z listy nagle zniknie sporo tytułów (co najmniej 5 i 5% listy), dzisiejsza kopia zostaje nietknięta, a nowsza wersja zapisuje się obok z dopiskiem „-mniejsza”. Pojawia się też jedno ostrzeżenie dziennie. Gdy lista wróci do dawnej wielkości, kopie znów zapisują się normalnie. Kod: `backupShrunk` w `js/db.js`.
+- Linki z kanałów RSS i z AniList otwierają się tylko wtedy, gdy prowadzą na `http(s)://` (`safeUrl` w `js/util.js`). Inne adresy, np. `javascript:`, aplikacja zamienia na pusty link.
 - **Regularnie rób eksport JSON.** Po 2 tygodniach bez kopii aplikacja sama o tym przypomni. Plik JSON odtwarza wszystko: sesje, rewatche, daty i notatki.
 - **Kilka kart naraz jest bezpieczne.** Zmiana w jednej karcie od razu pojawia się w pozostałych, np. plus na wynikach wyszukiwania zamienia się w status. Gdy dwie karty zapiszą prawie jednocześnie, zmiany łączą się tytuł po tytule. Przy sporze o to samo anime wygrywa nowsza zmiana. Karta leżąca w tle niczego już nie nadpisze.
 - Awaria AniList nie psuje listy. Każdy wpis ma zapisaną kopię danych, a aplikacja pokazuje wtedy ostatnio pobrane informacje z oznaczeniem daty.
@@ -139,6 +141,8 @@ Na stronie anime, w miejscu dawnej sekcji „Powiązane”, jest cała seria w k
 ## Oś czasu No Game No Life
 
 Na dole centrum NGNL jest oś czasu całej serii: 13 tomów light novel, manga (Mashiro Hiiragi i „Eastern Union”), spin-offy „Desu!” i „Practical War Game”, 12 odcinków i 6 mini OVA, film Zero, doujinshi autora „No Work No Life” oraz ważne zapowiedzi i wydania Blu-ray. Daty są japońskie, przy tomach także angielskie, a każda pozycja ma link do źródła. Dane sprawdziłem 30 września 2026. Zapowiedź 2. sezonu dopisze się sama z AniList, a Twoje obejrzenia z datą pojawiają się na osi jako „Ty”.
+
+**Krótki adres:** strona anime No Game No Life to `#/anime/1` (np. https://sznaga1.github.io/disboard/#/anime/1). Numer w adresie anime to zwykle numer AniList, ale „1” jest zarezerwowane dla NGNL (w AniList: 19815), a Cowboy Bebop, który w AniList ma numer 1, otwiera się pod `#/anime/2`. Zmienia się tylko adres: na liście, w kopiach i w chmurze zostają prawdziwe numery AniList. Stary adres `#/anime/19815` dalej działa i sam zamienia się na `#/anime/1`. Kod: `animeHref` w `js/util.js`.
 
 ## Centrum Lulu (League of Legends)
 
@@ -244,6 +248,35 @@ Dane odświeżają się same. Emitowane i zapowiedziane tytuły z listy aktualiz
 - GitHub wyłącza zaplanowane workflow w repozytoriach bez aktywności przez 60 dni. Commity samego feedu zwykle to wystarczają, ale jeśli feed przestanie się aktualizować, uruchom go ręcznie w zakładce *Actions*.
 
 ---
+
+## W planach: podpowiedzi oglądania
+
+Pomysł z 18.11.2026, jeszcze niezrobiony. Aplikacja, na podstawie tego, co klikasz, delikatnie podpowiada, co dalej oglądać.
+
+**Na czym się opiera (już jest w kodzie):** historia z datą każdego obejrzanego odcinka (`S.history`), statusy i postęp wpisów, radar kontynuacji (`js/radar.js`) oraz rekomendacje AniList (jedno dodatkowe zapytanie tym samym kanałem co reszta).
+
+**Rodzaje podpowiedzi:**
+
+1. **Długa przerwa:** anime ma status „Oglądam”, a ostatni odcinek był ponad 14 dni temu. Przykład: „Magi: zatrzymałeś się na odc. 12, 3 tygodnie temu. Wracasz?” z przyciskiem „+1 odcinek”.
+2. **Niedokończone:** przerwa dłuższa niż ok. 2 miesiące albo status „Wstrzymane”. Podpowiedź: dokończyć, czy oznaczyć jako porzucone.
+3. **Podobne:** po skończeniu serii albo wysokiej ocenie 2–3 tytuły z rekomendacji AniList, których nie ma na liście. Wyżej idą te z gatunków, które najczęściej oglądasz i najwyżej oceniasz.
+4. **Kontynuacje:** z istniejącego radaru, bez dublowania.
+
+**Zasady:**
+
+- najwyżej 2–3 podpowiedzi naraz;
+- żadnych powiadomień w dzwonku;
+- przy każdej podpowiedzi przyciski „Nie teraz” (wraca za tydzień) i „Nie pokazuj tego więcej”;
+- wszystko liczone lokalnie, bez AI i bez serwera.
+
+**Dane:** istniejąca lista się nie zmienia. Dochodzi tylko jedno nowe pole, w którym zapisane są „nie teraz” i „ukryj”, synchronizowane przez Firebase jak reszta. Bez migracji.
+
+**Zakres:** nowy plik `js/hints.js` (ok. 250–350 linii), miejsce wyświetlania i testy.
+
+**Do ustalenia przed startem:**
+
+- Gdzie pokazywać: (A) mała sekcja „Podpowiedzi” na stronie głównej pod „Oglądam”, widoczna tylko wtedy, gdy jest coś do pokazania, albo (B) osobna zakładka w bocznym menu.
+- Czy progi pasują: 14 dni na przerwę, ok. 2 miesiące na niedokończone.
 
 ## Struktura projektu
 

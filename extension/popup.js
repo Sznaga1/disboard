@@ -4,6 +4,9 @@
    bo okienko znika, gdy tylko klikniesz gdzie indziej. */
 
 const SITE = 'https://sznaga1.github.io/disboard/';
+// krótkie adresy anime, jak animeHref w js/util.js: NGNL (AniList 19815) → #/anime/1, Cowboy Bebop (AniList 1) → #/anime/2
+const ANIME_ID_TO_URL = { 19815: 1, 1: 2 };
+const animeLink = (id) => `${SITE}#/anime/${ANIME_ID_TO_URL[id] ?? id}`;
 const $ = (s) => document.querySelector(s);
 const KEYS = ['auth', 'view', 'airing', 'pending', 'error', 'lastSync'];
 const TABS = [['watching', 'Oglądam'], ['planning', 'Planuję'], ['paused', 'Wstrzymane'], ['completed', 'Obejrzane'], ['dropped', 'Porzucone']];
@@ -131,13 +134,13 @@ function cardHtml(item, { showStatus }) {
   const cc = item.color ? ` style="--cc:${esc(item.color)}"` : '';
   const cover = item.cover ? `<img src="${esc(item.cover)}" alt="" loading="lazy" decoding="async">` : `<span class="cover-fb">${esc((item.title || '?').slice(0, 2))}</span>`;
   return `<article class="card${a.fresh ? ' fresh' : ''}${isBusy ? ' busy' : ''}" data-id="${item.id}">
-    <a class="cover"${cc} href="${SITE}#/anime/${item.id}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+    <a class="cover"${cc} href="${animeLink(item.id)}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
       ${cover}
       ${a.fresh ? `<span class="cover-new">+${a.fresh}</span>` : ''}
       ${item.fav ? '<span class="cover-fav">★</span>' : ''}
     </a>
     <div class="body">
-      <a class="title" href="${SITE}#/anime/${item.id}" target="_blank" rel="noopener" title="${esc(item.sub ? `${item.title}\n${item.sub}` : item.title)}">${esc(item.title)}</a>
+      <a class="title" href="${animeLink(item.id)}" target="_blank" rel="noopener" title="${esc(item.sub ? `${item.title}\n${item.sub}` : item.title)}">${esc(item.title)}</a>
       ${row.length ? `<div class="row">${row.join('')}</div>` : ''}
       <div class="prog st-${item.status}">
         <div class="pbar${total ? '' : ' unknown'}"><i style="width:${pct}%"></i></div>

@@ -94,7 +94,7 @@ Pages.person = (ctx) => {
       </div>
       <div class="p-extra">
         ${info.length ? `<dl class="p-info">${info.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>` : ''}
-        <p class="p-links"><a class="btn ghost sm" href="${esc(p.siteUrl || `https://anilist.co/staff/${p.id}`)}" target="_blank" rel="noopener">AniList ${ICON.ext}</a></p>
+        <p class="p-links"><a class="btn ghost sm" href="${escUrl(p.siteUrl || `https://anilist.co/staff/${p.id}`)}" target="_blank" rel="noopener">AniList ${ICON.ext}</a></p>
       </div>
     </header>
     ${p.description ? `<section class="sec p-desc-wrap"><div class="p-desc clamp" id="p-desc">${sanitizeHtml(p.description)}</div><button class="btn ghost sm" type="button" id="p-desc-more" hidden>Pokaż całość</button><p class="src-note">Opis: AniList (po angielsku)</p></section>` : ''}`;
@@ -109,8 +109,8 @@ Pages.person = (ctx) => {
     return UI.section(`Na Twojej liście <span class="count">${arr.length}</span>`, `
       <p class="p-mine-sum"><span><b class="num">${arr.length}</b> anime</span>${mins ? `<span><b class="num">${esc(fmtDuration(mins, { short: true }))}</b> oglądania</span>` : ''}${sc.length ? `<span>Twoja średnia <b class="num">${NF1.format(sc.reduce((a, b) => a + b, 0) / sc.length)}</b></span>` : ''}</p>
       <ul class="p-mine">${arr.map((x) => `<li>
-        <a class="p-mine-c" href="#/anime/${x.e.id}">${UI.cover(x.e.media, 'xs')}</a>
-        <div class="p-mine-t"><a href="#/anime/${x.e.id}"><b>${esc(titleOf(x.e.media))}</b></a>
+        <a class="p-mine-c" href="${animeHref(x.e.id)}">${UI.cover(x.e.media, 'xs')}</a>
+        <div class="p-mine-t"><a href="${animeHref(x.e.id)}"><b>${esc(titleOf(x.e.media))}</b></a>
           <small>${[...x.chars].length ? `jako ${esc([...x.chars].join(', '))}` : ''}${[...x.chars].length && x.roles.size ? ' · ' : ''}${x.roles.size ? esc([...x.roles].filter(Boolean).join(', ')) : ''}</small></div>
         <div class="p-mine-s">${UI.statusChip(x.e.status, x.e)}${x.e.score != null ? `<span class="score">${ICON.star}${NF1.format(x.e.score)}</span>` : ''}</div>
       </li>`).join('')}</ul>

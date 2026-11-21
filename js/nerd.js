@@ -64,7 +64,7 @@ const Nerd = (() => {
   const yearOf = (m) => m.seasonYear || (m.startDate && m.startDate.year) || null;
   const seen = (e) => Lib.totalEps(e) > 0 || Lib.finishedCount(e) > 0;
   const T = (e) => esc(titleOf(e.media));
-  const aLink = (e) => `<a href="#/anime/${e.id}">${T(e)}</a>`;
+  const aLink = (e) => `<a href="${animeHref(e.id)}">${T(e)}</a>`;
   const dur = (min) => esc(fmtDuration(min, { short: true }));
   const pct = (v) => `${NF.format(Math.round(v))}%`;
   // odmiana przy liczbie z ułamkiem: „0,4 doby”, „1,2 dniówki”, „5 dób”
@@ -458,7 +458,7 @@ const Nerd = (() => {
           <span class="lbl">Twój ulubiony seiyū ${how('Aktor głosowy (japoński dubbing), który pojawia się w największej liczbie obejrzanych anime. Przy remisie decyduje liczba głównych ról, potem czas oglądania. Biorę 8 najważniejszych postaci z każdego anime.')}</span>
           <h3><a href="#/osoba/${fv.id}">${esc(fv.n)}</a></h3>${fv.nn ? `<p class="fva-nn" lang="ja">${esc(fv.nn)}</p>` : ''}
           <p class="fva-stats"><span><b class="num">${fv.ids.size}</b> anime</span><span><b class="num">${fv.chars.length}</b> ${plural(fv.chars.length, 'postać', 'postacie', 'postaci')}</span><span><b class="num">${dur(fv.min)}</b> oglądania</span>${fv.scores.length ? `<span>Twoja średnia <b class="num">${NF1.format(avg(fv.scores))}</b></span>` : ''}</p>
-          <ul class="fva-chars">${fv.chars.slice(0, 8).map((c) => `<li><a href="#/anime/${c.mid}" title="${esc(`${c.n} · ${c.mt}`)}">${avatar(c.img, c.n)}<span>${esc(c.n)}</span><small>${esc(c.mt)}</small></a></li>`).join('')}</ul>
+          <ul class="fva-chars">${fv.chars.slice(0, 8).map((c) => `<li><a href="${animeHref(c.mid)}" title="${esc(`${c.n} · ${c.mt}`)}">${avatar(c.img, c.n)}<span>${esc(c.n)}</span><small>${esc(c.mt)}</small></a></li>`).join('')}</ul>
         </div></article>` : '';
     if (!fv && !P.favChars.length && !seenE.length) return UI.empty('Brak obejrzanych anime', 'Seiyū i twórców policzę z anime, z których obejrzałeś choć jeden odcinek.');
     if (!fv && !P.favChars.length) {
@@ -476,7 +476,7 @@ const Nerd = (() => {
         ${card('', 'Twórcy', 'Kto najczęściej stoi za Twoimi anime', 'Role z 10 najważniejszych osób ekipy każdego anime według AniList. Liczba to obejrzane tytuły z tą rolą.', '', `<div class="staffg">${P.staffGroups.map((g) => `<div class="sg"><h4 class="lbl">${g.l}</h4>${g.arr.length ? `<ol>${g.arr.map((x) => `<li><a href="#/osoba/${x.o.id}">${avatar(x.o.img, x.o.n, 'sg-av')}<span>${esc(x.o.n)}</span></a><b class="num">${x.c}</b></li>`).join('')}</ol>` : '<p class="muted">brak danych</p>'}</div>`).join('')}</div>`)}
       </div>
       ${UI.section(`Ulubione postacie <span class="count">${P.favChars.length}</span>`, P.favChars.length
-    ? `<div class="fchars">${P.favChars.map((c) => `<article class="fchar">${avatar(c.img, c.n, 'fchar-img')}<div class="fchar-t"><b>${esc(c.n)}</b>${c.mid ? `<a href="#/anime/${c.mid}">${esc(c.mt || 'anime')}</a>` : ''}${c.va ? `<small>głos: <a href="#/osoba/${c.va.id}">${esc(c.va.n)}</a></small>` : ''}</div>
+    ? `<div class="fchars">${P.favChars.map((c) => `<article class="fchar">${avatar(c.img, c.n, 'fchar-img')}<div class="fchar-t"><b>${esc(c.n)}</b>${c.mid ? `<a href="${animeHref(c.mid)}">${esc(c.mt || 'anime')}</a>` : ''}${c.va ? `<small>głos: <a href="#/osoba/${c.va.id}">${esc(c.va.n)}</a></small>` : ''}</div>
           <button class="pc-fav on" type="button" data-unfav="${c.id}" aria-pressed="true" title="Usuń z ulubionych postaci">${ICON.heart}</button></article>`).join('')}</div>`
     : '<p class="muted">Dodaj postacie serduszkiem w sekcji „Postacie i obsada” na stronie anime.</p>', { sub: 'Zapisane serduszkiem na stronach anime' })}`;
   }
@@ -563,7 +563,7 @@ const Nerd = (() => {
     const { N, O, st } = d;
     const wait = N.waitMs ? Math.floor(N.waitMs / DAY) : null;
     if (!N.entries.length) {
-      return `<div class="ngc">${UI.empty('NGNL nie ma jeszcze na liście', 'Dodaj serię, a policzę, ile razy ją obejrzałeś i jak Twoja ocena ma się do AniList.', '<a class="btn" href="#/anime/19815">Otwórz No Game No Life</a>')}
+      return `<div class="ngc">${UI.empty('NGNL nie ma jeszcze na liście', 'Dodaj serię, a policzę, ile razy ją obejrzałeś i jak Twoja ocena ma się do AniList.', '<a class="btn" href="#/anime/1">Otwórz No Game No Life</a>')}
         ${wait != null ? `<p class="ngc-wait">A na 2. sezon czekasz już <b class="num">${NF.format(wait)}</b> ${unit(wait, 'day')}.</p>` : ''}</div>`;
     }
     const mn = N.main;
@@ -611,7 +611,7 @@ const Nerd = (() => {
     hb('nc-vas', P.vas.slice(0, 10).map((v) => ({ label: v.n, value: v.ids.size, text: `${v.ids.size} anime · ${v.chars.length} ${plural(v.chars.length, 'postać', 'postacie', 'postaci')}`, href: `#/osoba/${v.id}` })), { color: 'var(--viz-2)', header: ['Seiyū', 'Anime'], empty: 'Czekam na dane z AniList…' });
     if (q('nc-hist')) Charts.columns(q('nc-hist'), { data: O.hist.map((v, i) => ({ label: `${NF1.format(i + 0.5)} i ${i + 1}`, short: String(i + 1), value: v, tip: `${NF.format(v)} ${plural(v, 'ocena', 'oceny', 'ocen')}` })), format: (v) => NF.format(v), unitLabel: 'Liczba ocen', xHeader: 'Ocena', height: 150, minStep: 1 });
     hb('nc-cats', O.cats.filter((c) => c.n).map((c) => ({ label: c.l, value: c.mean, text: `${NF2.format(c.mean)} · ${c.n} anime` })), { header: ['Kategoria', 'Średnia'], empty: 'Brak ocen szczegółowych.' });
-    hb('nc-fill', d.Fx.perSeries.slice(0, 10).map((x) => ({ label: titleOf(x.e.media), value: x.share * 100, text: `${pct(x.share * 100)} · ${x.nF} z ${x.n}`, href: `#/anime/${x.e.id}` })), { color: 'var(--crown)', header: ['Seria', 'Fillery'], empty: 'Brak serii z fillerami.', max: 100 });
+    hb('nc-fill', d.Fx.perSeries.slice(0, 10).map((x) => ({ label: titleOf(x.e.media), value: x.share * 100, text: `${pct(x.share * 100)} · ${x.nF} z ${x.n}`, href: `${animeHref(x.e.id)}` })), { color: 'var(--crown)', header: ['Seria', 'Fillery'], empty: 'Brak serii z fillerami.', max: 100 });
     hb('nc-pg', O.perGenre.slice(0, 12).map((g) => ({ label: g.g, value: g.m, text: `${NF2.format(g.m)} · ${g.n} anime` })), { header: ['Gatunek', 'Średnia'], empty: 'Za mało ocen w gatunkach.' });
   }
 

@@ -263,7 +263,7 @@ Pages.list = (ctx) => {
     if (!pool.length) { toast('Nie ma czego losować: zmień zakładkę albo filtry.'); return; }
     const pick = pool[Math.floor(Math.random() * pool.length)];
     listLastRandom = pick.id;
-    location.hash = `#/anime/${pick.id}`;
+    location.hash = `${animeHref(pick.id)}`;
   });
   $('#l-tag').addEventListener('change', (ev) => { filter = ev.target.value; updBadge(); render(); });
   $('#l-sort').addEventListener('change', (ev) => { sort = { k: ev.target.value, dir: LIST_SORTS[ev.target.value].dir }; saveSort(); });

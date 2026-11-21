@@ -53,8 +53,8 @@ const Wait = (() => {
     const clock = `${pad2(d.h)}:${pad2(d.m)}:${pad2(d.s)}`;
     const short = `${d.y ? `${d.y} ${unit(d.y, 'year')} ` : ''}${d.d} ${unit(d.d, 'day')} ${clock}`;
     const statusLine = mode === 'announced'
-      ? `<a class="wait-flag" href="#/anime/${seq.media.id}">Zapowiedziano! ${esc(fuzzyDate(seq.media.startDate) || 'data nieustalona')}</a>`
-      : mode === 'done' ? `<a class="wait-flag" href="#/anime/${seq.media.id}">Doczekałem się! Oglądaj</a>` : '';
+      ? `<a class="wait-flag" href="${animeHref(seq.media.id)}">Zapowiedziano! ${esc(fuzzyDate(seq.media.startDate) || 'data nieustalona')}</a>`
+      : mode === 'done' ? `<a class="wait-flag" href="${animeHref(seq.media.id)}">Doczekałem się! Oglądaj</a>` : '';
     el.classList.toggle('collapsed', collapsed);
     el.classList.toggle('open', open);
     const wb = btn();
@@ -256,6 +256,14 @@ function route() {
     const m = path.match(re);
     if (m) { name = n; keys.forEach((k, i) => { params[k] = m[i + 1]; }); break; }
   }
+  // krótkie adresy anime (#/anime/1 = NGNL, #/anime/2 = Cowboy Bebop; zob. animeHref w util.js):
+  // strona dostaje prawdziwy numer AniList, a stary adres (np. #/anime/19815) poprawiamy na krótki
+  if (name === 'anime') {
+    const real = animeIdFromUrl(params.id);
+    const short = String(animeUrlNum(real));
+    if (short !== params.id) history.replaceState(null, '', `#/anime/${short}${qs ? `?${qs}` : ''}`);
+    params.id = String(real);
+  }
   const key = `${name}:${JSON.stringify(params)}`;
   viewCleanups.forEach((f) => { try { f(); } catch { /* */ } });
   viewCleanups = [];
@@ -397,7 +405,7 @@ function renderBell() {
 function renderDrawer() {
   const list = S.notifs.filter((n) => S.settings.notifyKinds[n.kind] !== false).slice(0, 80);
   $('#drawer-list').innerHTML = list.length ? list.map((n) => `
-    <li class="${n.read ? '' : 'unread'} k-${n.kind}"><a href="${esc(n.link || '#/')}">
+    <li class="${n.read ? '' : 'unread'} k-${n.kind}"><a href="${escUrl(n.link || '#/')}">
       <span class="dn-kind">${esc(KIND_PL[n.kind] || n.kind)}</span><b>${esc(n.title)}</b>${n.body ? `<span>${esc(n.body)}</span>` : ''}<time>${esc(relTime(n.t))}</time></a></li>`).join('')
     : `<li class="dn-empty">${UI.empty('Brak powiadomień', 'Aplikacja sama sprawdza nowe odcinki, premiery i wiadomości o No Game No Life.')}</li>`;
 }

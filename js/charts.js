@@ -96,7 +96,7 @@ const Charts = (() => {
     el.innerHTML = `<ol class="viz-hbars" style="--c:${color}">
       ${data.map((d) => `
         <li data-tip="${esc(`<b>${esc(d.label)}</b><br>${esc(d.text || format(d.value))}`)}">
-          <div class="viz-hl">${d.href ? `<a href="${esc(d.href)}">${esc(d.label)}</a>` : esc(d.label)}</div>
+          <div class="viz-hl">${d.href ? `<a href="${escUrl(d.href)}">${esc(d.label)}</a>` : esc(d.label)}</div>
           <div class="viz-htrack"><div class="viz-hbar" style="width:${Math.max(1, (d.value / max) * 100)}%"></div></div>
           <div class="viz-hv">${esc(d.text || format(d.value))}</div>
         </li>`).join('')}

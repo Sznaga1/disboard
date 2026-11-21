@@ -13,14 +13,19 @@
 const FolderBackup = (() => {
   const DIR_NAME = 'Disboard - kopie listy';
   const KEEP = 30;
-  const FILE_RE = /^disboard-\d{4}-\d{2}-\d{2}\.json$/;
+  // zwykła kopia dnia albo „-mniejsza” (lista wyraźnie się skurczyła, zob. backupShrunk w db.js)
+  const FILE_RE = new RegExp(`^disboard-(\\d{4}-\\d{2}-\\d{2})(${SHRUNK_SUFFIX})?\\.json$`);
   const AFTER_CHANGE = 2 * 60e3;
   const INFO = [
     'Ten folder tworzy aplikacja Disboard (tracker anime).',
     '',
     'Są tu automatyczne kopie Twojej listy anime: jeden plik na dzień',
-    '(disboard-RRRR-MM-DD.json), 30 ostatnich. Starsze aplikacja usuwa sama.',
+    '(disboard-RRRR-MM-DD.json), 30 ostatnich dni. Starsze aplikacja usuwa sama.',
     'Inne pliki w tym folderze nie są ruszane.',
+    '',
+    'Plik z dopiskiem „-mniejsza” powstaje, gdy w ciągu dnia z listy nagle',
+    'zniknęło sporo tytułów: wtedy dzisiejszy zwykły plik zostaje nietknięty',
+    '(z wcześniejszą, większą listą), a nowsza wersja zapisuje się obok.',
     '',
     'Jak przywrócić listę:',
     '  Disboard → Ustawienia i kopie → Import → Kopia Disboard (JSON)',
@@ -37,7 +42,7 @@ const FolderBackup = (() => {
   let askedThisSession = false;
 
   const supported = () => typeof window.showDirectoryPicker === 'function';
-  const fileName = (t = Date.now()) => `disboard-${dayKey(t)}.json`;
+  const fileName = (t = Date.now(), shrunk = false) => `disboard-${dayKey(t)}${shrunk ? SHRUNK_SUFFIX : ''}.json`;
 
   function load() {
     if (!loaded) loaded = SDB.get('folderBackup').then((r) => { rec = r || null; return rec; }).catch(() => null);
@@ -70,13 +75,18 @@ const FolderBackup = (() => {
     try { await w.write(text); await w.close(); } catch (e) { try { await w.abort(); } catch { /* już zamknięty */ } throw e; }
   }
 
+  // trzymamy KEEP ostatnich dni (dzień może mieć dwa pliki: zwykły i „-mniejsza”)
   async function rotate(dir) {
     const files = [];
-    for await (const [name, h] of dir.entries()) if (h.kind === 'file' && FILE_RE.test(name)) files.push(name);
-    files.sort();
-    const drop = files.slice(0, Math.max(0, files.length - KEEP));
-    for (const name of drop) await dir.removeEntry(name);
-    return { kept: files.length - drop.length, removed: drop.length };
+    for await (const [name, h] of dir.entries()) {
+      const m = h.kind === 'file' && FILE_RE.exec(name);
+      if (m) files.push([name, m[1]]);
+    }
+    const days = [...new Set(files.map(([, day]) => day))].sort();
+    const dropDays = new Set(days.slice(0, Math.max(0, days.length - KEEP)));
+    let removed = 0;
+    for (const [name, day] of files) if (dropDays.has(day)) { await dir.removeEntry(name); removed++; }
+    return { kept: files.length - removed, removed };
   }
 
   /* Podłączenie folderu (wybranego w oknie albo — w testach — dowolnego uchwytu).
@@ -123,15 +133,26 @@ const FolderBackup = (() => {
       const p = await permission(!auto);
       if (p !== 'granted') return { needsPermission: true };
       const sig = hashStr(JSON.stringify(S));
-      const name = fileName();
-      if (!force && sig === rec.lastSig && (auto || rec.lastFile === name)) return { unchanged: true, file: rec.lastFile };
+      const count = Object.keys(S.entries).length;
+      const today = fileName();
+      // dzisiejszy plik ma wyraźnie więcej tytułów niż lista teraz: nie nadpisujemy go, nowa kopia idzie obok
+      const shrunk = rec.lastFile === today && backupShrunk(rec.lastCount, count);
+      const name = shrunk ? fileName(Date.now(), true) : today;
+      const prevSig = shrunk ? rec.sideSig : rec.lastSig;
+      const prevFile = shrunk ? rec.sideFile : rec.lastFile;
+      if (!force && sig === prevSig && (auto || prevFile === name)) return { unchanged: true, file: prevFile };
       try {
         await writeText(rec.dir, name, IO.backupJSON());
         const r = await rotate(rec.dir);
-        Object.assign(rec, { lastAt: Date.now(), lastFile: name, lastSig: sig, lastError: null });
+        if (shrunk) {
+          Object.assign(rec, { lastAt: Date.now(), sideFile: name, sideSig: sig, lastError: null });
+          warnShrunk(rec.lastCount, count);
+        } else {
+          Object.assign(rec, { lastAt: Date.now(), lastFile: name, lastSig: sig, lastCount: count, sideFile: null, sideSig: null, lastError: null });
+        }
         await persist();
         emit('folder-backup');
-        return { file: name, ...r };
+        return { file: name, shrunk, ...r };
       } catch (e) {
         rec.lastError = `${fmtDateTime(Date.now())}: ${e.message || e.name}`;
         await persist();
@@ -174,7 +195,7 @@ const FolderBackup = (() => {
   async function status() {
     await load();
     if (!rec) return { supported: supported(), on: false };
-    return { supported: supported(), on: true, rootName: rec.rootName, dirName: rec.dir.name, lastAt: rec.lastAt, lastFile: rec.lastFile, lastError: rec.lastError, permission: await permission(), keep: KEEP };
+    return { supported: supported(), on: true, rootName: rec.rootName, dirName: rec.dir.name, lastAt: rec.lastAt, lastFile: rec.lastFile, sideFile: rec.sideFile && rec.lastFile === fileName() ? rec.sideFile : null, lastCount: rec.lastCount, lastError: rec.lastError, permission: await permission(), keep: KEEP };
   }
 
   return { supported, init, choose, connect, disconnect, backupNow, status, lastAt: () => (rec ? rec.lastAt : 0), DIR_NAME };
