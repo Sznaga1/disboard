@@ -1,33 +1,33 @@
 {
- "generatedAt": "2026-11-21T01:35:53.316Z",
+ "generatedAt": "2026-11-21T12:47:20.372Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
    "count": 55,
-   "added": 42
+   "added": 41
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 54,
-   "added": 25
+   "count": 55,
+   "added": 26
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 24,
-   "added": 16
+   "count": 52,
+   "added": 42
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
    "count": 57,
-   "added": 35
+   "added": 34
   },
   {
    "id": "ann",
@@ -189,18 +189,6 @@
    "kind": "news"
   },
   {
-   "id": "d3e618930db9ff2a",
-   "title": "No Game No Life’s Shiro Gets Huge New $8,000 Life-Size Statue From Prime 1 Studio",
-   "date": "2026-11-07T19:27:46.000Z",
-   "summary": "",
-   "source": "Essential Japan",
-   "via": "Google News (EN)",
-   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNVmJUMXowQUtMSk91RVpDeF8yNVhtaFFxdkg5MTNLd05aVVZ4S0pfLTJOZzhwWjdLY0VVMllFVkM4LUVQaE9PS3Q3NElSRUdDYlpEOFBpdms2bHh2N2ZwNlJ5cFlZcE5UaF84U29OZkg1allQYWRDME5yRHl3ZUJPdTUwOXdlUWRkWURxel9xU1RxVlByZUtPSGlnREM5eHNYc3JVT0JnVGF2RDF3ckpmTV9R?oc=5",
-   "image": null,
-   "price": null,
-   "kind": "news"
-  },
-  {
    "id": "40e521d686094858",
    "title": "お値段132万円の迫力！『ノゲノラ』の“等身大”フィギュア登場、くつろぐ華奢な天才少女白を再現 重量50kg超え",
    "date": "2026-11-07T12:49:33.000Z",
@@ -211,6 +199,18 @@
    "image": null,
    "price": null,
    "kind": "merch"
+  },
+  {
+   "id": "d3e618930db9ff2a",
+   "title": "No Game No Life’s Shiro Gets Huge New $8,000 Life-Size Statue From Prime 1 Studio",
+   "date": "2026-11-07T08:00:00.000Z",
+   "summary": "",
+   "source": "Essential Japan",
+   "via": "Google News: merch (EN)",
+   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNVmJUMXowQUtMSk91RVpDeF8yNVhtaFFxdkg5MTNLd05aVVZ4S0pfLTJOZzhwWjdLY0VVMllFVkM4LUVQaE9PS3Q3NElSRUdDYlpEOFBpdms2bHh2N2ZwNlJ5cFlZcE5UaF84U29OZkg1allQYWRDME5yRHl3ZUJPdTUwOXdlUWRkWURxel9xU1RxVlByZUtPSGlnREM5eHNYc3JVT0JnVGF2RDF3ckpmTV9R?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
   },
   {
    "id": "1a2c53e0057dfa51",
@@ -561,6 +561,18 @@
    "kind": "merch"
   },
   {
+   "id": "9db6decdb0f4139b",
+   "title": "Wonder Festival 2026 Shanghai: Good Smile Unveils New Hatsune Miku, Blue Archive, Berserk, and MyGO!!!!! Scale Figures",
+   "date": "2026-10-03T07:00:00.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News: merch (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE0xZ0lKS3RaOU1ONlpCejE1Rl9oZ3g2bjRzSUY2WUl6TGpxTTBjOWRLdGRxWm44NXE4MmQ4WElfZDdYNlctUUdOUFdmZ1FlbzBy?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
    "id": "8c7a045807f0c4ec",
    "title": "\"NO GAME NO LIFE\": Grasshopper Manufacture have leapt from the jaws of NetEase and gone indie again",
    "date": "2026-09-30T07:00:00.000Z",
@@ -664,6 +676,18 @@
    "source": "コラボカフェ",
    "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNR0NITTlqaHg4WXM1S2UzbGd6dkk2Yzhsa0NnVmlEOHd0cHBvS3g3WU1LQ3dOdDNLbE1VazFPMHNsU2VsUHlncGFUYkRyMW5jeVJ0NFh0M1dKRUZWM0lNZ1FaQl83RWVDbHVzSllsNDhvek1FWDYzSXN3WlVlbGlpQi1zRzJvOW_SAY8BQVVfeXFMT1kwM09tN3F6YWNtNUJqRDY5VVJ0dWFvZVU5eFI5T2dNV2VBTm5KWUNSY0ZoRkhWc3pNdkdkdzVvajF4cERpZlZBd20zUmtsVnRXVThwZkRWbVpoQ2ZTWUVCdGdtV2c3QUhtUUJwQWZjckpaQmdoVnN0ZDZSN0loc1g2cVU1ak9hblQ1OTBQOUE?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "83520ca9145a07fa",
+   "title": "Good Smile Fest 2026 Osaka: Nendoroid & Scale Figure Roundup! New Reveals from Soul Eater, Duolingo, Blue Archive, My Melody, and More!",
+   "date": "2026-08-21T07:00:00.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News: merch (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5RYVlXN3NYckNLTnZlb2lJRzd5eklwdmRuY2VBS19wTEZSTWpqbnhQUlNnNDNZblRpUG1lLXdEakdXeWdCbnAwVDdvRGpWUC1n?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
@@ -873,6 +897,18 @@
    "kind": "merch"
   },
   {
+   "id": "ce5c2799deba02fb",
+   "title": "Artist Yuu Kamiya of \"No Game No Life\" Fame Declares: \"I'd Rather Quit Than Draw Pubic Hair!\" After Viral Suggestion to Avoid Bans",
+   "date": "2026-06-09T02:50:47.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE0zRTRNaWgzdG1jcEZSMzU5cmRRMzBpa190QU1fc3hpSzNYLXpEczNzTW9zRFF2bFJQR0pJLWFJc0FWdnJPMFJ3aWZBQ2VRcktB?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "f9f2c4d135ded0b2",
    "title": "【スマイルフェス2026】スケールフィギュア編①：『初音ミク』『勝利の女神：NIKKE』『ブルーアーカイブ』など新作アイテムが多数公開！",
    "date": "2026-06-08T07:00:00.000Z",
@@ -880,6 +916,18 @@
    "source": "玩具人 TOY PEOPLE",
    "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBaVjM1SHBwMXVIRnZjcXdMVHJGRm1VaDE3cFJuVDdvQ3p1emwyT1NZRE4wTU9CY3NuOXpPNWdZU25mMFlCUHgyRE4tRGdMYnJt?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "75aeb485d7b7059c",
+   "title": "Smile Fest 2026: Good Smile Company Reveals Massive Lineup of New Scale Figures from NIKKE, Blue Archive, and Hatsune Miku",
+   "date": "2026-06-08T07:00:00.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News: merch (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE95c2pkRmN5YmcxdjBSbXJKZmNjRktnem5udXU4NFRjMTZrZ3FTQVJIWkREYi1vVW9zTVVrUmQ5bTVzNGQ1RExLU3pja1EtZnpp?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
@@ -1053,6 +1101,18 @@
    "kind": "merch"
   },
   {
+   "id": "0e3044bf943d98a1",
+   "title": "GSC The Quintessential Quintuplets∬ Nino Nakano Date Style Ver. 1/6 Scale Figure Recreates a Cute Date Outfit♥",
+   "date": "2026-04-17T15:02:37.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News: merch (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE9lOWxXV2JyWkl0VVE0ejBKTjVmRkk3OVJOOUNrdC11SkRNSV9tRFo2QUxsSXBmMms3RXlqdG8xVnhHUXIwSU1tN0NLQmszekk?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
    "id": "cd27847f5cf77a62",
    "title": "『ノーゲーム・ノーライフ』第3話より先行場面カット到着",
    "date": "2026-04-14T21:23:21.000Z",
@@ -1144,18 +1204,6 @@
    "source": "Comic Book Resources",
    "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1Ma2FYZ1VzQ0pQWWYzdmJxaVVlNjZsTDZlWjhSd3FTZmlpaloxanNVSzNWM0s5eHcxSWxHVnJrZE5pekpvZWdvMGFfelRFV3AyODlQdFNnU1FrNGFPMTdoTE42QVFvbndFWWViSVJ1dXNqNV9JMWliZlZTeVU?oc=5",
-   "image": null,
-   "price": null,
-   "kind": "news"
-  },
-  {
-   "id": "ce5c2799deba02fb",
-   "title": "Artist Yuu Kamiya of \"No Game No Life\" Fame Declares: \"I'd Rather Quit Than Draw Pubic Hair!\" After Viral Suggestion to Avoid Bans",
-   "date": "2026-03-27T07:00:00.000Z",
-   "summary": "",
-   "source": "玩具人 TOY PEOPLE",
-   "via": "Google News (EN)",
-   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE0zRTRNaWgzdG1jcEZSMzU5cmRRMzBpa190QU1fc3hpSzNYLXpEczNzTW9zRFF2bFJQR0pJLWFJc0FWdnJPMFJ3aWZBQ2VRcktB?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
