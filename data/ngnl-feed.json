@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-11-21T12:47:20.372Z",
+ "generatedAt": "2026-11-21T21:43:03.224Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
    "count": 55,
-   "added": 41
+   "added": 39
   },
   {
    "id": "gnews-ja",
@@ -19,8 +19,8 @@
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 52,
-   "added": 42
+   "count": 25,
+   "added": 15
   },
   {
    "id": "gnews-merch-ja",
