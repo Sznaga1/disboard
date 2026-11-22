@@ -642,7 +642,11 @@ fieldset { border: 0; padding: 0; margin: 0; }
 }
 .d-copy .ic { width: 16px; height: 16px; }
 @media (hover: hover) {
-  .d-title-row:hover .d-copy { opacity: .45; }
+  .d-title-row:hover .d-copy {
+    opacity: .85; color: var(--text-2);
+    background: color-mix(in srgb, var(--surface-2) 75%, transparent);
+    box-shadow: 0 0 0 1px var(--line-2, var(--line)), 0 2px 8px rgba(0, 0, 0, .18);
+  }
   .d-copy:hover { opacity: 1 !important; color: var(--text); background: var(--surface-3); }
 }
 @media (hover: none) { .d-copy { opacity: .3; } }
