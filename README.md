@@ -81,6 +81,10 @@ Na komputerze wystarczy zacząć pisać tytuł na dowolnej stronie: aplikacja sa
 - **Sortowanie „Ukryte perełki”.** Średnia od 75%, od 2 do 50 tys. widzów w AniList, bez kontynuacji, dodatków, filmów-skrótów serialu i teledysków. Kontynuacje to ok. 4/5 takich wyników w AniList, więc perełki są pobierane porcjami po 50 i dociągane do pełnego rzędu kart. Działa razem z filtrami (np. gatunek albo rok).
 - **„Losuj” (kostka obok pola wyszukiwania).** Losuje tytuł spoza Twojej listy z tego, co pasuje do filtrów i sortowania: z pierwszych ok. 240 wyników, z perełek albo, gdy wpisany jest tytuł, z najlepszych trafień. Nie trafia dwa razy z rzędu w to samo.
 
+## Kopiowanie tytułu
+
+Na stronie anime obok tytułu jest prawie niewidoczny przycisk kopiowania. Pojawia się dopiero po najechaniu myszką na tytuł. Na telefonie jest lekko widoczny cały czas, bo tam nie ma najechania. Klik kopiuje tytuł do schowka, a ikona na chwilę zmienia się w ptaszek.
+
 ## Szybkie dodawanie z kart
 
 - **Klik w „+”** na okładce dodaje do Planuję, a w trybie uzupełniania do Obejrzanych.

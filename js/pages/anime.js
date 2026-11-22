@@ -77,7 +77,7 @@ function detailHtml(m, { partial = false } = {}) {
       ${UI.cover(m, 'lg')}
       <div class="d-titles">
         <div class="d-chips">${UI.airingChip(m)}${m.format ? `<span class="chip">${esc(FORMAT_PL[m.format] || m.format)}</span>` : ''}${UI.yearOf(m) ? `<span class="chip">${UI.yearOf(m)}</span>` : ''}${m.isAdult ? '<span class="chip adult">18+</span>' : ''}</div>
-        <h1 class="d-title">${esc(titleOf(m))}</h1>
+        <div class="d-title-row"><h1 class="d-title">${esc(titleOf(m))}</h1><button type="button" class="d-copy" id="d-copy" title="Kopiuj tytuł" aria-label="Kopiuj tytuł">${ICON.copy}</button></div>
         ${t.native && t.native !== titleOf(m) ? `<p class="d-native" lang="ja">${esc(t.native)}</p>` : ''}
         ${subTitleOf(m) && subTitleOf(m) !== t.native ? `<p class="d-sub">${esc(subTitleOf(m))}</p>` : ''}
         ${next ? `<p class="d-next">${ICON.clock}Odcinek ${next.episode}${m.episodes ? ` z ${m.episodes}` : ''}: ${esc(DF.wdTime.format(new Date(next.airingAt * 1000)))} · za <b>${UI.countdownTo(next.airingAt)}</b></p>` : ''}
@@ -159,6 +159,14 @@ function bindDetail(ctx, m, partial) {
     host.innerHTML = UI.section('Historia tego anime', `<ul class="feed">${items.map((h) => `<li><span>${esc(historyText(h))}</span><time>${esc(fmtDateTime(h.t))}</time></li>`).join('')}</ul>`, { more: `#/historia/${m.id}`, moreLabel: 'Pełna historia' });
   };
   renderAdd(); renderTracker(); renderHist();
+  const cp = $('#d-copy', root);
+  if (cp) cp.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(titleOf(m)); } catch { toast('Nie udało się skopiować tytułu.', { kind: 'error' }); return; }
+    cp.innerHTML = ICON.check;
+    cp.classList.add('is-done');
+    clearTimeout(cp._t);
+    cp._t = setTimeout(() => { cp.innerHTML = ICON.copy; cp.classList.remove('is-done'); }, 1400);
+  });
   const sp = $('#d-spoil', root);
   if (sp) sp.addEventListener('click', () => { $$('.chip.spoiler', root).forEach((c) => { c.hidden = false; }); sp.remove(); });
   const tr = $('.trailer', root);

@@ -632,6 +632,22 @@ fieldset { border: 0; padding: 0; margin: 0; }
 .d-titles { display: grid; gap: 6px; min-width: 0; padding-bottom: 4px; }
 .d-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .d-title { font: 400 clamp(1.4rem, 4.5vw, 2.4rem)/1.12 var(--f-display); overflow-wrap: anywhere; }
+/* kopiowanie tytułu: prawie niewidoczne, pojawia się dopiero przy tytule */
+.d-title-row .d-title { display: inline; }
+.d-copy {
+  display: inline-flex; align-items: center; justify-content: center; vertical-align: .15em;
+  width: 28px; height: 28px; margin-left: 6px; padding: 0; border: 0; border-radius: 8px;
+  background: transparent; color: var(--muted); cursor: pointer; opacity: 0;
+  transition: opacity .2s, color .15s, background .15s;
+}
+.d-copy .ic { width: 16px; height: 16px; }
+@media (hover: hover) {
+  .d-title-row:hover .d-copy { opacity: .45; }
+  .d-copy:hover { opacity: 1 !important; color: var(--text); background: var(--surface-3); }
+}
+@media (hover: none) { .d-copy { opacity: .3; } }
+.d-copy:focus-visible, .d-copy.is-done { opacity: 1 !important; }
+.d-copy.is-done { color: var(--sora); }
 .d-native { color: var(--text-2); letter-spacing: .06em; }
 .d-sub { color: var(--muted); font-size: var(--fs-sm); }
 .d-next { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; color: var(--shiro); font-size: var(--fs-sm); }

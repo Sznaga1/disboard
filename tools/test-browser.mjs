@@ -185,6 +185,17 @@ async function main() {
     await A.ev(`(location.hash = '#/anime/19815', new Promise((res) => setTimeout(res, 700)))`);
     check('stary adres NGNL #/anime/19815 poprawiony na #/anime/1', (await A.ev('location.hash')) === '#/anime/1', await A.ev('location.hash'));
     check('karta na liście prowadzi pod krótki adres', await A.ev(`animeHref(19815) === '#/anime/1' && animeHref(1) === '#/anime/2' && animeHref(100001) === '#/anime/100001'`));
+    console.log('Kopiowanie tytułu');
+    await A.ev(`(location.hash = '#/anime/100001', new Promise((r) => setTimeout(r, 700)))`);
+    check('przycisk kopiowania jest, ale niewidoczny bez najechania', await A.ev(`(() => { const b = document.getElementById('d-copy'); return !!b && getComputedStyle(b).opacity === '0'; })()`));
+    const copied = await A.ev(`(async () => {
+      let got = null;
+      Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: async (t) => { got = t; } } });
+      const b = document.getElementById('d-copy'); b.click();
+      await new Promise((r) => setTimeout(r, 50));
+      return got === document.querySelector('#view .d-title').textContent && b.classList.contains('is-done') ? 'ok' : got;
+    })()`);
+    check('klik kopiuje tytuł i pokazuje ptaszek', copied === 'ok', copied);
     console.log('Lulu: ukrywanie emotek');
     await A.ev(`(location.hash = '#/lulu/emotki', new Promise((r) => setTimeout(r, 900)))`);
     const emoBefore = await A.ev(`document.querySelectorAll('#lu-grid .lu-emo').length`);
