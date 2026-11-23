@@ -85,6 +85,15 @@ Na komputerze wystarczy zacząć pisać tytuł na dowolnej stronie: aplikacja sa
 
 Na stronie anime obok tytułu jest prawie niewidoczny przycisk kopiowania. Pojawia się dopiero po najechaniu myszką na tytuł. Na telefonie jest lekko widoczny cały czas, bo tam nie ma najechania. Klik kopiuje tytuł do schowka, a ikona na chwilę zmienia się w ptaszek.
 
+## Własne linki
+
+Plik `js/my-links.js` to miejsce na Twoje własne linki. Wpisujesz je w tablicę `MY_LINKS` jako nazwę i adres ze wstawkami (`{tytul}`, `{romaji}`, `{angielski}`, `{natywny}`, `{rok}`, `{anilist}`, `{mal}`, `{odcinek}`) albo jako własną funkcję, która zwraca adres. Przykłady i opis są na górze pliku.
+
+- Link bez `{odcinek}` pojawia się na stronie anime w ramce „Linki”.
+- Link z `{odcinek}` (albo z funkcją `episode`) pojawia się przy każdym odcinku na liście odcinków.
+- Linki otwierają się w nowej karcie. Adresy inne niż http/https są pomijane, a link z pustą wstawką (np. anime bez numeru MAL) się nie pokazuje.
+- Repozytorium jest publiczne, więc wpisane tu linki widać na GitHubie.
+
 ## Szybkie dodawanie z kart
 
 - **Klik w „+”** na okładce dodaje do Planuję, a w trybie uzupełniania do Obejrzanych.

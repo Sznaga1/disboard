@@ -220,7 +220,7 @@ const Episodes = (() => {
         <button class="ep-chk" type="button" data-epchk="${x.n}" aria-pressed="${w}" ${onList ? '' : 'disabled'} title="${onList ? (w ? 'Odznacz odcinek' : 'Oznacz jako obejrzany · Shift+klik zaznacza zakres') : 'Dodaj anime do listy, żeby zaznaczać odcinki'}">${ICON.check}</button>
         <div class="ep-img">${x.img ? `<img src="${esc(x.img)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : ''}<span class="num">${x.n}</span></div>
         <div class="ep-t"><b><span class="num">${x.n}.</span> ${esc(x.title || `Odcinek ${x.n}`)}</b>${x.ja ? `<small lang="ja">${esc(x.ja)}</small>` : ''}</div>
-        <div class="ep-meta">${x.date ? `<time class="num">${esc(fmtDateShort(new Date(`${x.date}T12:00:00`).getTime()))}</time>` : ''}${x.score != null ? `<span class="ep-score num">★${NF1.format(x.score)}</span>` : ''}${x.filler ? '<span class="ep-tag f">Filler</span>' : ''}${x.recap ? '<span class="ep-tag r">Recap</span>' : ''}</div>
+        <div class="ep-meta">${x.date ? `<time class="num">${esc(fmtDateShort(new Date(`${x.date}T12:00:00`).getTime()))}</time>` : ''}${x.score != null ? `<span class="ep-score num">★${NF1.format(x.score)}</span>` : ''}${x.filler ? '<span class="ep-tag f">Filler</span>' : ''}${x.recap ? '<span class="ep-tag r">Recap</span>' : ''}${MyLinks.forEpisode(m, x.n).map((l) => `<a class="ep-link" href="${escUrl(l.url)}" target="_blank" rel="noopener noreferrer" title="${esc(l.name)} · odc. ${x.n}">${esc(l.name)}${ICON.ext}</a>`).join('')}</div>
       </li>`;
     }
     function panelHtml(d) {

@@ -68,6 +68,7 @@ function detailHtml(m, { partial = false } = {}) {
     ['AniList', m.siteUrl || `https://anilist.co/anime/${m.id}`],
     m.idMal ? ['MyAnimeList', `https://myanimelist.net/anime/${m.idMal}`] : null,
     ...((m.externalLinks || []).map((l) => [`${l.site}${l.language ? ` (${l.language})` : ''}`, l.url, l.type])),
+    ...MyLinks.forAnime(m).map((l) => [l.name, l.url, 'MY']),
   ].filter(Boolean);
   const next = m.nextAiringEpisode;
 
@@ -112,7 +113,7 @@ function detailHtml(m, { partial = false } = {}) {
         ${tags.length ? `<section class="card"><h2 class="card-h">Tagi</h2><div class="chips">${tags.map((x) => `<span class="chip${x.isMediaSpoiler ? ' spoiler' : ''}"${x.isMediaSpoiler && hideSp ? ' hidden' : ''} title="${esc(x.category || '')} · ${x.rank}%">${esc(x.name)}</span>`).join('')}</div>
           ${tags.some((x) => x.isMediaSpoiler) && hideSp ? '<button class="btn ghost sm" type="button" id="d-spoil">Pokaż tagi ze spoilerami</button>' : ''}</section>` : ''}
         ${alt.length ? `<section class="card"><h2 class="card-h">Inne tytuły</h2><ul class="alt">${alt.map((a) => `<li>${esc(a)}</li>`).join('')}</ul></section>` : ''}
-        <section class="card"><h2 class="card-h">Linki</h2><ul class="links">${links.map(([l, u]) => `<li><a href="${escUrl(u)}" target="_blank" rel="noopener">${esc(l)}${ICON.ext}</a></li>`).join('')}</ul></section>
+        <section class="card"><h2 class="card-h">Linki</h2><ul class="links">${links.map(([l, u, k]) => `<li><a href="${escUrl(u)}" target="_blank" rel="${k === 'MY' ? 'noopener noreferrer' : 'noopener'}">${esc(l)}${ICON.ext}</a></li>`).join('')}</ul></section>
       </aside>
     </div>`;
 }

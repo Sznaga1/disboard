@@ -196,6 +196,28 @@ async function main() {
       return got === document.querySelector('#view .d-title').textContent && b.classList.contains('is-done') ? 'ok' : got;
     })()`);
     check('klik kopiuje tytuł i pokazuje ptaszek', copied === 'ok', copied);
+    console.log('Własne linki');
+    const epId = await A.ev(`Number(Object.keys(S.entries).find((k) => { const m = S.entries[k].media; return m.episodes > 2 && m.format !== 'MOVIE' && m.status !== 'NOT_YET_RELEASED'; }) || 0)`);
+    await A.ev(`(MY_LINKS.push({ name: 'TestA', url: 'https://example.com/a?q={romaji}' }, { name: 'TestE', url: 'https://example.com/e/{anilist}/{odcinek}' }, { name: 'Zły', url: 'javascript:alert(1)' }), location.hash = '#/historia', new Promise((r) => setTimeout(r, 300)))`);
+    await A.ev(`(location.hash = '#/anime/' + ${epId}, new Promise((r) => setTimeout(r, 900)))`);
+    const myA = await A.ev(`[...document.querySelectorAll('.links a')].filter((a) => /^Test|Zły/.test(a.textContent)).map((a) => a.textContent.trim() + '=' + a.getAttribute('href') + '|' + a.rel).join(' ')`);
+    const romaji = await A.ev(`encodeURIComponent(S.entries[${epId}].media.title.romaji || '')`);
+    check('link do anime w ramce „Linki”, zły adres pominięty', myA === `TestA=https://example.com/a?q=${romaji}|noopener noreferrer`, myA);
+    check('pusta wstawka chowa link', await A.ev(`MyLinks.forAnime({ id: 5, title: { romaji: 'X' } }, [{ name: 'B', url: 'https://example.com/{mal}' }]).length === 0`));
+    const myE = await A.ev(`(async () => {
+      // bez sieci strona anime nie buduje listy odcinków, więc wołamy ją wprost
+      const host = document.createElement('div'); document.body.append(host);
+      Episodes.section({ alive: () => true, onLibrary: () => {}, on: () => {} }, host, S.entries[${epId}].media);
+      for (let i = 0; i < 200 && !host.querySelector('#eps-toggle'); i++) await new Promise((r) => setTimeout(r, 100));
+      const t = host.querySelector('#eps-toggle'); if (!t) { const h = host.innerHTML.slice(0, 160); host.remove(); return 'brak listy odcinków: ' + h; }
+      t.click(); await new Promise((r) => setTimeout(r, 200));
+      const a = host.querySelector('.ep[data-ep="2"] .ep-link');
+      const out = a ? a.getAttribute('href') + '|' + a.target : 'brak linku';
+      host.remove();
+      return out;
+    })()`);
+    check('link przy odcinku z numerem odcinka', myE === `https://example.com/e/${epId}/2|_blank`, myE);
+    await A.ev('MY_LINKS.length = 0');
     console.log('Lulu: ukrywanie emotek');
     await A.ev(`(location.hash = '#/lulu/emotki', new Promise((r) => setTimeout(r, 900)))`);
     const emoBefore = await A.ev(`document.querySelectorAll('#lu-grid .lu-emo').length`);
