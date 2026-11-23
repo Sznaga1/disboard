@@ -197,14 +197,16 @@ Czas liczy się z odcinków z datą w danym roku, tak jak wykres „Czas ogląda
 ## Wygląd i bajery
 
 W *Ustawienia i kopie → Wygląd i bajery* wybierasz jeden z sześciu ciemnych motywów:
-- **Disboard** (domyślny);
+- **Disboard** (domyślny): róż i turkus nieba nad planszą;
 - **Ex Machina**: chłodny granat z siatką obwodów;
 - **Flügel**: śliwka ze złotą aureolą;
-- **Werebeast**: ciepły brąz i bursztyn;
+- **Werebeast**: ciepły brąz i bursztyn Wschodniej Unii;
 - **Zero**: popiół, a okładki odzyskują kolor dopiero pod kursorem;
 - **OLED**: czysta czerń.
 
-Kolory statusów i wykresów są wspólne dla wszystkich motywów.
+Motywy nawiązują do ras i świata, nie do konkretnych postaci. Kolory statusów i wykresów są wspólne dla wszystkich motywów.
+
+Niezależnie od motywu można wybrać **akcent** (kolor przycisków i pasków) w kolorach postaci: Sora (złoto), Shiro (mieniący się opal), Corone (malina), Schwi (rubin), Jibril (róż), Izuna (bursztyn), Steph (czerwień), Kurami (fiolet) albo własny kolor.
 
 **Bajery** to eksperymentalny pakiet animacji i efektów (domyślnie wyłączony). Jeden przełącznik włącza całość, a pod nim każdy efekt da się wyłączyć osobno. Skrót **Alt+B** na każdej stronie pozwala szybko porównać wygląd z efektami i bez nich. Efekty wyzwalane zdarzeniem (ukończenie serii, ocena 10, intro, easter eggi) mają w ustawieniach przycisk „Pokaż”. Gdy system prosi o ograniczenie animacji, efekty ruchu się wyłączają; da się to obejść zaznaczeniem pod przełącznikiem.
 

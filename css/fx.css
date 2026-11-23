@@ -63,6 +63,29 @@ select.fxe-opt { width: auto; min-height: 30px; padding: 4px 28px 4px 10px; font
 .fxe-sw-own.on i { background: var(--sw); }
 .fxe-sw-own input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; border: 0; padding: 0; }
 .fxe-sw-own:focus-within { outline: 2px solid var(--shiro); outline-offset: 2px; }
+
+/* akcent „Shiro”: mieniący się opal (białe włosy z tęczowymi końcówkami) zamiast jednolitego koloru.
+   --sora to jasna perła (#ece9ff), więc tekst i obramowania wyglądają dobrze; wypełnienia dostają gradient.
+   Paski postępu z kolorem statusu i strona anime w kolorze okładki zostają bez opalu. */
+:root { --opal: linear-gradient(115deg, #ffffff 0%, #a9d8ff 15%, #ffc2ec 32%, #b5ffd9 50%, #ffe7a3 66%, #cbb8ff 83%, #ffffff 100%); }
+.fxe-sw-opal i { background: var(--opal); background-size: 260% 100%; }
+html[data-accent="opal"] :is(.btn:not(.ghost):not(.danger), .icon-btn.accent, .bell-count, .count-new, .badge-new, .l-badge, .trailer-play, .acard-add.qa-open, .tracker .pbar > i),
+html[data-accent="opal"] .tab.on::after,
+html[data-accent="opal"] .ngnl::before {
+  background-image: var(--opal); background-size: 260% 100%;
+}
+@media (hover: hover) {
+  html[data-accent="opal"] :is(.acard-add, .btn-inc):hover { background-image: var(--opal); background-size: 260% 100%; }
+}
+html[data-accent="opal"] #view[data-dyn] :is(.btn, .icon-btn.accent, .count-new, .badge-new, .trailer-play, .acard-add, .btn-inc, .tracker .pbar > i),
+html[data-accent="opal"] #view[data-dyn] .tab.on::after { background-image: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .fxe-sw-opal i,
+  html[data-accent="opal"] :is(.btn:not(.ghost):not(.danger), .icon-btn.accent, .bell-count, .count-new, .badge-new, .l-badge, .trailer-play, .acard-add.qa-open, .tracker .pbar > i),
+  html[data-accent="opal"] .tab.on::after,
+  html[data-accent="opal"] .ngnl::before { animation: fxe-opal 6s linear infinite; }
+}
+@keyframes fxe-opal { from { background-position: 0% 50%; } to { background-position: 260% 50%; } }
 .fxe-die { display: inline-block; font-size: 1.25rem; line-height: 1; }
 .fxe-die.roll { animation: fxe-roll .6s cubic-bezier(.3, 1.4, .4, 1); }
 @keyframes fxe-roll { from { transform: rotate(-540deg) scale(.4); } }

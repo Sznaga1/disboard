@@ -20,7 +20,8 @@
   --text-2: #c4bddb;
   --muted: #9a92b5;
   --faint: #6c6588;
-  /* akcenty serii: Sora (róż), Shiro (turkus), korona (złoto) */
+  /* akcenty serii: róż i turkus świata Disboardu, złoto korony
+     (nazwy --sora/--shiro są historyczne: to akcent główny i drugi motywu, nie kolory postaci) */
   --sora: #ff4f8b;
   --sora-ink: #22060f;
   --sora-hi: #ff6fa0;   /* jaśniejszy róż (hover przycisków) */

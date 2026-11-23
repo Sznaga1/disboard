@@ -7,7 +7,7 @@
    Kontrast sprawdzony skryptem: tekst ≥ 7:1, tekst przygaszony ≥ 4,5:1, akcenty ≥ 4,5:1.
    ========================================================================== */
 
-/* ---------- Ex Machina: chłodny granat i obwody Schwi ---------- */
+/* ---------- Ex Machina: chłodny granat i obwody maszyn ---------- */
 html[data-theme="exmachina"] {
   --ink: #060a10; --ink-deep: #030509;
   --surface: #0c131d; --surface-2: #111b29; --surface-3: #182538;
@@ -25,7 +25,7 @@ html[data-theme="exmachina"] body {
   background-attachment: fixed;
 }
 
-/* ---------- Flügel: śliwka, róż Jibril i złota aureola ---------- */
+/* ---------- Flügel: śliwka, róż i złota aureola ---------- */
 html[data-theme="flugel"] {
   --ink: #100710; --ink-deep: #080308;
   --surface: #1a0d1a; --surface-2: #221224; --surface-3: #2e1831;
@@ -42,7 +42,7 @@ html[data-theme="flugel"] body {
   background-attachment: fixed;
 }
 
-/* ---------- Werebeast: ciepły brąz, bursztyn Izuny i jadeit ---------- */
+/* ---------- Werebeast: ciepły brąz i bursztyn Wschodniej Unii, jadeit ---------- */
 html[data-theme="werebeast"] {
   --ink: #0e0906; --ink-deep: #070402;
   --surface: #18110c; --surface-2: #211710; --surface-3: #2c1f15;

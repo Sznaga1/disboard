@@ -8,10 +8,10 @@
    ========================================================================== */
 
 const THEMES = [
-  { k: 'disboard', l: 'Disboard', d: 'Atrament, róż Sory, turkus Shiro', c: ['#0c0914', '#141021', '#ff4f8b', '#5fe3e0', '#ffc65c', '#f2eeff'] },
-  { k: 'exmachina', l: 'Ex Machina', d: 'Chłodny granat i obwody Schwi', c: ['#060a10', '#0c131d', '#3dbdff', '#b7a2ff', '#ffd37a', '#e7f1ff'] },
-  { k: 'flugel', l: 'Flügel', d: 'Śliwka i złota aureola Jibril', c: ['#100710', '#1a0d1a', '#ff7ac4', '#7df0c8', '#ffd98a', '#fff0fb'] },
-  { k: 'werebeast', l: 'Werebeast', d: 'Ciepły brąz i bursztyn Izuny', c: ['#0e0906', '#18110c', '#ff8a3d', '#5fd4a3', '#ffd166', '#fff3e6'] },
+  { k: 'disboard', l: 'Disboard', d: 'Róż i turkus nieba nad planszą', c: ['#0c0914', '#141021', '#ff4f8b', '#5fe3e0', '#ffc65c', '#f2eeff'] },
+  { k: 'exmachina', l: 'Ex Machina', d: 'Chłodny granat i obwody maszyn', c: ['#060a10', '#0c131d', '#3dbdff', '#b7a2ff', '#ffd37a', '#e7f1ff'] },
+  { k: 'flugel', l: 'Flügel', d: 'Śliwka, róż i złota aureola', c: ['#100710', '#1a0d1a', '#ff7ac4', '#7df0c8', '#ffd98a', '#fff0fb'] },
+  { k: 'werebeast', l: 'Werebeast', d: 'Ciepły brąz i bursztyn Wschodniej Unii', c: ['#0e0906', '#18110c', '#ff8a3d', '#5fd4a3', '#ffd166', '#fff3e6'] },
   { k: 'zero', l: 'Zero', d: 'Popiół wojny, przygaszone okładki', c: ['#0b0b0b', '#141312', '#ee5a4f', '#a3b8cc', '#d9b56e', '#ece6e0'] },
   { k: 'oled', l: 'OLED', d: 'Czysta czerń, oszczędza baterię', c: ['#000000', '#0a090d', '#ff4f8b', '#5fe3e0', '#ffc65c', '#f2eeff'] },
 ];
@@ -61,11 +61,14 @@ const FX_LIST = [
   { k: 'cursor', g: 'NGNL', l: 'Kursor Disboard', d: 'Własna strzałka w kolorach motywu.' },
 ];
 
-// Personalizacja: działa zawsze, niezależnie od przełącznika bajerów
+// Personalizacja: działa zawsze, niezależnie od przełącznika bajerów.
+// Akcenty w kolorach postaci: Sora złoto, Shiro mieniący się opal (białe włosy z tęczowymi końcówkami),
+// Corone ciemna malina, Schwi rubin oczu, Jibril róż włosów, Izuna bursztyn kimona, Steph czerwień włosów, Kurami fiolet.
+const OPAL = { base: '#ece9ff', hi: '#ffffff', ink: '#1c1636' };
 const ACCENTS = [
-  { k: '#ff4f8b', l: 'Sora' }, { k: '#5fe3e0', l: 'Shiro' }, { k: '#ffc65c', l: 'Korona' },
-  { k: '#3dbdff', l: 'Schwi' }, { k: '#b98cff', l: 'Jibril' }, { k: '#ff8a3d', l: 'Izuna' },
-  { k: '#ff7a6e', l: 'Steph' }, { k: '#7ee08a', l: 'Kurami' },
+  { k: '#f2c14e', l: 'Sora' }, { k: 'opal', l: 'Shiro', sw: '#e6e9ff' }, { k: '#e2558f', l: 'Corone' },
+  { k: '#ff4258', l: 'Schwi' }, { k: '#ff86cb', l: 'Jibril' }, { k: '#ff9a2e', l: 'Izuna' },
+  { k: '#ff7a5c', l: 'Steph' }, { k: '#a982ff', l: 'Kurami' },
 ];
 const LOOK_OPTS = {
   radius: { l: 'Zaokrąglenia', o: [['sharp', 'Ostre'], ['std', 'Zwykłe'], ['round', 'Okrągłe']] },
@@ -130,11 +133,14 @@ const FX = (() => {
     }
     if (L.holo && L.holo !== 'rainbow') { html.setAttribute('data-holo', L.holo); attrs['data-holo'] = L.holo; } else html.removeAttribute('data-holo');
     let vars = '';
-    if (HEX_RE.test(L.accent || '')) {
-      const acc = accentOf(L.accent);
+    const isOpal = L.accent === 'opal';
+    if (isOpal || HEX_RE.test(L.accent || '')) {
+      const acc = isOpal ? OPAL : accentOf(L.accent);
       html.style.setProperty('--sora', acc.base); html.style.setProperty('--sora-hi', acc.hi); html.style.setProperty('--sora-ink', acc.ink);
       vars = `--sora:${acc.base};--sora-hi:${acc.hi};--sora-ink:${acc.ink}`;
     } else ['--sora', '--sora-hi', '--sora-ink'].forEach((p) => html.style.removeProperty(p));
+    // opal to gradient, nie jeden kolor: przyciski i paski mienią się przez CSS (fx.css)
+    if (isOpal) { html.setAttribute('data-accent', 'opal'); attrs['data-accent'] = 'opal'; } else html.removeAttribute('data-accent');
     $$('#fx-card [data-look]').forEach((b) => {
       const onB = (L[b.dataset.look] || '') === b.dataset.v;
       b.classList.toggle('on', onB); b.setAttribute('aria-checked', String(onB));
@@ -270,7 +276,7 @@ const FX = (() => {
       const rar = sc == null ? '' : sc >= 10 ? 'UR' : sc >= 9 ? 'SSR' : sc >= 8 ? 'SR' : '';
       if (rar) head.setAttribute('data-rar', rar); else head.removeAttribute('data-rar');
     }
-    const drop = () => { ['--sora', '--sora-hi', '--sora-ink'].forEach((p) => view && view.style.removeProperty(p)); };
+    const drop = () => { ['--sora', '--sora-hi', '--sora-ink'].forEach((p) => view && view.style.removeProperty(p)); if (view) view.removeAttribute('data-dyn'); };
     if (!valid || !(enabled('tint') || enabled('dyn'))) {
       html.style.removeProperty('--tint'); html.removeAttribute('data-tint'); drop();
       return;
@@ -280,6 +286,7 @@ const FX = (() => {
     html.setAttribute('data-tint', '');
     if (enabled('dyn') && view) {
       view.style.setProperty('--sora', acc.base); view.style.setProperty('--sora-hi', acc.hi); view.style.setProperty('--sora-ink', acc.ink);
+      view.setAttribute('data-dyn', ''); // kolor okładki wygrywa z opalem
     } else drop();
   }
 
@@ -953,14 +960,14 @@ const FX = (() => {
   function lookHtml() {
     const L = look();
     const own = HEX_RE.test(L.accent || '') && !ACCENTS.some((a) => a.k === L.accent);
-    const sw = (v, l, color) => `<button type="button" class="fxe-sw${(L.accent || '') === v ? ' on' : ''}" role="radio" aria-checked="${(L.accent || '') === v}" data-look="accent" data-v="${v}" title="${esc(l)}" style="--sw:${color}"><i></i><span>${esc(l)}</span></button>`;
+    const sw = (v, l, color) => `<button type="button" class="fxe-sw${v === 'opal' ? ' fxe-sw-opal' : ''}${(L.accent || '') === v ? ' on' : ''}" role="radio" aria-checked="${(L.accent || '') === v}" data-look="accent" data-v="${v}" title="${esc(l)}" style="--sw:${color}"><i></i><span>${esc(l)}</span></button>`;
     const seg = (k) => `<div class="fxe-look-row"><span class="lbl">${esc(LOOK_OPTS[k].l)}</span>
         <div class="seg" role="radiogroup" aria-label="${esc(LOOK_OPTS[k].l)}">${LOOK_OPTS[k].o.map(([v, l]) => `<button type="button" role="radio" class="${L[k] === v ? 'on' : ''}" aria-checked="${L[k] === v}" data-look="${k}" data-v="${v}">${esc(l)}</button>`).join('')}</div></div>`;
     return `<div class="fxe-look">
         <div class="fxe-look-row fxe-look-acc"><span class="lbl">Akcent</span>
           <div class="fxe-sws" role="radiogroup" aria-label="Kolor akcentu">
             ${sw('', 'Z motywu', themeOf().c[2])}
-            ${ACCENTS.map((a) => sw(a.k, a.l, a.k)).join('')}
+            ${ACCENTS.map((a) => sw(a.k, a.l, a.sw || a.k)).join('')}
             <label class="fxe-sw fxe-sw-own${own ? ' on' : ''}" title="Własny kolor" style="--sw:${own ? L.accent : '#888'}"><i></i><span>Własny</span><input type="color" id="fx-accent" value="${own ? L.accent : '#ff4f8b'}" aria-label="Własny kolor akcentu"></label>
           </div>
         </div>
