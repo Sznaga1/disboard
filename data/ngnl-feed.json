@@ -1,29 +1,33 @@
 {
- "generatedAt": "2026-11-22T16:24:22.085Z",
+ "generatedAt": "2026-11-23T00:57:45.066Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
-   "ok": false,
-   "error": "HTTP 503"
+   "ok": true,
+   "count": 55,
+   "added": 41
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
-   "ok": false,
-   "error": "HTTP 503"
+   "ok": true,
+   "count": 57,
+   "added": 28
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
-   "ok": false,
-   "error": "HTTP 503"
+   "ok": true,
+   "count": 25,
+   "added": 16
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
-   "ok": false,
-   "error": "HTTP 503"
+   "ok": true,
+   "count": 57,
+   "added": 34
   },
   {
    "id": "ann",
@@ -1006,7 +1010,7 @@
    "date": "2026-05-08T07:00:00.000Z",
    "summary": "",
    "source": "電撃ホビーウェブ",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE4taUl1TkhJWFM1U1U3dXJqUC1lUXo5SUxkWi0ycTBnVmJSV1pjNVhaQUNqMFAtYnFMazlHbTZTcWUtanlaRUZUM1NyWmpqUkZD?oc=5",
    "image": null,
    "price": null,
