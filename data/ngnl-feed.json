@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-23T00:57:45.066Z",
+ "generatedAt": "2026-11-23T14:53:34.960Z",
  "sources": [
   {
    "id": "gnews-en",
@@ -12,14 +12,14 @@
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 57,
-   "added": 28
+   "count": 56,
+   "added": 29
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 25,
+   "count": 24,
    "added": 16
   },
   {
@@ -415,6 +415,30 @@
    "image": null,
    "price": null,
    "kind": "news"
+  },
+  {
+   "id": "9f9884c340996b6a",
+   "title": "『ノーゲーム・ノーライフ』から、「白」の1/1スケールフィギュアが登場",
+   "date": "2026-11-06T07:46:00.000Z",
+   "summary": "",
+   "source": "時事ドットコム",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBxRnllY0M2MjNCWk5YN0ZGZjdZU1htYzV1UzlnRXRZSXFFZl9vTVFFR3l0RFdzOXRRSnQ3RWVZTXdGZDMyTFYzOTYyRVh3bkJEbkt4ZDd2Y19MbUZaR1VNWWRrZEFIVzJhay1j?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "c709bd6d76c32221",
+   "title": "【写真・画像 3/11枚】ノーゲーム・ノーライフ：白の等身大フィギュア ありのままの天才少女 132万円",
+   "date": "2026-11-06T06:19:00.000Z",
+   "summary": "",
+   "source": "Mantan Web",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5MTC1qODlOSGRCeFIzYzQ1U3RMSmNaczdWNE02ZHMzeEtXNlJrWFZuN1VwWGRYRDh2RDFsanZweGVRbExPZHdrWjlWRTVnYUR3Wnk2Qms4VTZ1cTRCYjJBbm1SUk1JODNyU2tUMFA2VERvOUVhLXFGV2puNEQ0Zw?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
   },
   {
    "id": "b8baeefae94823ca",
