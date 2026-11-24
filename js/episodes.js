@@ -8,9 +8,15 @@
 
 const Episodes = (() => {
   const FLAGS_KEY = 'epflags:v1';
+  // własna baza fillerów (tools/build-fillers.mjs w GitHub Actions czyta strony odcinków
+  // MyAnimeList): podstawowe źródło, bo Jikan potrafi leżeć tygodniami
+  const DB_URL = 'data/fillers.json';
+  const DB_TTL = 3 * 3600e3;
   // na telefonie krótsze strony, żeby lista nie ciągnęła się bez końca
   const pageSize = () => (window.innerWidth < 600 ? 25 : 50);
-  let flags = null; // malId → { t, n, f: [[od, do]], r: [[od, do]] }
+  let flags = null; // z Jikan: malId → { t, n, f: [[od, do]], r: [[od, do]] }
+  let db = null;    // z naszej bazy: malId → { t, n, f, r, db: true }
+  let dbInfo = null; // { built, total, count, stale, error }
   let persistTimer = null;
   let scanning = null;
 
@@ -25,17 +31,75 @@ const Episodes = (() => {
   const countR = (r) => r.reduce((x, [a, b]) => x + b - a + 1, 0);
   const rText = (r) => r.map(([a, b]) => (a === b ? `${a}` : `${a}–${b}`)).join(', ');
 
+  let dbLoading = null;
+  function fetchDb() {
+    return cached('fillers:db', DB_TTL, async () => {
+      let res;
+      try { res = await fetch(DB_URL, { cache: 'no-cache' }); } catch { throw new ApiError('network', 'Nie udało się pobrać bazy fillerów.'); }
+      if (!res.ok) throw new ApiError('http', `Baza fillerów: HTTP ${res.status}`);
+      let j;
+      try { j = await res.json(); } catch { throw new ApiError('parse', 'Baza fillerów ma nieczytelny format.'); }
+      if (!j || !j.s) throw new ApiError('parse', 'Baza fillerów ma nieprawidłowy format.');
+      return j;
+    }, { src: 'fillers' });
+  }
+  async function loadDb() {
+    if (db) return db;
+    if (!dbLoading) {
+      dbLoading = fetchDb().then((r) => {
+        const out = {};
+        for (const [id, x] of Object.entries(r.data.s)) out[id] = { t: x.d * 864e5, n: x.n || 0, f: x.f || [], r: x.r || [], db: true };
+        db = out;
+        dbInfo = { built: r.data.built ? Date.parse(r.data.built) : null, total: r.data.total || 0, count: Object.keys(out).length, stale: !!r.stale };
+        emit('epflags', { db: true });
+        return db;
+      }).catch((err) => {
+        // bez bazy (np. plik otwarty z dysku) działamy na Jikan; ponowna próba najwcześniej za minutę
+        dbInfo = { error: err.message };
+        setTimeout(() => { dbLoading = null; }, 60e3);
+        return null;
+      });
+    }
+    return dbLoading;
+  }
   async function init() {
-    if (flags) return flags;
-    const hit = await IDB.get('cache', FLAGS_KEY);
-    flags = (hit && hit.data) || {};
+    if (!flags) {
+      const hit = await IDB.get('cache', FLAGS_KEY);
+      flags = flags || (hit && hit.data) || {};
+    }
+    await loadDb();
     return flags;
   }
   function persist() {
     clearTimeout(persistTimer);
     persistTimer = setTimeout(() => IDB.set('cache', FLAGS_KEY, { t: Date.now(), data: flags }), 300);
   }
-  const flagsOf = (e) => (flags && e && e.idMal ? flags[e.idMal] || null : null);
+  const dbOf = (malId) => (db && malId ? db[malId] || null : null);
+  // nowsze z dwóch źródeł: nasza baza albo dawne/świeże dane z Jikan
+  function flagsOf(e) {
+    if (!e || !e.idMal) return null;
+    const a = dbOf(e.idMal), b = flags ? flags[e.idMal] || null : null;
+    if (a && b) return b.t > a.t ? b : a;
+    return a || b;
+  }
+  function all() {
+    const out = { ...(flags || {}) };
+    for (const [id, x] of Object.entries(db || {})) if (!out[id] || out[id].t < x.t) out[id] = x;
+    return out;
+  }
+  // oceny odcinków z naszej bazy: data/eps/NN.json, NN = malId % 100
+  async function dbScores(malId) {
+    const k = String(malId % 100).padStart(2, '0');
+    try {
+      const r = await cached('fillers:eps:' + k, DB_TTL, async () => {
+        const res = await fetch(`data/eps/${k}.json`, { cache: 'no-cache' });
+        if (res.status === 404) return {};
+        if (!res.ok) throw new ApiError('http', `Oceny odcinków: HTTP ${res.status}`);
+        return res.json();
+      }, { src: 'fillers' });
+      return (r.data && r.data[malId]) || null;
+    } catch { return null; }
+  }
   // zbiór odcinków do pominięcia (fillery + recapy) albo null, gdy brak danych
   function skipSet(e) {
     const f = flagsOf(e);
@@ -107,7 +171,10 @@ const Episodes = (() => {
     const az = st.az || {};
     const sm = streamMap(m);
     const aired = Lib.airedEpisodes(m);
-    const n = Math.max(m.episodes || 0, aired || 0, ...[...jk.keys()], ...Object.keys(az).map(Number), 0);
+    // nasza baza: fillery i recapy w zakresach, oceny z data/eps; Jikan (gdy odpowie) ma pierwszeństwo
+    const bf = !st.jk && st.db ? st.db : null;
+    const bs = (bf && st.dbScores) || [];
+    const n = Math.max(m.episodes || 0, aired || 0, ...[...jk.keys()], ...Object.keys(az).map(Number), (bf && bf.n) || 0, 0);
     const list = [];
     for (let i = 1; i <= n; i++) {
       const j = jk.get(i), a = az[i], s = sm.get(i);
@@ -117,33 +184,46 @@ const Episodes = (() => {
         ja: (j && j.title_japanese) || (a && a.ja) || null,
         date: (a && a.d) || (j && j.aired ? String(j.aired).slice(0, 10) : null),
         img: (a && a.img) || (s && s.img) || null,
-        score: j && j.score != null ? Number(j.score) : null,
-        filler: !!(j && j.filler),
-        recap: !!(j && j.recap),
+        score: j && j.score != null ? Number(j.score) : bs[i - 1] != null ? Number(bs[i - 1]) : null,
+        filler: j ? !!j.filler : !!(bf && inR(bf.f, i)),
+        recap: j ? !!j.recap : !!(bf && inR(bf.r, i)),
       });
     }
-    return { list, n, hasFlags: !!st.jk, errors: st.err };
+    return { list, n, hasFlags: !!st.jk || !!bf, src: st.jk ? 'jikan' : bf ? 'db' : null, dbDay: bf ? bf.t : null, errors: st.err };
   }
 
   // wszystko o odcinkach jednej serii; onUpdate dostaje kolejne, coraz pełniejsze wersje
   async function detail(m, { alive, onUpdate } = {}) {
     await init();
     const ttl = m.status === 'RELEASING' ? 86400e3 : 30 * 86400e3;
-    const st = { az: null, jk: null, err: [] };
+    const st = { az: null, jk: null, db: dbOf(m.idMal), dbScores: null, err: [] };
     const push = () => { if (onUpdate && (!alive || alive())) onUpdate(build(m, st)); };
     const p1 = anizip(m.id, ttl).then((r) => { st.az = r.data; push(); }).catch((err) => { if (err.kind !== 'notfound') st.err.push(['ani.zip', err]); });
-    const p2 = m.idMal
-      ? jikanEpisodes(m.idMal, { ttl, alive, onPage: (list) => { st.jk = list; push(); } })
+    let p2;
+    if (st.db) {
+      // seria jest w naszej bazie: Jikan niepotrzebny (oceny odcinków też mamy)
+      push();
+      p2 = dbScores(m.idMal).then((sc) => { st.dbScores = sc; push(); });
+    } else if (m.idMal) {
+      p2 = jikanEpisodes(m.idMal, { ttl, alive, onPage: (list) => { st.jk = list; push(); } })
         .then((list) => { st.jk = list; updateFlags(m.idMal, list, m.episodes); })
-        .catch((err) => { if (err.kind !== 'notfound') st.err.push(['MyAnimeList', err]); })
-      : Promise.resolve();
+        .catch((err) => { if (err.kind !== 'notfound') st.err.push(['MyAnimeList', err]); });
+    } else p2 = Promise.resolve();
     await Promise.all([p1, p2]);
     return build(m, st);
   }
 
   /* ---------- skan fillerów w tle (statystyki, tryb pomijania) ---------- */
+  // Serie z naszej bazy odświeża GitHub Actions, więc ich nie skanujemy. Jikan pytamy
+  // tylko o te, których w bazie jeszcze nie ma (baza dopiero się zapełnia albo seria
+  // jest spoza listy AniList), i tylko gdy dawne dane z Jikan są nieświeże.
   const longEnough = (e) => (e.media.episodes || Lib.lastEp(e) || 0) >= 20;
-  const staleFlags = (e) => { const f = flagsOf(e); if (!f) return true; return Date.now() - f.t > (e.media.status === 'RELEASING' ? 7 : 30) * 86400e3; };
+  const staleFlags = (e) => {
+    if (dbOf(e.idMal)) return false;
+    const f = flags && flags[e.idMal];
+    if (!f) return true;
+    return Date.now() - f.t > (e.media.status === 'RELEASING' ? 7 : 30) * 86400e3;
+  };
   function needScan(entries) { return entries.filter((e) => e.idMal && longEnough(e) && staleFlags(e)); }
   async function scan(entries, { onProgress, alive } = {}) {
     await init();
@@ -167,14 +247,15 @@ const Episodes = (() => {
             failed = true;
             reason = err.kind || 'error';
             streak++;
-            if (err.kind === 'network' || streak >= 3) { done++; if (onProgress) onProgress(done, todo.length); break; }
+            // Jikan w ogóle nie odpowiada: nie męczymy reszty listy
+            if (err.kind === 'network' || err.kind === 'unreachable' || streak >= 3) { done++; if (onProgress) onProgress(done, todo.length); break; }
           }
         }
         done++;
         if (onProgress) onProgress(done, todo.length);
       }
       persist();
-      return { done, got, total: todo.length, failed, reason };
+      return { done, got, total: todo.length, failed, reason, db: !!db };
     })();
     try { return await scanning; } finally { scanning = null; }
   }
@@ -252,7 +333,7 @@ const Episodes = (() => {
         </div>` : '<p class="eps-hint">Dodaj anime do listy, żeby zaznaczać obejrzane odcinki.</p>'}
         ${slice.length ? `<ol class="eps-list">${slice.map(row).join('')}</ol>` : UI.empty('Brak odcinków w tym filtrze')}
         ${pages > 1 ? `<div class="eps-foot">${pager('')}</div>` : ''}
-        <p class="src-note">Kadry, tytuły i daty: ani.zip (TheTVDB) i AniList. Fillery, recapy i oceny odcinków (skala 1–5): MyAnimeList przez Jikan. Oznaczenia fillerów dodają użytkownicy MAL, więc przy mniej znanych seriach bywają niepełne.${d.errors && d.errors.length ? ` Nie odpowiedziało: ${esc(d.errors.map((x) => x[0]).join(', '))}.` : ''}</p>`;
+        <p class="src-note">Kadry, tytuły i daty: ani.zip (TheTVDB) i AniList. Fillery, recapy i oceny odcinków (skala 1–5): MyAnimeList${d.src === 'db' ? `, z bazy Disboard odświeżanej automatycznie${d.dbDay ? ` (ta seria sprawdzona ${esc(fmtDateShort(d.dbDay))})` : ''}` : ' przez Jikan'}. Oznaczenia fillerów dodają użytkownicy MAL, więc przy mniej znanych seriach bywają niepełne.${d.errors && d.errors.length ? ` Nie odpowiedziało: ${esc(d.errors.map((x) => x[0]).join(', '))}.` : ''}</p>`;
     }
 
     function render() {
@@ -360,5 +441,5 @@ const Episodes = (() => {
     ctx.on('settings', render);
   }
 
-  return { init, detail, section, skipSet, flagsOf, scan, needScan, toRanges, inR, countR, rText, all: () => flags || {} };
+  return { init, detail, section, skipSet, flagsOf, scan, needScan, toRanges, inR, countR, rText, all, dbInfo: () => dbInfo };
 })();

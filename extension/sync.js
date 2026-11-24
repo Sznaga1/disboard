@@ -25,7 +25,8 @@ const Sync = (() => {
   const PART = 900000;            // jak na stronie: dokument Firestore ma limit 1 MiB
   const SYNC_EVERY = 60e3;        // przy otwarciu okienka: najwyżej raz na minutę
   const AIRING_EVERY = 30 * 60e3; // dane o emisji z AniList
-  const FLAGS_TTL = 7 * 864e5;    // fillery i recapy z MyAnimeList
+  const FLAGS_TTL = 7 * 864e5;    // fillery i recapy z MyAnimeList (Jikan, zapas)
+  const DB_TTL = 3 * 3600e3;      // baza fillerów Disboard
 
   const C = DisboardCore;
   const store = chrome.storage.local;
@@ -281,7 +282,25 @@ const Sync = (() => {
   }
 
   /* ---------- fillery i recapy (tylko przy włączonym pomijaniu) ---------- */
+  // podstawowe źródło: baza Disboard (data/fillers.json na stronie, odświeżana przez
+  // GitHub Actions ze stron odcinków MyAnimeList); Jikan tylko dla serii spoza bazy
+  async function fillerDb() {
+    const hit = await get('fillerDb');
+    if (hit && Date.now() - hit.at < DB_TTL) return hit;
+    try {
+      const res = await fetch(SITE + 'data/fillers.json', { cache: 'no-cache', signal: AbortSignal.timeout(15000) });
+      if (!res.ok) throw new Error(String(res.status));
+      const j = await res.json();
+      if (!j || !j.s) throw new Error('format');
+      const out = { at: Date.now(), s: j.s };
+      await set({ fillerDb: out });
+      return out;
+    } catch { return hit || null; }
+  }
   async function fillerFlags(malId) {
+    const db = await fillerDb();
+    const x = db && db.s && db.s[malId];
+    if (x) return { t: x.d * 864e5, n: x.n || 0, f: x.f || [], r: x.r || [] };
     const key = `flags:${malId}`;
     const hit = await get(key);
     if (hit && Date.now() - hit.t < FLAGS_TTL) return hit;

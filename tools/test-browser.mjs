@@ -218,6 +218,23 @@ async function main() {
     })()`);
     check('link przy odcinku z numerem odcinka', myE === `https://example.com/e/${epId}/2|_blank`, myE);
     await A.ev('MY_LINKS.length = 0');
+    console.log('Baza fillerów (Jikan zablokowany)');
+    const fl = await A.ev(`(async () => {
+      // Naruto (MAL 20) z data/fillers.json: fillery 136–220 bez pytania Jikan
+      await Episodes.init();
+      const m = { id: 990020, idMal: 20, episodes: 220, status: 'FINISHED', format: 'TV', title: { romaji: 'Naruto' } };
+      const skip = Episodes.skipSet({ idMal: 20 });
+      const host = document.createElement('div'); document.body.append(host);
+      Episodes.section({ alive: () => true, onLibrary: () => {}, on: () => {} }, host, m);
+      for (let i = 0; i < 100 && !host.querySelector('.eps-legend'); i++) await new Promise((r) => setTimeout(r, 100));
+      const sum = (host.querySelector('.eps-sum') || {}).textContent || '';
+      const nf = host.querySelectorAll('.eps-map i.f').length;
+      host.remove();
+      return JSON.stringify({ s136: !!skip && skip.has(136), s1: !!skip && skip.has(1), sum, nf });
+    })()`);
+    const flj = JSON.parse(fl);
+    check('pomijanie zna fillery z bazy (136 tak, 1 nie)', flj.s136 && !flj.s1, fl);
+    check('mapa odcinków z fillerami z bazy', flj.nf >= 80 && /filler/.test(flj.sum), fl);
     console.log('Lulu: ukrywanie emotek');
     await A.ev(`(location.hash = '#/lulu/emotki', new Promise((r) => setTimeout(r, 900)))`);
     const emoBefore = await A.ev(`document.querySelectorAll('#lu-grid .lu-emo').length`);

@@ -25,6 +25,7 @@ const Net = {
     feed: { ok: null, t: 0, err: null },
     rss: { ok: null, t: 0, err: null },
     anizip: { ok: null, t: 0, err: null },
+    fillers: { ok: null, t: 0, err: null },
   },
   ok(src) { this.state[src] = { ok: true, t: Date.now(), err: null }; emit('net', src); },
   fail(src, err) { this.state[src] = { ok: false, t: Date.now(), err: err && err.message }; emit('net', src); },
@@ -388,7 +389,13 @@ async function jikanFetch(path) {
   try { return await fetch(JIKAN_URL + path, { headers: { Accept: 'application/json' }, signal: ctl ? ctl.signal : undefined }); }
   finally { clearTimeout(timer); }
 }
+// Po „unreachable” przez 10 minut nie pytamy znowu: każda taka próba to prawie minuta
+// czekania (3 × limit czasu), a Jikan potrafi leżeć tygodniami. Zapas z pamięci zostaje.
+const JIKAN_DOWN_MS = 10 * 60e3;
+let jikanDownUntil = 0;
+const jikanDown = () => new ApiError('unreachable', 'Jikan (MyAnimeList) nie odpowiada. To przerwa po ich stronie, nie problem z Twoją listą ani internetem.');
 async function jikanGet(path, retries5xx = 1) {
+  if (Date.now() < jikanDownUntil) throw jikanDown();
   let silent = 0; // próby bez odpowiedzi (limit bez CORS, przeciążenie, awaria)
   for (let attempt = 0; ; attempt++) {
     let res;
@@ -396,8 +403,10 @@ async function jikanGet(path, retries5xx = 1) {
     catch {
       if (typeof navigator !== 'undefined' && navigator.onLine === false) throw new ApiError('network', 'Brak połączenia z internetem.');
       if (silent < 2) { silent++; await sleep(4000 * silent); continue; }
-      throw new ApiError('unreachable', 'Jikan (MyAnimeList) nie odpowiada. To przerwa po ich stronie, nie problem z Twoją listą ani internetem.');
+      jikanDownUntil = Date.now() + JIKAN_DOWN_MS;
+      throw jikanDown();
     }
+    jikanDownUntil = 0;
     if (res.status === 429 && attempt < 3) { await sleep(2000 * (attempt + 1)); continue; }
     if (res.status >= 500 && attempt < retries5xx) { await sleep(4000); continue; }
     if (res.status === 404) throw new ApiError('notfound', 'Brak wpisu w MyAnimeList.');

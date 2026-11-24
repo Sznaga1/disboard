@@ -340,7 +340,7 @@ const Nerd = (() => {
       if (nF && f.n) perSeries.push({ e, share: nF / f.n, nF, fw, n: f.n });
     }
     perSeries.sort((a, b) => b.share - a.share || b.nF - a.nF);
-    const Fx = { fW, fMin, rW, rMin, sk, skMin, known, epsInF, perSeries, need: Episodes.needScan(seenE).length, long: seenE.filter((e) => e.idMal && (e.media.episodes || Lib.lastEp(e) || 0) >= 20).length };
+    const Fx = { fW, fMin, rW, rMin, sk, skMin, known, epsInF, perSeries, need: Episodes.needScan(seenE).length, built: (Episodes.dbInfo() || {}).built || null, long: seenE.filter((e) => e.idMal && (e.media.episodes || Lib.lastEp(e) || 0) >= 20).length };
 
     return { st, entries, seenE, R, B, P, O, H, N, Fx, facts: null };
   }
@@ -531,7 +531,7 @@ const Nerd = (() => {
   function fillersHtml(d) {
     const F = d.Fx;
     if (!F.long) return UI.empty('Brak długich serii', 'Fillery liczę w seriach od 20 odcinków, a takich jeszcze nie obejrzałeś.');
-    if (!F.known) return UI.empty('Sprawdzam fillery', 'Pobieram z MyAnimeList, które odcinki Twoich długich serii to fillery. Przy dłuższej liście to potrwa kilka minut, potem dane zostają w pamięci.');
+    if (!F.known) return UI.empty('Sprawdzam fillery', 'Wczytuję bazę fillerów (dane MyAnimeList), żeby sprawdzić, które odcinki Twoich długich serii to fillery. Baza odświeża się sama co kilka godzin.');
     const top = F.perSeries[0];
     const share = F.epsInF ? (F.fW / F.epsInF) * 100 : 0;
     return `<div class="ntiles">
@@ -542,7 +542,7 @@ const Nerd = (() => {
         ${tile('Zaoszczędzone dzięki pomijaniu', F.sk ? `<b class="num">${dur(F.skMin)}</b>` : none(S.settings.skipFiller ? 'jeszcze nic' : 'tryb wyłączony'), F.sk ? `${nUnit(F.sk, 'episode')} pominiętych` : '<kbd>Alt+P</kbd> włącza pomijanie fillerów', 'Fillery i recapy, które przeskoczyłeś w trybie pomijania (albo zostawiłeś niezaznaczone), przed ostatnim obejrzanym odcinkiem.')}
       </div>
       ${F.perSeries.length ? `<div class="ncharts">${card('nc-fill', 'Udział fillerów w Twoich seriach', 'Procent odcinków serii', 'Liczba odcinków oznaczonych jako filler na tle wszystkich odcinków serii (dane MyAnimeList).', 'span-all')}</div>` : ''}
-      <p class="src-note">Dane o fillerach mam dla ${F.known} z ${F.long} długich serii (od 20 odcinków). Oznaczenia wpisują użytkownicy MyAnimeList, więc przy mniej znanych seriach bywają niepełne.</p>`;
+      <p class="src-note">Dane o fillerach mam dla ${F.known} z ${F.long} długich serii (od 20 odcinków). Źródło: strony odcinków MyAnimeList w bazie Disboard, odświeżanej automatycznie${F.built ? ` (ostatnio ${esc(fmtDateShort(F.built))})` : ''}. Oznaczenia wpisują użytkownicy MAL, więc przy mniej znanych seriach bywają niepełne.</p>`;
   }
 
   function convHtml(d) {
@@ -628,8 +628,13 @@ const Nerd = (() => {
     const bannerHtml = () => {
       if (xs.state === 'run') {
         const p = xs.total ? (xs.done / xs.total) * 100 : 0;
-        const what = xs.job === 'fill' ? 'Sprawdzam w MyAnimeList fillery w długich seriach' : 'Pobieram z AniList obsadę, twórców, studia i rankingi';
+        const what = xs.job === 'fill' ? 'Dociągam z Jikan fillery serii, których nie ma jeszcze w bazie Disboard' : 'Pobieram z AniList obsadę, twórców, studia i rankingi';
         return `<div class="nxb" role="status"><div class="nxb-t"><span class="nxb-dot" aria-hidden="true"></span>${what}: <b class="num">${xs.done}/${xs.total}</b> ${xs.job === 'fill' ? plural(xs.total, 'seria', 'serie', 'serii') : 'anime'}</div><div class="nxb-bar"><i style="width:${p}%"></i></div></div>`;
+      }
+      if (xs.state === 'fail' && xs.job === 'fill' && xs.db && xs.reason !== 'network') {
+        // baza działa, brakuje tylko kilku serii, a Jikan (zapas) leży: to nie jest awaria
+        const left = xs.left != null ? xs.left : xs.total - xs.done;
+        return `<div class="nxb" role="status"><div class="nxb-t">Dla <b class="num">${left}</b> ${plural(left, 'serii', 'serii', 'serii')} nie mam jeszcze danych o fillerach. Baza Disboard uzupełnia się sama co kilka godzin, a Jikan, który mógłby je dać od razu, teraz nie odpowiada.</div><button class="btn ghost sm" type="button" id="nx-retry">${ICON.refresh}Spróbuj ponownie</button></div>`;
       }
       if (xs.state === 'fail' && xs.job === 'fill') {
         const why = xs.reason === 'network' ? 'Brak internetu.'
@@ -754,6 +759,7 @@ const Nerd = (() => {
       if (!ctx.alive()) return;
       xs.state = r.failed ? 'fail' : 'ok';
       xs.reason = r.reason || null;
+      xs.db = !!r.db;
       xs.left = Episodes.needScan(seenE).length;
       render();
     }
