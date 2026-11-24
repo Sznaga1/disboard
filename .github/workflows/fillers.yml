@@ -5,9 +5,13 @@ name: Baza fillerów
 # i zapisuje je w data/fillers.json i data/eps/.
 # Zastępuje Jikan, który przestał odpowiadać. Każdy przebieg ma limit czasu;
 # czego nie zdąży, zrobi następny (najpierw nowe serie, potem najdawniej sprawdzane).
+# GitHub często pomija zaplanowane przebiegi (w tym repo bywa co ~12 h zamiast co 4),
+# więc są dwa harmonogramy przesunięte o półtorej godziny. Przebieg bez pracy
+# kończy się w kilka sekund i nie robi commita.
 on:
   schedule:
     - cron: '23 */3 * * *'
+    - cron: '53 1-23/3 * * *'
   workflow_dispatch:
     inputs:
       minutes:
