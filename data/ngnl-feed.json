@@ -1,33 +1,33 @@
 {
- "generatedAt": "2026-11-24T14:58:06.185Z",
+ "generatedAt": "2026-11-25T00:51:58.884Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 56,
-   "added": 42
+   "count": 100,
+   "added": 82
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 55,
+   "count": 56,
    "added": 28
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 24,
-   "added": 15
+   "count": 25,
+   "added": 12
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
-   "count": 100,
-   "added": 33
+   "count": 58,
+   "added": 35
   },
   {
    "id": "ann",
@@ -55,6 +55,18 @@
    "image": null,
    "price": null,
    "kind": "merch"
+  },
+  {
+   "id": "567bfd2ccfe96480",
+   "title": "11月おすすめ・甘デジ・パチンコ新台3選！仮面ライダー BLACK ・ノゲノラ・ワンパンマン2",
+   "date": "2026-11-24T01:52:51.000Z",
+   "summary": "",
+   "source": "DMMぱちタウン",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE5aU01EbEJFTWZmdzRHWnhqV09zRXVzYVFPRlNBMWx6VUxrTkJjUG95d3dmQmFoNExGdk9sNzlPSUszZUgtaUxmRVZyTlA?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
   },
   {
    "id": "98ea688ece6973f5",
@@ -139,6 +151,18 @@
    "image": null,
    "price": null,
    "kind": "merch"
+  },
+  {
+   "id": "661654f87f559dcd",
+   "title": "This Game (2014 Ver.) - No Game No Life OP [Piano] Neymar (MYf75vSHCO)",
+   "date": "2026-11-16T05:52:48.000Z",
+   "summary": "",
+   "source": "Unisba Media",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPODBfNW4tTWI0RUNoaTIwSEdodXY5SEZwZEs0eTVKaWJaaURySkEwSEF4Y1NmZXVRM3R6a0pTVlpVRFlERkhCcVFzMDA4RXE2QmJkTVQ4cDdoNGxyTFBpLWhvS3JLbFlteENETXByNlRDUU84UHIyUzlxNW1IZHB2VXJ3?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
   },
   {
    "id": "3b3ad64b804daa8d",
@@ -230,7 +254,7 @@
    "date": "2026-11-07T08:00:00.000Z",
    "summary": "",
    "source": "Yahoo!ニュース",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBNc2RLekpyZlcxeHE5ZVgtZVBIc0pZdG0zbi02QzdEOGpxZW9qQms2U3hVSW1lcXA5QlpMdlcyQnFnY0hOeDFHV2lod3RON2xZSTJNUlhGejE1Qi1uMWVWV3lpSFRZT3psUmtBVjJfYmpWd1lzTW95NTJoNW5JN3M?oc=5",
    "image": null,
    "price": null,
@@ -489,6 +513,18 @@
    "kind": "merch"
   },
   {
+   "id": "b8b246802cd764e2",
+   "title": "Prime 1 Studio’s NO GAME NO LIFE Shiro 1:1 Scale Statue Brings the Genius Gamer to Life",
+   "date": "2026-11-06T08:00:00.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9veE5CU2dXQ002ZWRzU21ralNEOE9ocXRwcnBzWTgtNzh4OGtDZkEwUFhEZVpfVWZQb0FBekhuLXVnZUlkeV9Qb0FFVElwV2xC?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "f61b81d905b9407b",
    "title": "全高72cm、全幅110cmの等身大サイズ！「ノーゲーム・ノーライフ」より「白」が1/1スケールスタチューで登場 (HOBBY Watch)",
    "date": "2026-11-06T07:51:00.000Z",
@@ -614,7 +650,7 @@
    "date": "2026-10-22T07:00:00.000Z",
    "summary": "",
    "source": "玩具人 TOY PEOPLE",
-   "via": "Google News: merch (EN)",
+   "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9iZElmMzdJVUp1MFM2d2UtWWVRZE1DMFROdGxqOVVuanBaT1p3SmprQzFJTnlnRF9PSDRKRVQzRWRvQlNBbWNUZzJHTTN0bGxw?oc=5",
    "image": null,
    "price": null,
@@ -698,8 +734,20 @@
    "date": "2026-10-09T07:00:00.000Z",
    "summary": "",
    "source": "PR TIMES",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1SYWxxNzRHUGFBZ0V5TkI4c3l0SVd3U2J5WFdtMUtHUDEtR0pSODlkNWdqUlBzSXBzandES01HekpZWWRvX2pXVjBELXgtRTBuajFqNjUweVZtVDAwZEREV2Q4R3pEVTJIVnc?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "3bde87868f617deb",
+   "title": "No Game No Life: Zero POP UP SHOP Opens at AMNIBUS STORE -white- in Shibuya on October 30",
+   "date": "2026-10-09T07:00:00.000Z",
+   "summary": "",
+   "source": "haveagood-holiday.com",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOdEZ6cDdaWHFUSUw4QWNPUFB4bWRhb1A5cXZmZHU3SzZYcUFlX3R6SzRtZlhDRFd5MS0zdW5OYUs4UmREMTNOaG9Td282SlVpdEJFX01ScWFZdjZabmhxSE9IamxYYm1sLTg5eEFhandTVGRXU19pZUNHWVlxQndFVUp6NXBOMnN3VUZqd1dBYldZV0RZMjNyeGFhLXpvSzA?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
@@ -736,6 +784,18 @@
    "source": "Rock Paper Shotgun",
    "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQREJfVjJxem41MTBNdzgtZXVMMXh3YUYxTHRFc3dmZW5rZm41UWx4ZDFqM1Z3azZzNXJBMUlMaWpRSTZIbGRHbVg2QUtmUzBubXhzRG5FSzU0dUFnQWJXdmNNSW40bHI2Y0puS0NYV25iSzVwZ2Fib2YyUmxuSU05b19QeFRtWG1rVkVqM0swTnBzMWp3RVF1LS1TVHZTdnpySTVYcnhvRmRBWnpHWGdrckFGdk1qdTZoanlMam9EVU9jYmZsTjdyaw?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "48a28e020e210e6e",
+   "title": "Grasshopper Manufacture Parts Ways With NetEase And Goes Independent",
+   "date": "2026-09-30T07:00:00.000Z",
+   "summary": "",
+   "source": "Nintendo Life",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOaEY0NjhoSEpfWjFXS083Z2tENWRPenB0emF5QmlpNDJZcW4xN18zUllHSy1YYWlTcVVkU1FfX0lHV0RhVGVEMDYxT3QwQnU5VjZ6dlhlWmx5QUNmMmF1Rm85RWxRZTVUWnRJMnhtVEQxWU5nS0hYQmttejNYMXM1amdPUmNfUVA5d2EtcGhvOHQ2VlFVbUpfb3dseVBYV0t1VUNCQmtlaGZlazFScUJj?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
@@ -861,6 +921,18 @@
    "kind": "news"
   },
   {
+   "id": "d57a8e3b903cffe3",
+   "title": "No Game No Life: Zero (2017)",
+   "date": "2026-09-06T00:12:42.000Z",
+   "summary": "",
+   "source": "IMDb",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQTXM5dkE5a2hpNTk0Zl9OS3EyUUs0M0FUU2pyTGh0ZFZFaFNYLUJaQVl0R05pWlpZZ0lNeFI5Z2trN1A1OVZ2VVdTNkJyWTZnUUt5cHB1ZG9sdk5GNGZYOWRQU1psMUVPemVOSExiSUdkSVc4TnFTOVpDNXY5alN0Vw?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "382fb04895523a74",
    "title": "ノーゲーム・ノーライフ #1〜12【無料ビデオ2週間】",
    "date": "2026-08-29T02:40:32.000Z",
@@ -979,6 +1051,18 @@
    "image": null,
    "price": null,
    "kind": "merch"
+  },
+  {
+   "id": "f9e2a44e2db1bf96",
+   "title": "10 Classic 2010s Anime Series That Are Unwatchable Today",
+   "date": "2026-07-03T07:00:00.000Z",
+   "summary": "",
+   "source": "Comic Book Resources",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5uZmVsbmczbGg1OWQ1VzNhNTQ2ZDFqcEZuQUtfeTZDa2QyM0huRjNUZnQ1eThBbnVCVkthZUZNS2lFaExUWTBtNDBRUVpCOWJEcEpOaE9hSFZrYlp0TzVrd3JhOXZZMDdZNUR5Z2I5Y3I5Y3VNUFIzTFg5TEhncG8?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
   },
   {
    "id": "b37f8faec8c71676",
@@ -1190,7 +1274,7 @@
    "date": "2026-05-29T07:00:00.000Z",
    "summary": "",
    "source": "コラボカフェ",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNc3dvb2w1eFVMWk9pLUJfSGFUaHpFM1FaaHVsSlA0M2VhQTJMT29lVkRpRENaUEkwWHdoTTNyRzlWbmpHcTdDNHhjMmRMSXEwczlQUzQzWHQ4RFlhRkRWRnJJcTJsbUlCS24tT3NXM2lLZGpKdTZFUkpJaS1RU0VHSElKa2lVeGNmY21R?oc=5",
    "image": null,
    "price": null,
@@ -1228,6 +1312,18 @@
    "source": "Comic Book Resources",
    "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBRYWxVUlZ6NG1vMVlLMFdzQ2xBT0hfblhuUUlsOUtUa1dqUzk3OTJFZ2Fmblk1eXl5bEc2bHFQa3RQbkl0amVqRTI2S0lPbTNoTnlrSWFnSV9rSFBMYkR2RDJXVWRiQnc?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "ec6e76fe803d21d6",
+   "title": "No Game, No Life (2014)",
+   "date": "2026-05-09T08:21:03.000Z",
+   "summary": "",
+   "source": "IMDb",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE11aGdMeGtHa1lvclhOMzlrSUtnSHdqZDhRTWRQdEpmNjR6UVIwdTJtRkhQZDZGclZ5ZVhUbjhuanR4aVNhQW1qWVRGRHcyV09NOUowMV9oVjdyUDhwRTRLQWl5TFVVT3h0dWs0bnkwbw?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
@@ -1334,7 +1430,7 @@
    "date": "2026-04-20T07:00:00.000Z",
    "summary": "",
    "source": "コラボカフェ",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOQmRxdVJvbVloekNMa0tFQXJCQktIcEJ6NlVGZ1RlMDMtRWd2c3VhTWw0VWt5SlJVTEpJSWV5UDR0eEV2NnBGM3ROYk10VzE2UHJ0Y1VYYkNiTUVzUXNINlhuSHJCUzlLd1oxWkxpbHVyT0VLNGgwS1hEcXplV3lFMXc2U252b3doYTJNTHY1LV9xSVFEUUpPQlJBUHJuSUw1?oc=5",
    "image": null,
    "price": null,
@@ -1351,6 +1447,18 @@
    "image": null,
    "price": null,
    "kind": "merch"
+  },
+  {
+   "id": "b301d3e1b6435870",
+   "title": "The 5 best anime on Netflix for gamers",
+   "date": "2026-04-16T07:00:00.000Z",
+   "summary": "",
+   "source": "ONE Esports",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5Xbkh1TlJOdGY0dGoxOG85TkV6dmlfY0szb1pDT3FoNUR3ZlpiZThldUc2LXA5aWNPeVB3ekMwWFZHSDZGdk5TSWRZY29lS2E1cUdRTU1PQ3Y1bVRBbFVIWXVVUUdtY2xQTkVhNnBTdjF2SEk?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
   },
   {
    "id": "cd27847f5cf77a62",
@@ -1382,7 +1490,7 @@
    "date": "2026-04-09T07:00:00.000Z",
    "summary": "",
    "source": "PR TIMES",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1vNlp2TzNXcHB3US1xUWFyMVpWcHluS2I0UnJnQW9DbFFLeDBtNUt5MTNXckprUzZYTVhjV3pVejJHUnljcGtMNTcya0lEQzZUTU10V25IZ2lzMXBnNmNkTUxKOGJHTkZRYUE?oc=5",
    "image": null,
    "price": null,
@@ -1432,6 +1540,18 @@
    "source": "IGN India",
    "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNcXhyUVFXMm90ZTltOEx4V2hTdk5vOUZTYmxPRUpEcW9rUi14MGlObEhxb2lEektyOTl3bmxseEd5TGhGdGVWX19sRk0xc1NaZjE4ZjlwYzlONWhPR3M0SjBDUFNQSmNRRU1yOHBxNjFqeEhmSnQyTnBsUFJieDF1amt5dWpFQzJSUUhrcXJYYlQ3UU9DUW8xVmhaQkxzY19CZ0FuUWQ1MElCSmstZjFZamt3WlB6VlhKOGZWTmNpUHNDY0EzX3ZEUWN3cW5iWU9KQjJFSjNmamF0UjJYYzUzMQ?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "eb1ac3a61e3e7c10",
+   "title": "3 Years Later, A Wildly Popular Isekai Is Finally Returning",
+   "date": "2026-04-01T07:00:00.000Z",
+   "summary": "",
+   "source": "ScreenRant",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1GYXRMVFhtclRCQTV0R2Vqek9XTkRKb3cwNzNBVVNSWlVnZ0xzQ01xZUxiY1B2UlY5NjIxcTF6cHBHYTRSd1YxbU1HSUktQ2FCZDJrTWZDTlR2Z2xwWlpTU3doM20?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
@@ -1502,7 +1622,7 @@
    "date": "2026-03-26T07:00:00.000Z",
    "summary": "",
    "source": "PR TIMES",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1nd2RnajJfZEdfcWdhcW4xcXYzOEctVHh3alVrdzhrTFFBMElwOW5MZlBmVEZFOTdMRzBYRnJWUTFHckk4bUhtMWcxd2RZSHA5N0FpY25JQWt1NWpZTC1WdUx2cVB5Z2NhaGc?oc=5",
    "image": null,
    "price": null,
@@ -1533,6 +1653,30 @@
    "kind": "merch"
   },
   {
+   "id": "8d7b60c95a9fceda",
+   "title": "No Game, No Life (2014)",
+   "date": "2026-03-16T14:35:29.000Z",
+   "summary": "",
+   "source": "IMDb",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQN3dsdUNreGtXRUUza0h5d2R0dDRfSUhGY2djRklUTnc2RDBYM1NZYXNaazVxOF9jVy1ILU5vSWxHRWNxSFdiYXFSdWd6Z1h4U2ZIOHp2d2plRFpySUVkc2M3Y3c4TkVUVUxZcndtZU1OdzRUS0hjcHFQVUVnakprMDhTY2hSazZ5bXc?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "2693d68f2dd58870",
+   "title": "7 Near-Perfect Anime No One Remembers Because They Were Canceled Too Soon",
+   "date": "2026-03-15T07:00:00.000Z",
+   "summary": "",
+   "source": "Comic Book Resources",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBNNmRQUmpZTzExUWFPc2gyTWcwQlhNTHd6anpKeWMyS1Y4cjcwY3doanR1UW1mbUl1NlY4cjNHbFA1dEtoSUZoOW9zdjUwUlhjdy11ZXM4Zk5MVUZkMDRZUWR5LUlUOWRhUW5PbWUxSnJzcjdhUklzaHJRZm5keDg?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "da820add6e405e26",
    "title": "『ノーゲーム・ノーライフ ゼロ』のヒロインが可動フィギュア化！「figma シュヴィ」12月発売予定！",
    "date": "2026-03-12T19:01:05.000Z",
@@ -1555,6 +1699,18 @@
    "image": null,
    "price": null,
    "kind": "merch"
+  },
+  {
+   "id": "2674001dad17abbf",
+   "title": "10 Classic Isekai That Are Unwatchable Today",
+   "date": "2026-03-12T07:00:00.000Z",
+   "summary": "",
+   "source": "Comic Book Resources",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5jTVlSQzNDeDktNll6RUEzbTRSZURmZ1JaWjZBS011Y1R0U3VDTjZyRTZndENoUWVrSVY1SVJtNnZxTUswdzhJVkhkUFE5RkpfR1VHc3ZLV1ZBUWd0RnNmSjg5MGIyYkY0S0E0?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
   },
   {
    "id": "530f55978525f1fa",
@@ -1593,12 +1749,24 @@
    "kind": "news"
   },
   {
+   "id": "8222b10ee9a5ca69",
+   "title": "7 Near-Perfect Isekai Anime No One Remembers",
+   "date": "2026-03-03T08:00:00.000Z",
+   "summary": "",
+   "source": "ScreenRant",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE4wejQzT1kxTmNCVEZzNVY2QmhFUWRDdlhOX2xLV1hGOVU3dWk3a2xnN3FZZTRnRG5kTHpKdkZzU0RKSDU3VDhlekVLS0plQVU0SGd0Q0psMTVwMUJSVHdtZEJfd3lWN205NENsWXFUeDNSRTVJ?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "41ab090413e818ba",
    "title": "「『ノーゲーム・ノーライフ』アニメイト先行予約キャンペーン」が開催決定！",
    "date": "2026-02-26T08:00:00.000Z",
    "summary": "",
    "source": "PR TIMES",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5PeTJfcFp1cmZVbnJZdHpNT3lJNmtDSjZFbVVTRi1xNjZ3aTIxb3FkTmFGRUo4NFUxeDBXSWtDZUZaaENBQmVuUl9EQVFLZ0ZnMi1mTS0xbi1VQnpoM19WbDF4T29kdlJKNUE?oc=5",
    "image": null,
    "price": null,
@@ -1785,6 +1953,30 @@
    "kind": "news"
   },
   {
+   "id": "818e10870f84b486",
+   "title": "Amazon removes controversial AI dubs from multiple anime",
+   "date": "2025-12-03T08:00:00.000Z",
+   "summary": "",
+   "source": "Polygon.com",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNa00xWVZBRXBteVo0S2tUN2NMSms0NDlCbUFjM2lZcEllNGJDbFV3OVpyQ2J1cGY0akNPRk9zek5lMjFORVFING9URUktZFc0NURwTmVHdG1hLVdvamRWMW05ZFZYS3F2ZWtwckJ0NS01ZWF1WkdGX3pOOFc2UFpYWjh0ZEVSUEQzbWVSaDVRUWpTTnd1OG1ic1BBTnlLWjdvUkI5bA?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "f6b76e02e26ab04d",
+   "title": "Amazon Streamed AI English Dubs on Banana Fish, 'No Game, No Life Zero,' Pet Anime (Updated)",
+   "date": "2025-12-03T08:00:00.000Z",
+   "summary": "",
+   "source": "Anime News Network",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPMVpQbkw3WUlRRzlJeXRBaWJBcFQ3VVFYbHR2UkFISmFYd1lZVDExMFp6c3NrTVBNdGZuS21IblNMbS0zNnVKSGhOZUpkVFJDREVYeXFnRTFqcjhxWXdnaEJ3STloMG54Q2o4NTN3LXVmU2F3dXh5RkZRVTRVNGRObTltaVFKa0EtVmFFT19XX0tEdUhCYUdMNTZiTDRJYXA3MmZ6X25NN2I5RVhxTXAtTG5ibEl4NnJ5dXVSUktKZkdzWEhlWkJGc3BDeG5OVlU?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "b6c7a45f6a7cc5d7",
    "title": "Amazon Deletes New No Game No Life Anime Release From Prime Video Streaming After Intense Backlash",
    "date": "2025-12-02T08:00:00.000Z",
@@ -1792,6 +1984,42 @@
    "source": "Comic Book Resources",
    "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1sNTl2ZHREbEUzLTZzX3duZkRRQmNSdjZQTXo3TjFsdzd3SHAybVlacUFYUk55VEJzdXJPX1JUUlZ0eXNlRXN2NDNobldKOFY2UDJiZW9kaDM0T1dpb1VnVWVmVDdnMDliemY1RUFUOA?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "626a50e74e617ddc",
+   "title": "Amazon Quietly Pulls Disastrous AI Dubs For Popular Anime After Outcry",
+   "date": "2025-12-02T08:00:00.000Z",
+   "summary": "",
+   "source": "Futurism",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5BUnhpeXVGbHVwdzRQQTV6TEY3SlNVNVZ2c2Z1WVdWNEJuOEhUdEtma3NWUEV6SnFjYU5aUUpDTGdtZ2xGQkliZk5mMVQtTlJSdDQ4cUNkaXRsYkkySmZNWTlvV1lZRkNVWFNuQmhhWnVmY3JhWHlPeDZn?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "faa33c201f251981",
+   "title": "Amazon Quietly Rolls Back Its AI Anime Dubs After Massive Backlash",
+   "date": "2025-12-02T08:00:00.000Z",
+   "summary": "",
+   "source": "Gizmodo",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1XVGkybmg5bWlzQk5oQXF2Vy1SY3BaM19OSU9yQ1lZZ3dKM2NFY3VWZjFibGRLeV9DTWVwMy01QnNCbnVFaElvd3F2Yi1mSTg2bVN0dndSZWw1Zk1ZWW1sVmlNQmVncS0wNkNMdWIwN1ZoTmVlX3c?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "4bf5cdc270fed76e",
+   "title": "Amazon’s Atrocious AI Anime Dubs Are a Dark Sign of Things to Come",
+   "date": "2025-12-01T08:00:00.000Z",
+   "summary": "",
+   "source": "Gizmodo",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNUVNXSFV4ZURjVkJWLTRxV2tlOUR6ZFA4clFwSk9PQ21Ed3MwVGxPX2dLSWQ2QkN3ZDNmMmhoM0NEMlltNlVOckMtTTd0R250VXIzcUlRaWxRZXJWNGlqaHNCOE5sWVF0c2o1NmdBZVQtRG1WWmFlM05pUHQtOXVMbzA5RHQ?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
