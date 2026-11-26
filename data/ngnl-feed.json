@@ -1,26 +1,26 @@
 {
- "generatedAt": "2026-11-26T00:30:27.761Z",
+ "generatedAt": "2026-11-26T13:59:49.023Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 56,
-   "added": 43
+   "count": 100,
+   "added": 64
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 100,
-   "added": 17
+   "count": 57,
+   "added": 27
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 50,
-   "added": 36
+   "count": 49,
+   "added": 31
   },
   {
    "id": "gnews-merch-ja",
@@ -266,7 +266,7 @@
    "date": "2026-11-07T08:00:00.000Z",
    "summary": "",
    "source": "Yahoo!ニュース",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBNc2RLekpyZlcxeHE5ZVgtZVBIc0pZdG0zbi02QzdEOGpxZW9qQms2U3hVSW1lcXA5QlpMdlcyQnFnY0hOeDFHV2lod3RON2xZSTJNUlhGejE1Qi1uMWVWV3lpSFRZT3psUmtBVjJfYmpWd1lzTW95NTJoNW5JN3M?oc=5",
    "image": null,
    "price": null,
@@ -458,7 +458,7 @@
    "date": "2026-11-06T08:00:00.000Z",
    "summary": "",
    "source": "ニコニコニュース",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE9OaDA2M2hWZXBxOVJ0RjI4UDdUX2d4SmRFd2ZNZWZvTVRCa3VxcWc0VTZQSTZwdnBZZDVIdnJEaWxYRy0yalBHM0xaTXp0b2FmTmF4NQ?oc=5",
    "image": null,
    "price": null,
@@ -578,7 +578,7 @@
    "date": "2026-11-05T08:00:00.000Z",
    "summary": "",
    "source": "時事ドットコム",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5sU3VtQ1J5SGozSXU1T1EyWVJSWExReGR5MHBONnBSdG90dF9NSUZISnc5a3JKSF9abFhjR1ZEbE41TS1JekJJbGhQa1dvZU8tNlNLTzV0T05HYWFJRG1RMHFicjhHWHJDUkRr?oc=5",
    "image": null,
    "price": null,
@@ -1353,6 +1353,18 @@
    "kind": "news"
   },
   {
+   "id": "a1821e88894cfa05",
+   "title": "No Game No Life Surges in Official Ranking With 1st New Release in 3 Years",
+   "date": "2026-05-16T07:11:40.000Z",
+   "summary": "",
+   "source": "IMDb",
+   "via": "Google News (EN)",
+   "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5RNzRXM2p6b01BeWtnRjJSODhZV2daclc0R09KdTc0T2pzZHRDYmdkdE9OWE16Y2F5UndMb1Zpbnl4QzQyRFdUZ3dBTjVuRXR1UGdvVG9lSjJIVUt1c1pTcw?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "5ee1c253b2026b34",
    "title": "「『ノーゲーム・ノーライフ ゼロ』POP UP SHOP in マルイ」の開催が決定！",
    "date": "2026-05-14T07:00:00.000Z",
@@ -1634,7 +1646,7 @@
    "date": "2026-03-30T07:00:00.000Z",
    "summary": "",
    "source": "コラボカフェ",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOOHBacHBOMGlOM0luQVNPa0FOTmJqZDhZU3FNUTluWUNJbHFVbldadmpEeG1qdHlsMjZWdTZ1MnIwOENjWTNva3ZYZDhKZ1I2d21LcE9ZeDZuNDIyaS1UVDNKLVQtd0g2VnR4Snpvczdka2hTMGdnS2dKV0llVVJMc19YazUtbDdvZ0RwTU1pZ3NlbVNTcnVv?oc=5",
    "image": null,
    "price": null,
@@ -1994,7 +2006,7 @@
    "date": "2025-12-31T08:00:00.000Z",
    "summary": "",
    "source": "コラボカフェ",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPaS1sUXZpcDAwUEVXS0lNUVFTQ0N0Y3JlVVVUR0ZqQ0Nyd095YTVQUU5pM1FNanpqNUJDeDNYMnFwdmdaUE9nQUxGM09DLW9TUmtuNS1fOG5BaWRGUkUwTnFkZ2hJSlJGMEt0ZFVodmVXM3kzOEVIZUE3MkpNX2dJRE5udTQzc0RCOEVGWVZrWXRRMl9KeWdlNFhtWdIBowFBVV95cUxOY2x1RTlMZnpUSnZNZ3RKdXMwODZPeV9ZbkVVS20tQm1VNG0yNi1zRS05a1AxU1BzZ2RFS3BOMGJVbE53SVZoSWdRMlo3VWl0djFnemNBeGY3Sm9vVjlqelRkSmptNjRndTNtYldjbzk5QTFDaEphd2VaV0tweVhyX0Q0Z2w0blhZTy1CUjJCdVRBT1BMajE2ZGNXMEF5bGNhYUNB?oc=5",
    "image": null,
    "price": null,
