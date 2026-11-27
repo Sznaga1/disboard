@@ -1,33 +1,33 @@
 {
- "generatedAt": "2026-11-27T00:39:49.258Z",
+ "generatedAt": "2026-11-27T13:58:38.414Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 100,
-   "added": 63
+   "count": 55,
+   "added": 41
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 100,
-   "added": 19
+   "count": 53,
+   "added": 26
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 49,
-   "added": 32
+   "count": 26,
+   "added": 15
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
-   "count": 56,
-   "added": 34
+   "count": 55,
+   "added": 32
   },
   {
    "id": "ann",
@@ -52,6 +52,18 @@
    "source": "ｄメニューニュース",
    "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPS1VieE1nYkxuZ1dXNkNUSndVUWd4QU92MUtTLXkwNUoyUVZURS1la3NZWUtsanBPSmRJem51aVZmdjdUSlBPX0JiZ3BUdHBTZlhERFhoXzROdzJhODdIVVZCZzRDZm1RQmc5enZvQWNrUFpabW9feVFkeXByUTMxVkMwdGVvTnE1X3fSAY8BQVVfeXFMUFdPUm1fUU5GaFNSaFB0WGpuUlV0Ql93TlMyWHJZRnJ5Rl9ocFExSVlld3pJY2FOQkpIWXRXdW53Vm01Mk5KN1h6RkZ2MElKOTJTNEVIdTltc1AtSDF2Y2dfZ2ZGZkpvYTlCc2JTTjlaeGRsU3c3ZV9XSWgwdnNkTHB5STVaRHJKRU02VVBuY0k?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "4016da15c6596d2a",
+   "title": "お値段なんと132万円！ 「ノゲノラ」白の等身大フィギュアが登場♪ 華奢なシルエット、脱げかけの靴下…クオリティの高さに震える！（アニメ！アニメ！）",
+   "date": "2026-11-26T22:30:03.000Z",
+   "summary": "",
+   "source": "Yahoo!ニュース",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBTTUctNHhOZ3Q2cDAzSU1fSUtIOWt5a1dnMVY3a2ZPZGpSdU5nN0ZfQjB1OXI2VFJpLTJBcnZScHUxSkI5cmI1VmVJVGZfMlhKQmg3ODZ0VE9GS09DMFNtZXBwNVlmVWE4UEtBQ3BHOFlUSVFvNmx1VzNIM2pQZGc?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
