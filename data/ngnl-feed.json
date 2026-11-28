@@ -1,33 +1,33 @@
 {
- "generatedAt": "2026-11-27T13:58:38.414Z",
+ "generatedAt": "2026-11-28T00:06:17.267Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 55,
-   "added": 41
+   "count": 100,
+   "added": 64
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
-   "count": 53,
-   "added": 26
+   "count": 100,
+   "added": 19
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 26,
-   "added": 15
+   "count": 49,
+   "added": 31
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
    "count": 55,
-   "added": 32
+   "added": 33
   },
   {
    "id": "ann",
@@ -57,12 +57,24 @@
    "kind": "merch"
   },
   {
+   "id": "b3f77129e38eb04a",
+   "title": "お値段なんと132万円！ 「ノゲノラ」白の等身大フィギュアが登場♪ 華奢なシルエット、脱げかけの靴下…クオリティの高さに震える！",
+   "date": "2026-11-26T22:41:53.000Z",
+   "summary": "",
+   "source": "au Webポータル",
+   "via": "Google News: グッズ (JP)",
+   "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5MdmIyeWtJUmtRQk1EQ3JfajRKeEhNRVJBNGpQNmJLN3VRN0dqQ3JjSENMZFNsT211RWd1bFJsWDNtVG5NbEVYVDBMRDNtdzU3TmdIX0Ryc2VxMGE2cDJvMzd3V0pDNWctR0VSTEt3?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
    "id": "4016da15c6596d2a",
    "title": "お値段なんと132万円！ 「ノゲノラ」白の等身大フィギュアが登場♪ 華奢なシルエット、脱げかけの靴下…クオリティの高さに震える！（アニメ！アニメ！）",
    "date": "2026-11-26T22:30:03.000Z",
    "summary": "",
    "source": "Yahoo!ニュース",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBTTUctNHhOZ3Q2cDAzSU1fSUtIOWt5a1dnMVY3a2ZPZGpSdU5nN0ZfQjB1OXI2VFJpLTJBcnZScHUxSkI5cmI1VmVJVGZfMlhKQmg3ODZ0VE9GS09DMFNtZXBwNVlmVWE4UEtBQ3BHOFlUSVFvNmx1VzNIM2pQZGc?oc=5",
    "image": null,
    "price": null,
@@ -155,7 +167,7 @@
   {
    "id": "f5da394da7700f06",
    "title": "『ノーゲーム・ノーライフ』ゆったりとくつろぐ白1／1スケールフィギュアの予約が受付中 販売価格は132万円（税込）",
-   "date": "2026-11-17T23:02:24.000Z",
+   "date": "2026-11-18T08:00:00.000Z",
    "summary": "",
    "source": "千葉テレビ放送",
    "via": "Google News (JP)",
@@ -244,6 +256,18 @@
    "source": "Infoseek",
    "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMickFVX3lxTFAtYl9ReXM5YUh0dHRqVXJETXR5ZGVjcGpaTHR1R3lCVmFkNnE1c3YzS3BjRi1fVFdmQ1lROVhWVTlObmxPbDE2SWoyNHlTTkFPMzNwT0l4RllfRTZ6aTJyWjhVSV80RjVpY1ZyVkpDZklxUQ?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "5cf4bf0a7f91fd97",
+   "title": "『ノーゲーム・ノーライフ ゼロ』の描き下ろし チアver. 等身大タペストリーなどの受注を開始！！アニメ・漫画のオリジナルグッズを販売する「AMNIBUS」にて",
+   "date": "2026-11-09T08:00:00.000Z",
+   "summary": "",
+   "source": "PR TIMES",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1rVE8xam9vWlRHV1ZoUEVBdWZPNkZXMjcwY0h2Q0hveUE2ZWhxa0xyT0hPSmN1OW5nbW5wZ3J0SXhnR3VhQWh6TndYSUloODA5eVA4SzI3MUliTW05SGxCQ3Rrb2xEdF85dFE?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
@@ -693,6 +717,18 @@
    "kind": "merch"
   },
   {
+   "id": "bbe08fe5e12927f1",
+   "title": "映画『ノーゲーム・ノーライフ ゼロ』POP UP SHOPがAMNIBUS STORE -white-にて開催決定",
+   "date": "2026-10-23T07:00:00.000Z",
+   "summary": "",
+   "source": "千葉テレビ放送",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE11VUZRUHhYOEpTbFZsUDBMZDJPNWh6TnYzYTBiSzNQcGF5SUVsRjdJSlVUSGVmelhlU0tEeHNOQm1QZGw1dy1ldzNxdlRpRVdzMW96TktwYnFiWGJTRE40?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "c4ebf72d38572404",
    "title": "Phat! NO GAME NO LIFE Jibril: Bunny Ver. 1/6 Scale Figure Brings the Summer School Festival Illustration to Life",
    "date": "2026-10-22T07:00:00.000Z",
@@ -801,6 +837,18 @@
    "kind": "news"
   },
   {
+   "id": "3c62338ac9a1e9d1",
+   "title": "「『ノーゲーム・ノーライフ ゼロ』 POP UP SHOP in AMNIBUS STORE -white-」が開催決定！",
+   "date": "2026-10-09T07:00:00.000Z",
+   "summary": "",
+   "source": "ニコニコニュース",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5maUptenBxUVNfTThmbjhWSGxqU1RrdkxRaExDOVY5R3NETmJqSjZwNWVqSmZiTTdxeTJMSDZWLWh3OE1ibV9wZ01WRlFiSGd3TUgxeg?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "109443669d3c202f",
    "title": "ノゲノラ チア POP UP SHOP in 渋谷モディ 10月30日より開催!",
    "date": "2026-10-07T07:00:00.000Z",
@@ -868,6 +916,18 @@
    "source": "hobby Watch",
    "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5Ta3hpUV83VGQtSkloTGJwTDh1U05KUFdGMjNCS19PcTRGN2JWRlZWdTVZNTIxdlVINk02Wmx5N0FNMHR6VHFpVUpLZGsxbkNIbk5GbjdvOWxma3BtQ1pnaVZDblBhbk0?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "c673369107c15302",
+   "title": "ノーゲーム・ノーライフ #1〜12【無料ビデオ9月30日まで】",
+   "date": "2026-09-22T07:00:00.000Z",
+   "summary": "",
+   "source": "ABEMA",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9xRTNtaEp6SWZVbmd1TTNSOTNsSmhUY1RvRFZacHNGMmY1M0U5NWtNRURma0JacEFmRjNUblh1U0wxREVPTFNxSzU4N3dheTczNEVDRV9rUEJxdVM0cE9BQ2otV1Fhek9jSmFfX3E2VVg?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
@@ -1202,7 +1262,7 @@
    "date": "2026-06-23T07:00:00.000Z",
    "summary": "",
    "source": "hobby Watch",
-   "via": "Google News: グッズ (JP)",
+   "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE40X3pEbE1Ya0pMVFE5NnNmYm1MXzZDUGFMcU1INGhxTGVfbS1hdW1pVWJuWmpCRy1DdngwVVJCeTFsUUhrVS1Jb2Z0RXdXb2xwMmt1alhZRFc4S1VvTHFFbUNXU3E1d3c?oc=5",
    "image": null,
    "price": null,
