@@ -1,32 +1,32 @@
 {
- "generatedAt": "2026-11-28T00:06:17.267Z",
+ "generatedAt": "2026-11-28T08:01:38.942Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 100,
-   "added": 64
+   "count": 56,
+   "added": 43
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
    "count": 100,
-   "added": 19
+   "added": 17
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 49,
-   "added": 31
+   "count": 25,
+   "added": 14
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
-   "count": 55,
+   "count": 56,
    "added": 33
   },
   {
@@ -74,8 +74,20 @@
    "date": "2026-11-26T22:30:03.000Z",
    "summary": "",
    "source": "Yahoo!ニュース",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBTTUctNHhOZ3Q2cDAzSU1fSUtIOWt5a1dnMVY3a2ZPZGpSdU5nN0ZfQjB1OXI2VFJpLTJBcnZScHUxSkI5cmI1VmVJVGZfMlhKQmg3ODZ0VE9GS09DMFNtZXBwNVlmVWE4UEtBQ3BHOFlUSVFvNmx1VzNIM2pQZGc?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "merch"
+  },
+  {
+   "id": "cab00c9b56dc5a32",
+   "title": "お値段なんと132万円！ 「ノゲノラ」白の等身大フィギュアが登場♪ 華奢なシルエット、脱げかけの靴下…クオリティの高さに震える！",
+   "date": "2026-11-26T22:30:03.000Z",
+   "summary": "",
+   "source": "アニメ！アニメ！",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9HeWpPWW03V1RtelcwZkVJVmEwNnVwOHZKRHd3b3BoSTRlZmc4MkxPQ3I4UXJHWENMMldPaFhySm5ScHV2Vm1RdDRfRlRLeHpuMVoyUk1oOE1wU25HaVotc2lR?oc=5",
    "image": null,
    "price": null,
    "kind": "merch"
@@ -98,7 +110,7 @@
    "date": "2026-11-24T02:37:34.000Z",
    "summary": "",
    "source": "PR TIMES",
-   "via": "Google News (JP)",
+   "via": "Google News: グッズ (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE05aFI0b3hNNmxaYTFYejZnWlNBakNTQmFPQkM4WDVRZGRva28xdkRUQ0l2UGtIQUlTNG53aGRWeWRxdFRKQVJvUDZ1MWF3dXlrUTVjWWJoRWFzcTViQWpXX1RLTHRDS3FqU3c?oc=5",
    "image": null,
    "price": null,
@@ -897,6 +909,18 @@
    "kind": "news"
   },
   {
+   "id": "d370aa5c2b313d2d",
+   "title": "【ノーゲーム・ノーライフ】アニメ全12話一挙放送が本日実施!天才ゲーマー兄妹の生き様とは!?",
+   "date": "2026-09-30T07:00:00.000Z",
+   "summary": "",
+   "source": "サブカルウォーカー",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5HZGJhM1NiNWtzSHNfYWNGamZiamhad19QaFExU3FLcFl0Y0R2U1M0ODZQUXVGTEFqTTBjTG1HejhfelZoUkRkMDdhQkpjVHg5UHc?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "9b123acf187c988d",
    "title": "『ノーゲーム・ノーライフ』より初瀬いづなのコスプレ特集",
    "date": "2026-09-28T20:12:39.000Z",
@@ -1648,6 +1672,18 @@
    "source": "PR TIMES",
    "via": "Google News (JP)",
    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBieHZsRkppUGtPUXB1VGlCS1NyYjQ1WmUwSWxxUGRGdFpHaV9wbHpQZTZ5WXZNTHBaSGpnd0RxVUpZWm5sM2d3cG9yY0tJUlJVSk9WVmZxazl5QWd2LWlTS0tKNkZoSGNfSXc?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
+   "id": "6923be49fe8b2a68",
+   "title": "さぁ、ゲームをはじめよう――。TVアニメ『ノーゲーム・ノーライフ』より香水が登場！",
+   "date": "2026-04-10T07:00:00.000Z",
+   "summary": "",
+   "source": "インサイド",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE9XbFJSZmltNUYwTXFVX0dIZWJ2eVRYT1hKaEZCb1VNaUk2ckJUVUhKNE9aZmZ3WThjUWtYZFpIY1pyQUZMNUFiVHlQdnBIaWtySUpqcm9vWHFObUd4cGd6d0NkUmF5R25UYVdzcTZhZXhJdw?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
