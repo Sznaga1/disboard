@@ -1,33 +1,33 @@
 {
- "generatedAt": "2026-11-28T08:01:38.942Z",
+ "generatedAt": "2026-11-28T16:57:58.264Z",
  "sources": [
   {
    "id": "gnews-en",
    "name": "Google News (EN)",
    "ok": true,
-   "count": 56,
-   "added": 43
+   "count": 100,
+   "added": 65
   },
   {
    "id": "gnews-ja",
    "name": "Google News (JP)",
    "ok": true,
    "count": 100,
-   "added": 17
+   "added": 14
   },
   {
    "id": "gnews-merch-en",
    "name": "Google News: merch (EN)",
    "ok": true,
-   "count": 25,
-   "added": 14
+   "count": 48,
+   "added": 31
   },
   {
    "id": "gnews-merch-ja",
    "name": "Google News: グッズ (JP)",
    "ok": true,
-   "count": 56,
-   "added": 33
+   "count": 55,
+   "added": 32
   },
   {
    "id": "ann",
@@ -141,6 +141,18 @@
    "kind": "merch"
   },
   {
+   "id": "e9ce1283bb2e28fe",
+   "title": "『ノーゲーム・ノーライフ』榎宮祐さんのアシスタント、「原作と絵柄が似すぎ」で海賊版を疑われ印刷を断られる 教え方がうますぎた…？",
+   "date": "2026-11-20T08:00:00.000Z",
+   "summary": "",
+   "source": "玩具人 TOY PEOPLE",
+   "via": "Google News (JP)",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE01Nmo4cFZxQVd1TFFtbjhab0psNGlvdHlWWWpNMThDNERydmRzVE4zM2d0ejFnOUxaSGxZbVVCRVJWOVRJVEZaTVdZWnpiQ054?oc=5",
+   "image": null,
+   "price": null,
+   "kind": "news"
+  },
+  {
    "id": "6e4ea552f723bb52",
    "title": "NO GAME NO LIFE Assistant Rejected by Printer Because Their Art Looked \"Too Similar\" to the Original; Yuu Kamiya Jokes, \"Did I Teach Them Too Well?\"",
    "date": "2026-11-19T23:27:03.000Z",
@@ -148,18 +160,6 @@
    "source": "玩具人 TOY PEOPLE",
    "via": "Google News (EN)",
    "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1fb1VvZ2tabnJRSlZHVzI0aTRQZm1ITnNBTXdRZXoycWp6eTJUSFVhR1RZYzQyTVU1LUZSSy0tRUlxYmI4ckNMLWRUaHlacjl1?oc=5",
-   "image": null,
-   "price": null,
-   "kind": "news"
-  },
-  {
-   "id": "e9ce1283bb2e28fe",
-   "title": "『ノーゲーム・ノーライフ』榎宮祐さんのアシスタント、「原作と絵柄が似すぎ」で海賊版を疑われ印刷を断られる 教え方がうますぎた…？",
-   "date": "2026-11-19T23:27:03.000Z",
-   "summary": "",
-   "source": "玩具人 TOY PEOPLE",
-   "via": "Google News (JP)",
-   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE01Nmo4cFZxQVd1TFFtbjhab0psNGlvdHlWWWpNMThDNERydmRzVE4zM2d0ejFnOUxaSGxZbVVCRVJWOVRJVEZaTVdZWnpiQ054?oc=5",
    "image": null,
    "price": null,
    "kind": "news"
